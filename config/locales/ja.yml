@@ -7,16 +7,17 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
-      models:
-        product: 商品
-      attributes:
-        product:
-          id: ID
-          name: 商品名
-          code: 商品コード
-          catalog_page_number: カタログページ
-          spec: サイズ・規格
-          is_original: オリジナル Or 仕入れ
+    models:
+      product: 商品
+    attributes:
+      product:
+        name: 商品名
+        code: 商品コード
+        catalog_page_number: ページ
+        spec: 規格・サイズ
+        is_original: オリジナル Or 仕入れ
+        created_at: 登録日時
+        updated_at: 更新日時
   date:
     abbr_day_names:
     - 日
