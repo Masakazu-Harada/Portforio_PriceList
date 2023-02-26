@@ -1,2 +1,7 @@
-<h1>Products#edit</h1>
-<p>Find me in app/views/products/edit.html.erb</p>
+<h1>商品編集</h1>
+
+<nav class="nav justify-content-end">
+  <%= link_to "一覧へ戻る", products_path, class: "nav-link" %>
+</nav>
+
+<%= render partial: "form", locals: { product: @product } %>

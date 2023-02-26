@@ -1,0 +1,23 @@
+<%= form_with model: product, locale: true do |f| %>
+  <div class=form-group>
+    <%= f.label :catalog_page_number %>
+    <%= f.text_field :catalog_page_number, class: "form-control", id: "product_catalog_page_number" %>
+  </div>
+  <div class=form-group>
+    <%= f.label :code %>
+    <%= f.text_field :code, class: "form-control", id: "product_code" %>
+  </div>
+  <div class=form-group>
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control", id: "product_name" %>
+  </div>
+  <div class=form-group>
+    <%= f.label :spec %>
+    <%= f.text_field :spec, class: "form-control", id: "product_spec" %>
+  </div>
+  <div class=form-group>
+    <%= f.label :is_original %>
+    <%= f.text_field :is_original, class: "form-control", id: "product_is_original" %>
+  </div>
+  <%= f.submit nil, class: "btn btn-primary" %>
+<% end %>

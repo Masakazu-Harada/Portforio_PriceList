@@ -8,13 +8,16 @@
       <tr>
         <th><%= Product.human_attribute_name(:catalog_page_number) %></th>
         <th><%= Product.human_attribute_name(:name) %></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <% @products.each do |product| %>
         <tr>
           <td><%= product.catalog_page_number %></td>
-          <td><%= product.name %></td>
+          <td><%= link_to product.name, product %></td>
+          <td><%= link_to "商品編集", edit_product_path(product), class: "btn btn-primary mr-3" %></td>
+          <td><%= link_to "削除", @product, method: :delete, data: { confirm: "「#{product.name}」をカタログから削除します。本当に削除しますか？" }, class: "btn btn-danger" %></td>
       <% end %>
         </tr>
     </tbody>

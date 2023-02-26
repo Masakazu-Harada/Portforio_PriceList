@@ -1,2 +1,31 @@
-<h1>Products#show</h1>
-<p>Find me in app/views/products/show.html.erb</p>
+<h1>カタログ登録商品詳細</h1>
+
+<nav class="nav justify-content-end">
+  <%= link_to "一覧へ戻る", products_path, class: "nav-link" %>
+</nav>
+<table class="table table-hover">
+  <tbody>
+    <tr>
+      <th><%= Product.human_attribute_name(:catalog_page_number) %></th>
+      <td><%= @product.catalog_page_number %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:code) %></th>
+      <td><%= @product.code %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:name) %></th>
+      <td><%= @product.name %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:spec) %></th>
+      <td><%= @product.spec %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:is_original) %></th>
+      <td><%= @product.is_original ? "オリジナル" : "仕入れ商品" %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= link_to "商品編集", edit_product_path, class: "btn btn-primary mr-3" %>
