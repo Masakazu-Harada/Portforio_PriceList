@@ -12,9 +12,13 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product = Product.new(product_params)
-    product.save!
-    redirect_to products_url, notice: "「#{product.name}」をカタログへ追記しました。"
+    @product = Product.new(product_params)
+    
+    if @product.save
+      redirect_to @product, notice: "「#{@product.name}」をカタログへ追記しました。"
+    else
+      render :new
+    end
   end
 
   def edit

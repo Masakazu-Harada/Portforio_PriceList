@@ -1,3 +1,10 @@
+<% if product.errors.present? %>
+  <ul id="error_explanation">
+    <% product.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+  </ul>
+<% end %>
+
 <%= form_with model: product, locale: true do |f| %>
   <div class=form-group>
     <%= f.label :catalog_page_number %>
