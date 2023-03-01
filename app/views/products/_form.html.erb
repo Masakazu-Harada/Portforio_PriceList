@@ -6,7 +6,7 @@
   </ul>
 <% end %>
 
-<%= form_with model: product, locale: true do |f| %>
+<%= form_with model: product do |f| %>
   <div class=form-group>
     <%= f.label :catalog_page_number %>
     <%= f.text_field :catalog_page_number, class: "form-control", id: "product_catalog_page_number" %>
