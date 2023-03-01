@@ -10,7 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_28_040312) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_01_043929) do
+  create_table "affiliations", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "department_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["department_id"], name: "index_affiliations_on_department_id"
+    t.index ["user_id"], name: "index_affiliations_on_user_id"
+  end
+
+  create_table "departments", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
     t.string "code", null: false
@@ -31,4 +46,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_28_040312) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "affiliations", "departments"
+  add_foreign_key "affiliations", "users"
 end
