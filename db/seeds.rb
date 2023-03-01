@@ -5,3 +5,12 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+departments = [
+  {name: "購買部"},
+  {name: "営業部"},
+  {name: "管理部"},
+  {name: "業務部"},
+]
+
+Department.insert_all(departments)
