@@ -11,6 +11,13 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render 'shared/flash_message' %>
+    <div class="app-title>"
+      <nav class="navbar-expand-md.navbar-light.bg-light">
+        <div class="container">
+          <%= yield %>
+        </div>
+      </nav>
+    </div>  
   </body>
 </html>
