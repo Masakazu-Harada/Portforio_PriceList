@@ -1,2 +1,18 @@
-<h1>Admin::Users#new</h1>
-<p>Find me in app/views/admin/users/new.html.erb</p>
+<h1>新規登録</h1>
+
+<%= form_with model: @user, url:admin_users_path, local: true do |f| %>
+  <div class="form-group">
+    <%= f.label :name, "氏名" %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-check">
+    <%= f.collection_check_boxes(:department_ids, @departments, :id, :name) do |department| %>
+      <ul>
+        <li>
+          <%= department.check_box %>
+          <%= department.name %>
+        </li>
+      </ul>
+    <% end %>
+  </div>
+<% end %>
