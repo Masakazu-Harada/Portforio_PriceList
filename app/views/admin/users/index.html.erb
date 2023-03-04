@@ -1,2 +1,20 @@
-<h1>Admin::Users#index</h1>
-<p>Find me in app/views/admin/users/index.html.erb</p>
+<h1>社員アカウント一覧</h1>
+
+<%= link_to "新規登録", new_admin_user_path, class: "btn btn-primary" %>
+
+<div class="mb-3">
+  <table class="table table-hover">
+    <thead class="thead-default">
+      <tr>
+        <th><%= User.human_attribute_name(:name) %></th>
+        <th><%= Department.human_attribute_name(:name) %></th>
+      </tr>
+    </thead>
+  </table>
+  <tbody>
+    <% @users.each do |user| %>
+      <td><%= link_to user.name, [:admin, user] %></td>
+      <td><%= user.departments.pluck(:name) %></td>
+    <% end %>
+  </tbody>
+</div>
