@@ -4,12 +4,16 @@ class Admin::UsersController < ApplicationController
   end
   
   def show
-    @user = User.find[params[:id]]
+    @user = User.find(params[:id])
   end
 
   def new
     @user = User.new
     @departments = Department.all
+  end
+
+  def edit
+    @user = User.find(params[:id])
   end
 
   def create
