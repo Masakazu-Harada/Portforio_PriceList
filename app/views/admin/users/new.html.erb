@@ -1,18 +1,38 @@
 <h1>新規登録</h1>
 
-<%= form_with model: @user, url:admin_users_path, local: true do |f| %>
+<%= form_with(model: @user, url: admin_users_path, local: true) do |f| %>
   <div class="form-group">
     <%= f.label :name, "氏名" %>
     <%= f.text_field :name, class: "form-control" %>
   </div>
   <div class="form-check">
-    <%= f.collection_check_boxes(:department_ids, @departments, :id, :name) do |department| %>
-      <ul>
-        <li>
-          <%= department.check_box %>
-          <%= department.name %>
-        </li>
-      </ul>
+    <%= f.collection_check_boxes(:department_ids, @departments, :id, :name) do |b| %>
+      <%= b.check_box %>
+      <%= b.text %>
     <% end %>
   </div>
+  <div class="form-group">
+    <%= f.label :email, "メールアドレス" %>
+    <%= f.text_field :email, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password, "パスワード" %>
+    <%= f.password_field :password, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password_confirmation, "パスワード(確認用)" %>
+    <%= f.password_field :password_confirmation, class: "form-control" %>
+  </div>
+  <div class="form-check">
+    <%= f.label :admin, "管理者権限" %>
+      <div>
+        <%= f.radio_button :admin, true %>
+        <%= f.label(:admin, "有り", value: true) %>
+      </div>
+      <div>
+        <%= f.radio_button :admin, false %>
+        <%= f.label(:admin, "無し", value: false) %>
+      </div>
+  </div>
+  <%= f.submit "登録", class: "btn btn-primary" %>
 <% end %>
