@@ -1,8 +1,7 @@
 class Admin::UsersController < ApplicationController
   def new
     @user = User.new
-    department = Department.all
-    @department = department.name
+    @departments = Department.all
   end
 
   def create
