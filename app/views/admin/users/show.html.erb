@@ -25,6 +25,14 @@
       <th><%= User.human_attribute_name(:admin) %></th>
       <td><%= @user.admin? ? "管理者権限あり" : "管理者権限なし" %></td>
     </tr>
+    <tr>
+      <th><%= User.human_attribute_name(:created_at) %></th>
+      <td><%= @user.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= User.human_attribute_name(:updated_at) %></th>
+      <td><%= @user.updated_at %></td>
+    </tr>
   </tbody>
 </table>
 
