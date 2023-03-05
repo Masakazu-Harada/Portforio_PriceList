@@ -11,13 +11,23 @@
   </head>
 
   <body>
-    <%= render 'shared/flash_message' %>
-    <div class="app-title>"
-      <nav class="navbar-expand-md.navbar-light.bg-light">
-        <div class="container">
-          <%= yield %>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+      <a class="navbar-brand" href="#">MF販売株式会社<br>ポータルサイト</a>
+    </nav>
+    <ul class="navbar-nav ml-auto">
+      <% if current_user %>
+        <li class="nav-item"><%= link_to "ログアウト", logout_path, data: { turbo_method: :delete }, class: "nav-link" %></li>
+      <% else %>
+        <li class="nav-item"><%= link_to "ログイン", login_path, class: "nav-link" %></li>
+      <% end %>
+    </ul>
+    <div class="container">
+      <% if flash.notice.present? %>
+        <div class="alert alert-success">
+          <%= flash.notice %>
         </div>
-      </nav>
+      <% end %>
+      <%= yield %>
     </div>  
   </body>
 </html>
