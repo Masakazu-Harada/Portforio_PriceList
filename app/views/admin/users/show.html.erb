@@ -3,11 +3,30 @@
 <nav class="nav justify-content-end">
   <%= link_to "一覧", admin_users_path, class: "nav-link" %>
 </nav>
-<table class="tabel">
-  <thead>
+<table class="tabel table-hover">
+  <tbody>
     <tr>
       <th><%= User.human_attribute_name(:name) %></th>
       <td><%= @user.name %></td>
     </tr>
-  </thead>
+    <tr>
+      <th><%#= Department.human_attribute_name(:name) %></th>
+      <td><%#= @department.name %></td>
+    </tr>
+    <tr>
+      <th><%= User.human_attribute_name(:email) %></th>
+      <td><%= @user.email %></td>
+    </tr>
+    <tr>
+      <th><%= User.human_attribute_name(:password_digest) %></th>
+      <td><%= @user.password_digest %></td>
+    </tr>
+    <tr>
+      <th><%= User.human_attribute_name(:admin) %></th>
+      <td><%= @user.admin? ? "管理者権限あり" : "管理者権限なし" %></td>
+    </tr>
+  </tbody>
 </table>
+
+<%= link_to "更新", edit_admin_user_path, class: "btn btn-primary mr-3" %>
+<%= link_to "編集", [:admin, @user], method: :delete, date: { confirm: "「#{@user.name}」のレコードを削除します。よろしいでしょうか？" }, class: "btn btn-danger" %>
