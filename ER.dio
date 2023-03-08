@@ -643,12 +643,6 @@
                         <Array as="points"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="198" style="edgeStyle=none;html=1;endArrow=ERmany;endFill=0;" parent="1" edge="1">
-                    <mxGeometry relative="1" as="geometry">
-                        <mxPoint x="558" y="558" as="targetPoint"/>
-                        <mxPoint x="702" y="468" as="sourcePoint"/>
-                    </mxGeometry>
-                </mxCell>
                 <mxCell id="199" value="special_messages 特別価格モデル&#10;顧客毎に保有する数量特価など" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;" parent="1" vertex="1">
                     <mxGeometry x="92" y="768" width="241" height="150" as="geometry"/>
                 </mxCell>

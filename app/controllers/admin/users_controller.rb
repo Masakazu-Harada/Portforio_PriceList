@@ -1,6 +1,19 @@
 class Admin::UsersController < ApplicationController
+  def index
+    @users = User.all
+  end
+  
+  def show
+    @user = User.find(params[:id])
+  end
+
   def new
     @user = User.new
+    @departments = Department.all
+  end
+
+  def edit
+    @user = User.find(params[:id])
   end
 
   def create
@@ -13,16 +26,25 @@ class Admin::UsersController < ApplicationController
     end
   end
 
-  def edit
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update(user_params)
+      redirect_to admin_user_url(@user), notice: "「#{@user.name}」のレコードを更新しました。"
+    else
+      render :edit
+    end
   end
 
-  def show
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to admin_user_url, notice: "「#{@user.name}」のレコードを削除しました。"
   end
 
-  def index
-  end
+  private
 
   def user_params
-    params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation, department_ids:[])
   end
 end

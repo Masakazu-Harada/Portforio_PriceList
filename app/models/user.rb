@@ -3,4 +3,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :affiliations
   has_many :departments, through: :affiliations
+
+  validates :name, presence: true
+  validates :email, presence: true, uniqueness: true
 end

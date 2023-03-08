@@ -1,2 +1,40 @@
-<h1>Admin::Users#show</h1>
-<p>Find me in app/views/admin/users/show.html.erb</p>
+<h1>社員情報更新</h1>
+
+<nav class="nav justify-content-end">
+  <%= link_to "一覧", admin_users_path, class: "nav-link" %>
+</nav>
+<table class="tabel table-hover">
+  <tbody>
+    <tr>
+      <th><%= User.human_attribute_name(:name) %></th>
+      <td><%= @user.name %></td>
+    </tr>
+    <tr>
+      <th><%#= Department.human_attribute_name(:name) %></th>
+      <td><%#= @department.name %></td>
+    </tr>
+    <tr>
+      <th><%= User.human_attribute_name(:email) %></th>
+      <td><%= @user.email %></td>
+    </tr>
+    <tr>
+      <th><%= User.human_attribute_name(:password_digest) %></th>
+      <td><%= @user.password_digest %></td>
+    </tr>
+    <tr>
+      <th><%= User.human_attribute_name(:admin) %></th>
+      <td><%= @user.admin? ? "管理者権限あり" : "管理者権限なし" %></td>
+    </tr>
+    <tr>
+      <th><%= User.human_attribute_name(:created_at) %></th>
+      <td><%= @user.created_at %></td>
+    </tr>
+    <tr>
+      <th><%= User.human_attribute_name(:updated_at) %></th>
+      <td><%= @user.updated_at %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= link_to "更新", edit_admin_user_path, class: "btn btn-primary mr-3" %>
+<%= link_to "削除", admin_users_path, { method: :delete, data: {turbo_confirm: "「#{@user.name}」のレコードを削除します。よろしいでしょうか？" }, class: "btn btn-danger" } %>
