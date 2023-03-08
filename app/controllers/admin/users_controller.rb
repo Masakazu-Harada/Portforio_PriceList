@@ -1,4 +1,6 @@
 class Admin::UsersController < ApplicationController
+  before_action :set_departments, only: %i[new edit create update]
+
   def index
     @users = User.all
   end
@@ -9,7 +11,6 @@ class Admin::UsersController < ApplicationController
 
   def new
     @user = User.new
-    @departments = Department.all
   end
 
   def edit
@@ -46,5 +47,9 @@ class Admin::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation, department_ids:[])
+  end
+
+  def set_departments
+    @departments = Department.all
   end
 end
