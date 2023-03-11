@@ -8,6 +8,6 @@ class Product < ApplicationRecord
     validates :code
     validates :catalog_page_number
     validates :spec
-    validates :is_original
+    #validates :is_original
   end
 end
