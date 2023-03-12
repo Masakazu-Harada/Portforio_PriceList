@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     
     if @product.save
-      redirect_to @product, notice: "「#{@product.name}」をカタログへ追記しました。"
+      redirect_to products_url, notice: "「#{@product.name}」をカタログへ追記しました。"
     else
       render :new
     end

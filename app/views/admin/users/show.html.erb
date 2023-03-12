@@ -10,16 +10,12 @@
       <td><%= @user.name %></td>
     </tr>
     <tr>
-      <th><%#= Department.human_attribute_name(:name) %></th>
-      <td><%#= @department.name %></td>
+      <th><%= Department.human_attribute_name(:name) %></th>
+      <td><%= @user.departments.pluck(:name).join(',') %></td>
     </tr>
     <tr>
       <th><%= User.human_attribute_name(:email) %></th>
       <td><%= @user.email %></td>
-    </tr>
-    <tr>
-      <th><%= User.human_attribute_name(:password_digest) %></th>
-      <td><%= @user.password_digest %></td>
     </tr>
     <tr>
       <th><%= User.human_attribute_name(:admin) %></th>

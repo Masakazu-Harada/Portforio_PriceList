@@ -9,6 +9,8 @@ ja:
           has_many: "%{record}が存在しているので削除できません"
     models:
       product: 商品
+      department: 部署
+      user: 氏名
     attributes:
       product:
         name: 商品名
@@ -26,6 +28,8 @@ ja:
         password_confirmation: パスワード（確認用）
         created_at: 登録日時
         updated_at: 更新日時
+      department:
+        name: 部署名
   date:
     abbr_day_names:
     - 日

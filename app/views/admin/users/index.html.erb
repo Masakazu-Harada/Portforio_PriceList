@@ -8,13 +8,14 @@
       <tr>
         <th><%= User.human_attribute_name(:name) %></th>
         <th><%= Department.human_attribute_name(:name) %></th>
+        <th><%= User.human_attribute_name(:admin) %></th>
       </tr>
     </thead>
   </table>
   <tbody>
     <% @users.each do |user| %>
       <td><%= link_to user.name, [:admin, user] %></td>
-      <td><%= user.departments.pluck(:name) %></td>
+      <td><%= user.departments.pluck(:name).join(',') %></td>
       <td><%= user.admin? ? "管理者権限あり" : "管理者権限なし" %></td>
     <% end %>
   </tbody>
