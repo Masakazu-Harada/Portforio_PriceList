@@ -14,3 +14,12 @@ departments = [
 ]
 
 Department.insert_all(departments)
+
+ranks = [
+  {name: "問屋"},
+  {name: "販売店"},
+  {name: "その他"},
+  {name: "末端"},
+]
+
+Rank.insert_all(ranks)

@@ -8,5 +8,12 @@ Rails.application.routes.draw do
     resources :users
     resources :departments
   end
-  resources :products
+
+  shallow do
+    resources :products do
+      resources :prices
+    end
+  end
+
+  resources :ranks
 end
