@@ -17,6 +17,8 @@
           <td><%= product.catalog_page_number %></td>
           <td><%= link_to product.name, product %></td>
           <td><%= link_to "商品編集", edit_product_path(product), class: "btn btn-primary mr-3" %></td>
+            <td><%= link_to "売価登録", "#", class: "btn btn-success mr-3" %></td>
+            <td><%= link_to "売価編集", "#", class: "btn btn-secondary mr-3" %></td>
           <td><%= link_to "削除", product_path(product), method: :delete, data: { confirm: "「#{product.name}」をカタログから削除します。本当に削除しますか？", "turbo-method": :delete }, class: "btn btn-danger" %></td>
         </tr>
       <% end %>
