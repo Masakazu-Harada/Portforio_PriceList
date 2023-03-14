@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
+    @products = Product.order("catalog_page_number")
     @prices = Price.all
   end
 
