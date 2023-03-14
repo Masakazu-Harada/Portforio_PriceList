@@ -73,3 +73,4 @@ end
 
 gem "bootstrap"
 gem "pry-rails"
+gem 'importmap-rails'
