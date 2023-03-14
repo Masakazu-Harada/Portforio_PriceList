@@ -1,7 +1,8 @@
 class PricesController < ApplicationController
   def new
     @product = Product.find(params[:product_id])
-    @price = @product.prices.new(price_params)
+    @price = @product.prices.new
+    @ranks = Rank.all
   end
 
   def create
@@ -13,9 +14,4 @@ class PricesController < ApplicationController
   def update
   end
 
-  private
-
-  def price_params
-    params.require(:price).permit(:price)
-  end
 end

@@ -5,3 +5,17 @@
 <nav class="nav justify-content-end">
   <%= link_to "商品一覧へ戻る", products_path, class: "nav-link" %>
 </nav>
+
+<table>
+  <% @ranks.each do |rank| %>
+    <th><%= rank.name%></th>
+  <% end %>
+</table>
+
+
+<%= form_with model: [@product, @price] do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.number_field :name, class: 'form-control' %>
+  </div>
+<% end %>
