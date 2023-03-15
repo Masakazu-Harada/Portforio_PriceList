@@ -13,7 +13,10 @@ departments = [
   {name: "業務部"},
 ]
 
-Department.insert_all(departments)
+departments.each do |v|
+  department = Department.find_or_initialize_by(name: v[:name])
+  department.save!
+end
 
 ranks = [
   {name: "問屋"},
@@ -22,4 +25,7 @@ ranks = [
   {name: "末端"},
 ]
 
-Rank.insert_all(ranks)
+ranks.each do |v|
+  rank = Rank.find_or_initialize_by(name: v[:name])
+  rank.save!
+end
