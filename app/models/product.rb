@@ -3,7 +3,6 @@ class Product < ApplicationRecord
   has_many :product_suppliers
   has_many :suppliers, through: :product_suppliers
   has_many :prices
-  has_many :ranks, through: :prices
 
   with_options presence: true do
     validates :name
