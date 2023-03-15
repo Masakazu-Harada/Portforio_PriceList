@@ -6,7 +6,7 @@
   <%= link_to "商品一覧へ戻る", products_path, class: "nav-link" %>
 </nav>
 
-<%= form_with url: [@product, :prices] do |f| %>
+<%= form_with url: product_prices_path(@product) do |f| %>
   <% @product.prices.each do |price| %>
     <div class="form-group">
       <%= f.label price.rank.name %>
