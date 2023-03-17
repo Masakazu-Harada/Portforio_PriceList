@@ -25,6 +25,26 @@
       <th><%= Product.human_attribute_name(:is_original) %></th>
       <td><%= @product.is_original ? "オリジナル" : "仕入れ商品" %></td>
     </tr>
+    <tr>
+      <th><%= "問屋" %></th>
+      <% @rank_prices = @product.prices.pluck(:price) %>
+      <td><%= @rank_prices[0] %>円</td>
+    </tr>
+    <tr>
+      <th><%= "販売店" %></th>
+      <% @rank_prices = @product.prices.pluck(:price) %>
+      <td><%= @rank_prices[1] %>円</td>
+    </tr>
+    <tr>
+      <th><%= "その他" %></th>
+      <% @rank_prices = @product.prices.pluck(:price) %>
+      <td><%= @rank_prices[2] %>円</td>
+    </tr>
+    <tr>
+      <th><%= "末端" %></th>
+      <% @rank_prices = @product.prices.pluck(:price) %>
+      <td><%= @rank_prices[3] %>円</td>
+    </tr>
   </tbody>
 </table>
 

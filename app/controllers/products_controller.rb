@@ -1,11 +1,11 @@
 class ProductsController < ApplicationController
   def index
     @products = Product.order("catalog_page_number")
-    @prices = Price.all
   end
 
   def show
     @product = Product.find(params[:id])
+    @rank_prices = @product.prices.pluck(:price)
   end
 
   def new
