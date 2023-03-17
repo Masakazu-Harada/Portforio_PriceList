@@ -13,7 +13,8 @@ class PricesController < ApplicationController
     redirect_to products_url
   end
 
-  def show
+  def edit
+    @product = Product.find(params[:id])
   end
 
   def update
