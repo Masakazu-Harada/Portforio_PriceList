@@ -6,14 +6,11 @@ class PricesController < ApplicationController
   def create
     @product = Product.find(params[:product_id])
     params['price'].each do |price_record|
-      @price = @product.prices.find_by(rank_id: price_record['rank_id'])
-      @price.price = price_record['price']
+      price = @product.prices.find_by(rank_id: price_record['rank_id'])
+      price.price = price_record['price']
+      price.save
     end
-    if @price.save
     redirect_to products_url, notice: "「#{@product.name}」の売価をカタログへ登録しました。"
-    else
-      render :new
-    end
   end
 
   def edit

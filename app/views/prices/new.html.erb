@@ -6,4 +6,14 @@
   <%= link_to "商品一覧へ戻る", products_path, class: "nav-link" %>
 </nav>
 
-<%= render partial: "form" %>
+<%= form_with url: product_prices_path(@product) do |f| %>
+  <% @product.prices.each do |price| %>
+    <div class="form-group">
+      <%= f.label price.rank.name %>
+      <%= f.hidden_field 'price[][rank_id]', value: price.rank.id %>
+      <%= f.number_field 'price[][price]', value: price.price, class: 'form-control' %>
+    </div>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>
