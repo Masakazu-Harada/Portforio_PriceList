@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root to: 'dashboards#index'
+  
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
@@ -12,6 +13,12 @@ Rails.application.routes.draw do
   shallow do
     resources :products do
       resources :prices
+    end
+  end
+
+  shallow do
+    resources :products do
+      resources :suppliers
     end
   end
 
