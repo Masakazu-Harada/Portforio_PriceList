@@ -16,11 +16,11 @@ Rails.application.routes.draw do
     end
   end
 
-  shallow do
-    resources :products do
-      resources :suppliers
-    end
+  resources :products, module: :products do
+    resources :suppliers, only: %i[new create]
   end
+
+  resources :suppliers
 
   resources :ranks
 end

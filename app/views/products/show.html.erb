@@ -48,4 +48,8 @@
   </tbody>
 </table>
 
+<% @product.suppliers.each do |supp| %>
+  <p><%= supp.name %>: <%= supp.purchasing_cost %></p>
+<% end %>
+
 <%= link_to "商品編集", edit_product_path, class: "btn btn-primary mr-3" %>
