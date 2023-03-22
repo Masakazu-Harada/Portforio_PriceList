@@ -28,6 +28,17 @@ ja:
         password_confirmation: パスワード（確認用）
         created_at: 登録日時
         updated_at: 更新日時
+      supplier:
+        name: 仕入れ先名
+        purchasing_cost: 仕入原価
+        price_revision_date: 値上げ開始日
+        raise_price: 値上げ単価
+        minimum_shipping_unit: 最低出荷単位
+        prepayshipping_unit: 送料元払い数量
+        location: 出荷場所
+        closing_time: 出荷締め時間
+        created_at: 登録日時
+        updated_at: 更新日時
       department:
         name: 部署名
   date:

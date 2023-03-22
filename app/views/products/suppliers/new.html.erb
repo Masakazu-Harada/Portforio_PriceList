@@ -1,0 +1,6 @@
+<h1><%= @product.name %>の仕入れ先設定</h1>
+
+<%= form_with url: product_suppliers_path, method: :post do |form| %>
+  <%= form.collection_check_boxes :suppliers, @suppliers, :id, :name, checked: @product.suppliers.pluck(:id) %>
+  <%= form.submit %>
+<% end %>

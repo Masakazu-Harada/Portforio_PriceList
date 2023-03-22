@@ -1,4 +1,46 @@
-<h1>仕入先商品情報登録</h1>
+<!--<h1>仕入先商品情報登録</h1>-->
 
-<h3>商品名</h3>
-<%= @product.name %>
+<%= form_with model: @supplier do |form| %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :purchasing_cost %>
+    <%= form.text_field :purchasing_cost %>
+  </div>
+
+<!--  <div class="field">-->
+    <%#= form.label :price_revision_date %>
+    <%#= form.text_field :price_revision_date %>
+<!--  </div>-->
+
+<!--  <div class="field">-->
+    <%#= form.label :raise_price %>
+    <%#= form.text_field :raise_price %>
+<!--  </div>-->
+
+  <div class="field">
+    <%= form.label :minimum_shipping_unit %>
+    <%= form.text_field :minimum_shipping_unit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :prepayshipping_unit %>
+    <%= form.text_field :prepayshipping_unit %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="field">
+    <%= form.label :closing_time %>
+    <%= form.text_field :closing_time %>
+  </div>
+
+  <%= form.submit %>
+<% end %>

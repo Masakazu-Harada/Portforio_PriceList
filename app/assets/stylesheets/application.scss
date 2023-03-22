@@ -1,1 +1,22 @@
 @import "bootstrap";
+
+main {
+  $main_color: #730E15;
+  $main_font_color: red;
+
+  article {
+    div {
+      color: $main_color;
+
+      span {
+        color: $main_font_color;
+      }
+    }
+
+    span {
+      font-weight: bold;
+    }
+
+    border: $main_color;
+  }
+}
