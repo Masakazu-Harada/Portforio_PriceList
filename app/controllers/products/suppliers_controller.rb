@@ -16,4 +16,19 @@ class Products::SuppliersController < ApplicationController
       render :new, notice: '仕入先の設定に失敗しました'
     end
   end
+
+  def index
+    @product = Product.find(params[:product_id])
+  end
+
+  def cost_update
+    params['cost'].each do |cost|
+      prod_supp = @product.product_suppliers.find(cost['supplier_id'])
+
+      # prod_supp.update(cost_price: cost['cost_price'])
+
+      prod_supp.cost_price = cost['cost_price']
+      prod_supp.save
+    end
+  end
 end

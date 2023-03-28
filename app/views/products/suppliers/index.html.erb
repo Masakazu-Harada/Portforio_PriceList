@@ -1,0 +1,10 @@
+<%= form_with url: cost_update_product_suppliers_path(@product), method: :post do |form| %>
+  <% @product.suppliers.each do |supp| %>
+    <div>
+      <p><%= supp.name %></p>
+      <%= form.hidden_field 'cost[][supplier_id]', value: supp.id %>
+      <%= form.number_field 'cost[][cost_price]' %>
+    </div>
+  <% end %>
+  <%= form.submit %>
+<% end %>
