@@ -22,15 +22,10 @@ class SuppliersController < ApplicationController
   # POST /suppliers or /suppliers.json
   def create
     @supplier = Supplier.new(supplier_params)
-
-    respond_to do |format|
-      if @supplier.save
-        format.html { redirect_to supplier_url(@supplier), notice: "Supplier was successfully created." }
-        format.json { render :show, status: :created, location: @supplier }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @supplier.errors, status: :unprocessable_entity }
-      end
+    if @supplier.save
+      redirect_to suppliers_url, notice: "「#{@supplier.name}」のレコードを登録しました。"
+    else
+      render :new
     end
   end
 
@@ -69,13 +64,8 @@ class SuppliersController < ApplicationController
     params.require(:supplier).permit(
       %i[
         name
-        purchasing_cost
-        price_revision_date
-        raise_price
-        minimum_shipping_unit
-        prepayshipping_unit
-        location
-        closing_time
+        address
+        phone_number
       ]
     )
     end
