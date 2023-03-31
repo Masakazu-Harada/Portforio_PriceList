@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_30_135656) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_30_121822) do
   create_table "affiliations", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "department_id", null: false
@@ -50,6 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_135656) do
     t.integer "supplier_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "cost"
     t.index ["product_id"], name: "index_product_suppliers_on_product_id"
     t.index ["supplier_id"], name: "index_product_suppliers_on_supplier_id"
   end
@@ -83,7 +84,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_30_135656) do
     t.integer "shipping_unit"
     t.string "unit"
     t.integer "prepayment_unit"
-    t.integer "cost"
   end
 
   create_table "users", force: :cascade do |t|

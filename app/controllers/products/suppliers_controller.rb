@@ -25,9 +25,10 @@ class Products::SuppliersController < ApplicationController
     params['cost'].each do |cost|
       prod_supp = @product.product_suppliers.find(cost['supplier_id'])
 
-      # prod_supp.update(cost_price: cost['cost_price'])
+      #prod_supp.update(cost_price: cost['cost_price'])
 
       prod_supp.cost_price = cost['cost_price']
+      binding.irb
       prod_supp.save
     end
   end
