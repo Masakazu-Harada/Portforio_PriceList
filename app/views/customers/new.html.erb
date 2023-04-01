@@ -1,0 +1,18 @@
+<h1>顧客情報新規登録</h1>
+
+<nav class="nav justify-content-end">
+  <%= link_to "顧客一覧へ戻る", customers_path, class: "nav-link" %>
+</nav>
+
+<%= form_with(model: @customer, url: customers_path, local: true) do |f| %>
+  <div class="form-group mb-3">
+    <%= f.label :name, class: "form-label" %>
+    <%= f.text_field :name, placeholder: "株式会社○○", class: "form-control", id: "customer_name" %>
+  </div>
+  <div class="form-group mb-3">
+    <%= f.label :share, class: "form-label" %>
+    <%= f.text_area :share, placeholder: "値上げは交渉は社長へ。", class: "form-control", id: "customer_share" %>
+  </div>
+  <%= f.submit nil, class: "btn btn-primary" %>
+<% end %>
+  

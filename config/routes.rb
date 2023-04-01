@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   end
 
   resources :suppliers
+  resources :customers
 
   resources :ranks
 end

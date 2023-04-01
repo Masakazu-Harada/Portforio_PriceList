@@ -11,6 +11,7 @@ ja:
       product: 商品
       department: 部署
       user: 氏名
+      customer: 顧客
     attributes:
       product:
         name: 商品名
@@ -44,6 +45,9 @@ ja:
         updated_at: 更新日時
       department:
         name: 部署名
+      customer:
+        name: 顧客名(会社名)
+        share: 引き継ぎ事項
   date:
     abbr_day_names:
     - 日
