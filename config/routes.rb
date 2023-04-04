@@ -24,6 +24,15 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :products, module: :products do
+    resources :suppliers, only: %i[index new create] do
+      collection do
+        get :new_cost
+        post :create_cost
+      end
+    end
+  end
+
   resources :suppliers
   resources :customers
 

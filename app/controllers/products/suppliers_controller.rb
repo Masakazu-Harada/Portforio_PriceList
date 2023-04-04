@@ -32,4 +32,22 @@ class Products::SuppliersController < ApplicationController
       prod_supp.save
     end
   end
+
+  def new_cost
+    @product = Product.find(params[:product_id])
+    @suppliers = Supplier.all
+  end
+
+  def create_cost
+    @product = Product.find(params[:product_id])
+    cost_params = params[:cost]
+
+    cost_params.each do |cost|
+      product_supplier = @product.product_suppliers.find_or_initialize_by(supplier_id: cost[:supplier_id])
+      product_supplier.cost = cost[:cost_price]
+      product_supplier.save
+    end
+
+    redirect_to @product
+  end
 end

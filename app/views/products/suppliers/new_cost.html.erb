@@ -1,0 +1,16 @@
+<h1><%= @product.name %>の仕入れ先設定</h1>
+
+<%= form_with url: create_cost_product_suppliers_path, method: :post do |form| %>
+  <% @product.suppliers.each do |supplier| %>
+    <div class="form-group">
+      <label for="<%= "cost_#{supplier.id}" %>"><%= "#{supplier.name} の仕入れ値" %></label>
+      <%= form.number_field :cost, { name: "cost[][cost_price]", class: "form-control", id: "cost_#{supplier.id}", value: @product.product_suppliers.find_by(supplier: supplier)&.cost, min: 0, step: 1 } %>
+      <%= form.hidden_field :cost, name: "cost[][supplier_id]", value: supplier.id %>
+    </div>
+  <% end %>
+  <%= form.submit %>
+<% end %>
+
+
+
+

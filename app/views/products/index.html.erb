@@ -18,7 +18,8 @@
           <td><%= link_to product.name, product %></td>
           <td><%= link_to "商品編集", edit_product_path(product), class: "btn btn-primary mr-3" %></td>
           <td><%= link_to "売価登録＆編集", new_product_price_path(product), class: "btn btn-success mr-3" %></td>
-          <td><%= link_to "仕入登録", new_product_supplier_path(product), class: "btn btn-secondary mr-3" %></td>
+          <td><%= link_to "仕入先紐付け", new_product_supplier_path(product), class: "btn btn-secondary mr-3" %></td>
+          <td><%= link_to "仕入原価登録", new_cost_product_suppliers_path(product), class: "btn btn-info mr-3" %></td>
           <td><%= link_to "削除", product_path(product), data: { turbo_method: :delete ,turbo_confirm: "「#{product.name}」をカタログから削除します。本当に削除しますか？" }, class: "btn btn-danger" %></td>
         </tr>
       <% end %>
