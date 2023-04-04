@@ -28,7 +28,7 @@ class Products::SuppliersController < ApplicationController
       #prod_supp.update(cost_price: cost['cost_price'])
 
       prod_supp.cost_price = cost['cost_price']
-      binding.irb
+
       prod_supp.save
     end
   end

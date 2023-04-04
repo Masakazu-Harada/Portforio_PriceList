@@ -1,6 +1,13 @@
 <h1><%= @product.name %>の仕入れ先設定</h1>
 
 <%= form_with url: product_suppliers_path, method: :post do |form| %>
-  <%= form.collection_check_boxes :suppliers, @suppliers, :id, :name, checked: @product.suppliers.pluck(:id) %>
+  <% @suppliers.each do |supplier| %>
+    <div class="form-check">
+      <%= form.check_box :suppliers, { multiple: true, class: "form-check-input", checked: @product.suppliers.include?(supplier) }, supplier.id, nil %>
+      <label class="form-check-label" for="<%= "suppliers_#{supplier.id}" %>">
+        <%= supplier.name %>
+      </label>
+    </div>
+  <% end %>
   <%= form.submit %>
 <% end %>
