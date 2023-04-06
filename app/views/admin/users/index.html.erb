@@ -11,12 +11,14 @@
         <th><%= User.human_attribute_name(:admin) %></th>
       </tr>
     </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user.name, [:admin, user] %></td>
+          <td><%= user.departments.pluck(:name).join(',') %></td>
+          <td><%= user.admin? ? "管理者権限あり" : "管理者権限なし" %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
-  <tbody>
-    <% @users.each do |user| %>
-      <td><%= link_to user.name, [:admin, user] %></td>
-      <td><%= user.departments.pluck(:name).join(',') %></td>
-      <td><%= user.admin? ? "管理者権限あり" : "管理者権限なし" %></td>
-    <% end %>
-  </tbody>
 </div>

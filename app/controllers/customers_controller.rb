@@ -13,7 +13,6 @@ class CustomersController < ApplicationController
       rank: Rank.find(params[:customer][:rank_id]),
       share: params[:customer][:share],
     )
-    binding.pry
     @customer.save!
     redirect_to customers_url, notice: "「#{@customer.name}」のレコードを追加しました。"
   end
@@ -32,10 +31,16 @@ class CustomersController < ApplicationController
     redirect_to customers_url, notice: "「#{customer.name}」のレコードを更新しました。"
   end
 
+  def destroy
+    @customer = Customer.find(params[:id])
+    binding.pry
+    @customer.destroy
+    redirect_to customers_url, notice: "「#{@customer.name}」のレコードを削除しました。"
+  end
+
   private
 
   def customer_params
-    params.require(:customer).permit(:name, :share)
-    params.require(:rank).permit(:name)
+    params.require(:customer).permit(:name, :share, :rank_id)
   end
 end
