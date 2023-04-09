@@ -1,0 +1,22 @@
+<h1>顧客検索</h1>
+
+<%= search_form_for @q, url: price_lists_path, method: :get do |f| %>
+  <%= f.label :name_cont, "顧客名" %>
+  <%= f.search_field :name_cont %>
+  <%= f.submit "検索" %>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>顧客名</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= link_to customer.name, price_list_path(customer) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,29 @@
+<h1><%= @customer.name %>（<%= @customer.rank.name %>）の価格一覧</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>商品名</th>
+      <th>売価</th>
+      <th>仕入先</th>
+      <th>仕入原価</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <% price = product.prices.find { |p| p.rank_id == @customer.rank_id } %>
+      <% if price %>
+        <% product.product_suppliers.each_with_index do |product_supplier, index| %>
+          <tr>
+            <% if index == 0 %>
+              <td rowspan="<%= product.product_suppliers.count %>"><%= product.name %></td>
+              <td rowspan="<%= product.product_suppliers.count %>"><%= price.price %></td>
+            <% end %>
+            <td><%= product_supplier.supplier.name %></td>
+            <td><%= product_supplier.cost %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
