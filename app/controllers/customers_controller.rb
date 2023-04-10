@@ -33,7 +33,6 @@ class CustomersController < ApplicationController
 
   def destroy
     @customer = Customer.find(params[:id])
-    binding.pry
     @customer.destroy
     redirect_to customers_url, notice: "「#{@customer.name}」のレコードを削除しました。"
   end

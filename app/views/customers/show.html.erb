@@ -22,7 +22,7 @@
             <%= f.text_area :share, value: @customer.share, class: "form-control", id: "customer_share" %>
           </div>
           <%= f.submit nil, class: "btn btn-primary mr-1" %>
-          <%= link_to "削除する", customer_path(@customer),  { method: :delete, data: {turbo_confirm: "「#{@customer.name}」のレコードを削除します。よろしいでしょうか？" }, class: "btn btn-danger" } %>
+          <%= link_to "削除する", customer_path(@customer),  data: { turbo_method: :delete, turbo_confirm: "「#{@customer.name}」のレコードを削除します。よろしいでしょうか？" }, class: "btn btn-danger" %>
         <% end %>
       </td>
     </tr>

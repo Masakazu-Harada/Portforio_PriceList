@@ -27,10 +27,9 @@ class Admin::UsersController < ApplicationController
   end
 
   def update
-    raise
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to action: :show, notice: "「#{@user.name}」のレコードを更新しました。"
+      redirect_to admin_user_url(@user), notice: "「#{@user.name}」のレコードを更新しました。"
     else
       render :edit
     end
