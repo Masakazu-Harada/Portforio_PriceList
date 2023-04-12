@@ -8,7 +8,7 @@
   </ul>
 <% end %>
 
-<%= form_with(model: user, url: admin_users_path, local: true, method: :patch) do |f| %>
+<%= form_with(model: [:admin, user], local: true) do |f| %>
   <div class="form-group">
     <%= f.label :name, "氏名" %>
     <%= f.text_field :name, class: "form-control" %>
