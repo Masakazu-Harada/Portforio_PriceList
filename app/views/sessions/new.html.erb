@@ -13,3 +13,70 @@
 <% end %>
 
 <p>メールアドレス・パスワードをお忘れの場合はexample@example.comへ件名を「ログインメールアドレス•パスワード紛失」とし。admin@example.comへメールを送信してください。</p>
+
+
+<h1>ログイン</h1>
+
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <button id="customer-login-btn" class="btn btn-primary">お客様用ログイン</button>
+    </div>
+    <div class="col-6">
+      <button id="employee-login-btn" class="btn btn-primary">社員用ログイン</button>
+    </div>
+  </div>
+
+  <div id="customer-login-form" class="login-form" style="display: none;">
+    <h2>お客様用ログイン</h2>
+    <%= form_with(scope: :session, local: true, html: {class: "form"}) do |f| %>
+      <%= f.hidden_field :user_type, value: 'Client' %>
+      <div class="form-group">
+        <%= f.label :email, 'メールアドレス' %>
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password, 'パスワード' %>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+      <%= f.submit 'ログイン', class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <div id="employee-login-form" class="login-form" style="display: none;">
+    <h2>社員用ログイン</h2>
+    <%= form_with(scope: :session, local: true, html: {class: "form"}) do |f| %>
+      <%= f.hidden_field :user_type, value: 'User' %>
+      <div class="form-group">
+        <%= f.label :email, 'メールアドレス' %>
+        <%= f.email_field :email, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password, 'パスワード' %>
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+      <%= f.submit 'ログイン', class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<p>メールアドレス・パスワードをお忘れの場合はexample@example.comへ件名を「ログインメールアドレス•パスワード紛失」とし。admin@example.comへメールを送信してください。</p>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const customerLoginBtn = document.getElementById('customer-login-btn');
+    const employeeLoginBtn = document.getElementById('employee-login-btn');
+    const customerLoginForm = document.getElementById('customer-login-form');
+    const employeeLoginForm = document.getElementById('employee-login-form');
+
+    customerLoginBtn.addEventListener('click', function() {
+      customerLoginForm.style.display = 'block';
+      employeeLoginForm.style.display = 'none';
+    });
+
+    employeeLoginBtn.addEventListener('click', function() {
+      customerLoginForm.style.display = 'none';
+      employeeLoginForm.style.display = 'block';
+    });
+  });
+</script>
