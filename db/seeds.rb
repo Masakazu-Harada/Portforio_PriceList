@@ -29,3 +29,15 @@ ranks.each do |v|
   rank = Rank.find_or_initialize_by(name: v[:name])
   rank.save!
 end
+
+admin_user = {
+  name: "原田 勝利", # 管理者ユーザー名
+  email: "seungri.uhm@gmail.com",
+  password: "dodoria3", # 実際のパスワードに置き換えてください
+  password_confirmation: "dodoria3", # 実際のパスワードに置き換えてください
+  admin: true
+}
+
+user = User.find_or_initialize_by(email: admin_user[:email])
+user.assign_attributes(admin_user)
+user.save!
