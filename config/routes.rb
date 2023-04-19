@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'customer_dashboards/index'
+  get 'cusomerdashboards/index'
 
   root to: 'dashboards#index'
 
@@ -36,6 +38,7 @@ Rails.application.routes.draw do
 
   resources :suppliers
   resources :customers
+  resources :customer_dashboards, only: [:index]
   resources :ranks
 
   resources :price_lists
