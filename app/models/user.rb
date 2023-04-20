@@ -6,4 +6,12 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
+
+  def employee?
+    self.employee
+  end
+
+  def customer?
+    !self.employee
+  end
 end
