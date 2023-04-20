@@ -5,13 +5,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: session_params[:email])
+    user = User.find_by(email: session_params[:email]) || Customer.find_by(email: session_params[:email])
     if user&.authenticate(session_params[:password])
       session[:user_id] = user.id
-      if user.is_employee
+      if user.employee? # 社員の場合
         redirect_to root_url, notice: "ログインしました。"
-      else
-        redirect_to customer_dashboard_url, notice: "ログインしました。"
+      else # お客様の場合
+        redirect_to customer_dashboards_url, notice: "ログインしました。"
       end
     else
       render :new

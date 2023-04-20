@@ -39,6 +39,11 @@ Rails.application.routes.draw do
   resources :suppliers
   resources :customers
   resources :customer_dashboards, only: [:index]
+
+  namespace :admin do
+    resources :customers, only: [:index]
+  end
+  
   resources :ranks
 
   resources :price_lists

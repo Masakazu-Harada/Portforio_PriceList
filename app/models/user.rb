@@ -8,10 +8,10 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   def employee?
-    self.employee
+    self.user_type == 'employee'
   end
 
   def customer?
-    !self.employee
+    self.user_type == 'customer'
   end
 end
