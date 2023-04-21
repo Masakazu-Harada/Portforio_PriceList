@@ -3,6 +3,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :affiliations, dependent: :destroy
   has_many :departments, through: :affiliations
+  has_one :customer
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
@@ -14,4 +15,7 @@ class User < ApplicationRecord
   def customer?
     self.user_type == 'customer'
   end
+
+  scope :employees, -> { where(user_type: "employee") }
+  scope :customers, -> { where(user_type: "customer") }
 end

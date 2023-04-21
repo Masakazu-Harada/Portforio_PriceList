@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get 'customer_dashboards/index'
-  get 'cusomerdashboards/index'
 
   root to: 'dashboards#index'
 
@@ -11,6 +10,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :users
     resources :departments
+    resources :customer_users
   end
 
   shallow do
