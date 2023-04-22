@@ -2,7 +2,7 @@ class Admin::CustomerUsersController < ApplicationController
   before_action :set_customer_user, only: [:show, :edit, :update, :destroy]
   
   def index
-    @users = User.customer.includes(:customer)
+    @users = User.customers.includes(:customer)
   end
 
   def show
@@ -22,6 +22,10 @@ class Admin::CustomerUsersController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
+    @customers = Customer.all
   end
 
   def destroy
