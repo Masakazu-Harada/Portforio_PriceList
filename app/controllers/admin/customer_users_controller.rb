@@ -2,7 +2,7 @@ class Admin::CustomerUsersController < ApplicationController
   before_action :set_customer_user, only: [:show, :edit, :update, :destroy]
   
   def index
-    @users = User.customers.includes(:customer)
+    @users = User.where(user_type: "Customer").includes(:affiliations)
   end
 
   def show
@@ -10,16 +10,17 @@ class Admin::CustomerUsersController < ApplicationController
 
   def new
     @user = User.new
-    @customer = Customer.all
+    @customers = Customer.all
   end
 
   def create
     @user = User.new(user_params)
-    @user.user_type = "customer"
-
+    @user.user_type = "Customer"
     if @user.save
-      redirect_to admin_customer_user_url(@user), notice: "お客様アカウントのレコードが更新されました。"
+      flash[:notice] = "お客様アカウントが登録されました。"
+      redirect_to admin_customer_users_path
     else
+      @customers = Customer.all
       render :new
     end
   end
@@ -34,10 +35,10 @@ class Admin::CustomerUsersController < ApplicationController
   end
 
   def set_customer_user
-    @user = User.customers.find(params[:id])
+    @user = User.where(user_type: "Customer").includes(:affiliations).find(params[:id])
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :customer_id)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :department_id, :user_type, :customer_id)
   end
 end

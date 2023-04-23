@@ -3,7 +3,7 @@ class User < ApplicationRecord
   has_secure_password
   has_many :affiliations, dependent: :destroy
   has_many :departments, through: :affiliations
-  has_one :customer
+  belongs_to :customer, optional: true
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
