@@ -1,9 +1,9 @@
 <div class="container">
-  <h1>お客様アカウント登録</h1>
+  <h1>お客様アカウント編集</h1>
 
   <nav class="nav justify-content-end">
     <%= link_to "お客様アカウント一覧へ戻る", admin_customer_users_path %>
   </nav>
 
-  <%= render 'form', form_url: admin_customer_users_path, form_method: :post, submit_text: "登録する" %>
+  <%= render 'form', form_url: admin_customer_user_path(@user), form_method: :patch, submit_text: "更新する" %>
 </div>

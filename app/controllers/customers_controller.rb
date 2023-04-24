@@ -11,7 +11,7 @@ class CustomersController < ApplicationController
     @customer = Customer.new(
       name: params[:customer][:name],
       rank: Rank.find(params[:customer][:rank_id]),
-      share: params[:customer][:share],
+      share: params[:customer][:share]
     )
     @customer.save!
     redirect_to customers_url, notice: "「#{@customer.name}」のレコードを追加しました。"

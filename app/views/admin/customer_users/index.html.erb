@@ -22,7 +22,7 @@
             <td>
               <%= link_to "詳細", admin_customer_user_path(user), class: "btn btn-sm btn-info" %>
               <%= link_to "編集", edit_admin_customer_user_path(user), class: "btn btn-sm btn-warning" %>
-              <%= link_to "削除", admin_customer_user_path(user), method: :delete, data: { confirm: "このお客様アカウントを削除してもよろしいですか？" }, class: "btn btn-sm btn-danger" %>
+              <%= link_to "削除", admin_customer_user_path(user), data: { turbo_method: :delete, turbo_confirm: "「#{user.name}」のお客様アカウントのレコードを削除します。よろしいでしょうか？" }, class: "btn btn-danger" %>
             </td>
           </tr>
         <% end %>

@@ -29,6 +29,16 @@ class Admin::CustomerUsersController < ApplicationController
     @customers = Customer.all
   end
 
+  def update
+    if @user.update(user_params)
+      flash[:notice] = "お客様アカウントが更新されました。"
+      redirect_to admin_customer_users_path
+    else
+      @customers = Customer.all
+      render :edit
+    end
+  end
+
   def destroy
     @user.destroy
     redirect_to admin_customer_users_path, notice: "お客様アカウントのレコードが削除されました。"
