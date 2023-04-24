@@ -1,14 +1,26 @@
-<p style="color: green"><%= notice %></p>
+<h1>仕入先一覧</h1>
 
-<h1>Suppliers</h1>
+<nav class="nav justify-content-end">
+  <%= link_to "ダッシュボードへ戻る", root_path %>
+</nav>
 
-<div id="suppliers">
-  <% @suppliers.each do |supplier| %>
-    <%= render supplier %>
-    <p>
-      <%= link_to supplier.name, supplier %>
-    </p>
-  <% end %>
+<%= link_to "仕入先情報新規登録", new_supplier_path, class: "btn btn-primary" %>
+
+<div class="mb-3">
+  <table class="table table-hover">
+    <thead class="thead-default">
+      <tr>
+        <th><%= Supplier.human_attribute_name(:name) %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @suppliers.each do |supplier| %>
+        <tr>
+          <td><%= link_to supplier.name,supplier_path(supplier) %></td>
+          <td><%= link_to "編集", edit_supplier_path(supplier), class: "btn btn-warning mr-3" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
-
-<%= link_to "New supplier", new_supplier_path %>

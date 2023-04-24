@@ -1,8 +1,16 @@
-<p style="color: green"><%= notice %></p>
+<h1>仕入先情報の詳細</h1>
 
-<div>
-  <%= link_to "Edit this supplier", edit_supplier_path(@supplier) %> |
-  <%= link_to "Back to suppliers", suppliers_path %>
+<nav class="nav justify-content-end">
+  <%= link_to "仕入先一覧へ戻る", suppliers_path, class: "nav-link" %>
+</nav>
 
-  <%= button_to "Destroy this supplier", @supplier, method: :delete %>
-</div>
+<table class="tabel table-hover">
+  <tbody>
+    <tr>
+      <th><%= Supplier.human_attribute_name(:name) %></th>
+      <td><%= @supplier.name %></td>
+    </tr>
+  </tbody>
+</table>
+
+<%= link_to "編集", edit_supplier_path, class: "btn btn-primary mr-3" %>

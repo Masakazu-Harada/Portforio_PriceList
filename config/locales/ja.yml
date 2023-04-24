@@ -12,6 +12,7 @@ ja:
       department: 部署
       user: 氏名
       customer: 顧客
+      supplier: 仕入先
     attributes:
       product:
         name: 商品名
