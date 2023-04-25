@@ -4,19 +4,4 @@
   <%= link_to "仕入れ先一覧へ戻る", suppliers_path, class: "nav-link" %>
 </nav>
 
-<%= form_with model: @supplier do |f| %>
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control", id: "supplier_name" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :address %>
-    <%= f.text_field :address, class: "form-control", id: "supplier_address" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :phone_number %>
-    <%= f.text_field :phone_number, class: "form-control", id: "supplier_phone_number" %>
-  </div>
-
-  <%= f.submit class: "btn btn-primary" %>
-<% end %>
+<%= render partial: "form", locals: { supplier: @supplier} %>

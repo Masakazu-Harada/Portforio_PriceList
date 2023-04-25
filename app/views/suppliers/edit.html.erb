@@ -1,10 +1,7 @@
-<h1>Editing supplier</h1>
+<h1>仕入先情報の編集</h1>
 
-<%= render "form", supplier: @supplier %>
+<nav class="nav justify-content-end">
+  <%= link_to "仕入れ先一覧へ戻る", suppliers_path, class: "nav-link" %>
+</nav>
 
-<br>
-
-<div>
-  <%= link_to "Show this supplier", @supplier %> |
-  <%= link_to "Back to suppliers", suppliers_path %>
-</div>
+<%= render partial: "form", locals: { supplier: @supplier } %>

@@ -37,13 +37,19 @@ class SuppliersController < ApplicationController
   end
 
   def destroy
-    @supplier.destroy
-
-    respond_to do |format|
-      format.html { redirect_to suppliers_url, notice: "Supplier was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    supplier = Supplier.find(params[:id])
+    supplier.destroy
+    redirect_to suppliers_url, notice: "「#{@supplier.name}」のレコードを削除しました。"
   end
+
+  #def destroy
+    #@supplier.destroy
+
+    #respond_to do |format|
+      #format.html { redirect_to suppliers_url, notice: "「#{@supplier.name}」のレコードを削除しました。" }
+      #format.json { head :no_content }
+    #end
+  #end
 
   private
 
