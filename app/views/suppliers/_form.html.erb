@@ -1,3 +1,14 @@
+<% if model.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <h3><%= pluralize(model.errors.count, "error") %> prohibited this user from being saved:</h3>
+    <ul>
+      <% model.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_with model: supplier do |f| %>
   <div class="form-group">
     <%= f.label :name %>
