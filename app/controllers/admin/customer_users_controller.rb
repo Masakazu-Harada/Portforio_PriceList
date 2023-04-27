@@ -21,7 +21,7 @@ class Admin::CustomerUsersController < ApplicationController
       redirect_to admin_customer_users_path
     else
       @customers = Customer.all
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
