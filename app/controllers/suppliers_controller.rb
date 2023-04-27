@@ -25,14 +25,11 @@ class SuppliersController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @supplier.update(supplier_params)
-        format.html { redirect_to supplier_url(@supplier), notice: "Supplier was successfully updated." }
-        format.json { render :show, status: :ok, location: @supplier }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @supplier.errors, status: :unprocessable_entity }
-      end
+    @supplier = Supplier.find(params[:id])
+    if @supplier.update(supplier_params)
+      redirect_to supplier_url(@supplier), notice: "「#{@supplier.name}」のレコードを更新しました。"
+    else
+      render :edit
     end
   end
 
