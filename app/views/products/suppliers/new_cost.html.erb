@@ -1,16 +1,30 @@
 <h1><%= @product.name %>の仕入れ先設定</h1>
 
-<%= form_with url: create_cost_product_suppliers_path, method: :post do |form| %>
+<%= form_with url: create_cost_product_suppliers_path, method: :post, class: "row" do |form| %>
   <% @product.suppliers.each do |supplier| %>
-    <div class="form-group">
-      <label for="<%= "cost_#{supplier.id}" %>"><%= "#{supplier.name} の仕入れ値" %></label>
-      <%= form.number_field :cost, { name: "cost[][cost_price]", class: "form-control", id: "cost_#{supplier.id}", value: @product.product_suppliers.find_by(supplier: supplier)&.cost, min: 0, step: 1 } %>
-      <%= form.hidden_field :cost, name: "cost[][supplier_id]", value: supplier.id %>
+    <% product_supplier = @product.product_suppliers.find_by(supplier: supplier) %>
+    <div class="col-md-6">
+      <div class="card mt-3">
+        <div class="card-body">
+          <h5 class="card-title" style="font-size: 1.25rem; font-weight: 900;"><%= supplier.name %></h5>
+          <div class="form-group">
+            <label for="<%= "cost_#{supplier.id}" %>">仕入れ値</label>
+            <%= form.number_field :cost, { name: "cost[][cost_price]", class: "form-control", id: "cost_#{supplier.id}", value: product_supplier&.cost, min: 0, step: 1 } %>
+            <%= form.hidden_field :cost, name: "cost[][supplier_id]", value: supplier.id %>
+          </div>
+          <div class="form-group">
+            <label for="<%= "raise_cost_#{supplier.id}" %>">値上げ後の仕入れ原価</label>
+            <%= form.number_field :raise_cost, { name: "cost[][raise_cost]", class: "form-control", id: "raise_cost_#{supplier.id}", value: product_supplier&.raise_cost, min: 0, step: 1 } %>
+          </div>
+          <div class="form-group">
+            <label for="<%= "price_revision_date_#{supplier.id}" %>">値上げ開始日</label>
+            <%= form.date_field :price_revision_date, { name: "cost[][price_revision_date]", class: "form-control", id: "price_revision_date_#{supplier.id}", value: product_supplier&.price_revision_date } %>
+          </div>
+        </div>
+      </div>
     </div>
   <% end %>
-  <%= form.submit %>
+  <div class="col-12 mt-3">
+    <%= form.submit "送信", class: "btn btn-primary" %>
+  </div>
 <% end %>
-
-
-
-
