@@ -6,6 +6,8 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @rank_prices = @product.prices.pluck(:price)
+    @price_revisions = @product.product_suppliers.pluck(:price_revision_date, :future_cost)
+
   end
 
   def new

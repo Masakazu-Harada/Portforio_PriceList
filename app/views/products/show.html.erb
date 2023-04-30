@@ -3,56 +3,78 @@
 <nav class="nav justify-content-end">
   <%= link_to "商品一覧へ戻る", products_path, class: "nav-link" %>
 </nav>
-<table class="table table-hover">
-  <tbody>
-    <tr>
-      <th><%= Product.human_attribute_name(:catalog_page_number) %></th>
-      <td><%= @product.catalog_page_number %></td>
-    </tr>
-    <tr>
-      <th><%= Product.human_attribute_name(:code) %></th>
-      <td><%= @product.code %></td>
-    </tr>
-    <tr>
-      <th><%= Product.human_attribute_name(:name) %></th>
-      <td><%= @product.name %></td>
-    </tr>
-    <tr>
-      <th><%= Product.human_attribute_name(:spec) %></th>
-      <td><%= @product.spec %></td>
-    </tr>
-    <tr>
-      <th><%= Product.human_attribute_name(:is_original) %></th>
-      <td><%= @product.is_original ? "オリジナル" : "仕入れ商品" %></td>
-    </tr>
-    <tr>
-      <th><%= "問屋" %></th>
-      <% @rank_prices = @product.prices.pluck(:price) %>
-      <td><%= @rank_prices[0] %>円</td>
-    </tr>
-    <tr>
-      <th><%= "販売店" %></th>
-      <% @rank_prices = @product.prices.pluck(:price) %>
-      <td><%= @rank_prices[1] %>円</td>
-    </tr>
-    <tr>
-      <th><%= "その他" %></th>
-      <% @rank_prices = @product.prices.pluck(:price) %>
-      <td><%= @rank_prices[2] %>円</td>
-    </tr>
-    <tr>
-      <th><%= "末端" %></th>
-      <% @rank_prices = @product.prices.pluck(:price) %>
-      <td><%= @rank_prices[3] %>円</td>
-    </tr>
-    <% @product.product_suppliers.each do |prod_supp| %>
-      <tr>
-        <th><%= prod_supp.supplier.name %></th>
-        <td><%= prod_supp.current_cost %>円</td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
+<div class="row">
+  <div class="col-md-6">
+    <div class="card mt-3">
+      <div class="card-header">
+        商品に関する項目
+      </div>
+      <div class="card-body">
+        <p><strong><%= Product.human_attribute_name(:catalog_page_number) %>:</strong> <%= @product.catalog_page_number %></p>
+        <p><strong><%= Product.human_attribute_name(:code) %>:</strong> <%= @product.code %></p>
+        <p><strong><%= Product.human_attribute_name(:name) %>:</strong> <%= @product.name %></p>
+        <p><strong><%= Product.human_attribute_name(:spec) %>:</strong> <%= @product.spec %></p>
+        <p><strong><%= Product.human_attribute_name(:is_original) %>:</strong> <%= @product.is_original ? "オリジナル" : "仕入れ商品" %></p>
+      </div>
+    </div>
+  </div>
 
-<%= link_to "商品編集", edit_product_path, class: "btn btn-primary mr-3" %>
+  <div class="col-md-6">
+    <div class="card mt-3">
+      <div class="card-header">
+        売価に関する項目
+      </div>
+      <div class="card-body">
+        <% @rank_prices = @product.prices.pluck(:price) %>
+        <p><strong>問屋:</strong> <%= @rank_prices[0] %>円</p>
+        <p><strong>販売店:</strong> <%= @rank_prices[1] %>円</p>
+        <p><strong>その他:</strong> <%= @rank_prices[2] %>円</p>
+        <p><strong>末端:</strong> <%= @rank_prices[3] %>円</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card mt-3">
+      <div class="card-header">
+        現在の仕入値に関する項目
+      </div>
+      <div class="card-body">
+        <% @product.product_suppliers.each do |prod_supp| %>
+          <p><strong><%= prod_supp.supplier.name %>:</strong> <%= prod_supp.current_cost %>円</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card mt-3">
+      <div class="card-header">
+        仕入原価の値上げに関する項目
+      </div>
+      <div class="card-body">
+        <% @product.product_suppliers.each do |prod_supp| %>
+          <p><strong><%= prod_supp.supplier.name %>:</strong></p>
+            <% if prod_supp.price_revision_date.present? && prod_supp.future_cost.present? %>
+              <p>値上げ開始日: <%= prod_supp.price_revision_date.strftime('%Y年%m月%d日') %></p>
+              <p>値上げ後の仕入原価: <%= prod_supp.future_cost %>円</p>
+            <% else %>
+              <p>現時点で値上げ予定はありません。</p>
+            <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= link_to "仕入先の変更", new_product_supplier_path(@product), class: "btn btn-primary mt-3" %>
+  </div>
+  <div class="col-md-6">
+    <%= link_to "仕入れ値の変更", new_cost_product_suppliers_path(@product), class: "btn btn-success mt-3" %>
+  </div>
+</div>

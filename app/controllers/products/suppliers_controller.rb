@@ -3,6 +3,7 @@ class Products::SuppliersController < ApplicationController
     @product = Product.find(params[:product_id])
     @suppliers = Supplier.all
   end
+
   def create
     @product = Product.find(params[:product_id])
     @product.product_suppliers.each { |v| v.delete }
@@ -40,14 +41,22 @@ class Products::SuppliersController < ApplicationController
 
   def create_cost
     @product = Product.find(params[:product_id])
-    cost_params = params[:cost]
-
-    cost_params.each do |cost|
+    cost_data = params[:cost].map { |cost| cost_params(cost) } # ストロングパラメータを適用
+  
+    cost_data.each do |cost|
       product_supplier = @product.product_suppliers.find_or_initialize_by(supplier_id: cost[:supplier_id])
       product_supplier.current_cost = cost[:cost_price]
+      product_supplier.future_cost = cost[:raise_cost]
+      product_supplier.price_revision_date = cost[:price_revision_date]
       product_supplier.save
     end
 
     redirect_to @product
   end
+
+  private
+
+  def cost_params(cost)
+    cost.permit(:cost_price, :supplier_id, :raise_cost, :price_revision_date)
+  end  
 end
