@@ -1,5 +1,9 @@
 <h1>顧客検索</h1>
 
+<nav class="nav justify-content-end">
+  <%= link_to "ダッシュボードへ戻る", root_path %>
+</nav>
+
 <%= search_form_for @q, url: price_lists_path, method: :get do |f| %>
   <%= f.label :name_cont, "顧客名" %>
   <%= f.search_field :name_cont %>

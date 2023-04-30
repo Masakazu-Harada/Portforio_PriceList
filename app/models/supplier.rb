@@ -1,6 +1,6 @@
 class Supplier < ApplicationRecord
   #仕入れ先の情報の入ったモデル 中間モデルのproduct_supplierモデルを通してproductモデルかから商品情報を取得する
-  has_many :product_suppliers
+  has_many :product_suppliers, dependent: :destroy
   has_many :products, through: :product_suppliers 
 
   with_options presence: true do

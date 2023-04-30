@@ -4,10 +4,10 @@
   <thead>
     <tr>
       <th>商品名</th>
-      <th>売価</th>
+      <th>販売単価</th>
       <th>仕入先</th>
-      <th>仕入原価</th>
-      <th>値上げ予定日</th>
+      <th>現在の仕入原価</th>
+      <th>仕入先値上げ予定日</th>
       <th>値上げ後の仕入原価</th>
     </tr>
   </thead>
@@ -19,12 +19,12 @@
           <tr>
             <% if index == 0 %>
               <td rowspan="<%= product.product_suppliers.count %>"><%= product.name %></td>
-              <td rowspan="<%= product.product_suppliers.count %>"><%= price.price %></td>
+              <td rowspan="<%= product.product_suppliers.count %>"><%= price.price %>円</td>
             <% end %>
             <td><%= product_supplier.supplier.name %></td>
-            <td><%= product_supplier.cost %></td>
-            <td><%= product_supplier.price_revision_date.present? ? product_supplier.price_revision_date.strftime('%Y-%m-%d') : 'N/A' %></td>
-            <td><%= product_supplier.future_cost.present? ? product_supplier.future_cost : 'N/A' %></td>
+            <td><%= product_supplier.cost %>円</td>
+            <td><%= product_supplier.price_revision_date.present? ? product_supplier.price_revision_date.strftime('%Y年%m月%d日') : 'N/A' %></td>
+            <td><%= product_supplier.future_cost.present? ? product_supplier.future_cost : 'N/A' %>円</td>
           </tr>
         <% end %>
       <% end %>
