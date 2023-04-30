@@ -7,6 +7,8 @@
       <th>売価</th>
       <th>仕入先</th>
       <th>仕入原価</th>
+      <th>値上げ予定日</th>
+      <th>値上げ後の仕入原価</th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +23,8 @@
             <% end %>
             <td><%= product_supplier.supplier.name %></td>
             <td><%= product_supplier.cost %></td>
+            <td><%= product_supplier.price_revision_date.present? ? product_supplier.price_revision_date.strftime('%Y-%m-%d') : 'N/A' %></td>
+            <td><%= product_supplier.future_cost.present? ? product_supplier.future_cost : 'N/A' %></td>
           </tr>
         <% end %>
       <% end %>

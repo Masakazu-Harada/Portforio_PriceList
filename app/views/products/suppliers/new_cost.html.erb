@@ -1,5 +1,9 @@
 <h1><%= @product.name %>の仕入れ先設定</h1>
 
+<nav class="nav justify-content-end mb-4">
+  <%= link_to "商品一覧へ戻る", products_path, class: "nav-link" %>
+</nav>
+
 <%= form_with url: create_cost_product_suppliers_path, method: :post, class: "row" do |form| %>
   <% @product.suppliers.each do |supplier| %>
     <% product_supplier = @product.product_suppliers.find_by(supplier: supplier) %>

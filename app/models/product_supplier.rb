@@ -11,4 +11,12 @@ class ProductSupplier < ApplicationRecord
       save
     end
   end
+
+  def cost
+    if price_revision_date.present? && price_revision_date == Date.today
+      future_cost
+    else
+      current_cost
+    end
+  end
 end

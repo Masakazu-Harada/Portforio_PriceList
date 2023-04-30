@@ -1,13 +1,21 @@
-<h1><%= @product.name %>の仕入れ先設定</h1>
+<h1 class="mb-4"><%= @product.name %>の仕入れ先設定</h1>
 
-<%= form_with url: product_suppliers_path, method: :post do |form| %>
-  <% @suppliers.each do |supplier| %>
-    <div class="form-check">
-      <%= form.check_box :suppliers, { multiple: true, class: "form-check-input", checked: @product.suppliers.include?(supplier) }, supplier.id, nil %>
-      <label class="form-check-label" for="<%= "suppliers_#{supplier.id}" %>">
-        <%= supplier.name %>
-      </label>
-    </div>
-  <% end %>
-  <%= form.submit %>
+<nav class="nav justify-content-end mb-4">
+  <%= link_to "商品一覧へ戻る", products_path, class: "nav-link" %>
+</nav>
+
+<%= form_with url: product_suppliers_path, method: :post, class: 'form-horizontal' do |form| %>
+  <div class="form-group">
+    <% @suppliers.each do |supplier| %>
+      <div class="form-check">
+        <%= form.check_box :suppliers, { multiple: true, class: "form-check-input", checked: @product.suppliers.include?(supplier) }, supplier.id, nil %>
+        <label class="form-check-label" for="<%= "suppliers_#{supplier.id}" %>">
+          <%= supplier.name %>
+        </label>
+      </div>
+    <% end %>
+  </div>
+  <div class="form-group">
+    <%= form.submit "設定を保存", class: "btn btn-primary" %>
+  </div>
 <% end %>
