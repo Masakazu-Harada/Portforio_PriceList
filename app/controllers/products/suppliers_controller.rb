@@ -27,7 +27,7 @@ class Products::SuppliersController < ApplicationController
 
       #prod_supp.update(cost_price: cost['cost_price'])
 
-      prod_supp.cost_price = cost['cost_price']
+      prod_supp.current_cost = cost['cost_price']
 
       prod_supp.save
     end
@@ -44,7 +44,7 @@ class Products::SuppliersController < ApplicationController
 
     cost_params.each do |cost|
       product_supplier = @product.product_suppliers.find_or_initialize_by(supplier_id: cost[:supplier_id])
-      product_supplier.cost = cost[:cost_price]
+      product_supplier.current_cost = cost[:cost_price]
       product_supplier.save
     end
 

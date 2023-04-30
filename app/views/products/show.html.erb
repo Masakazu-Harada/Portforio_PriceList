@@ -48,7 +48,7 @@
     <% @product.product_suppliers.each do |prod_supp| %>
       <tr>
         <th><%= prod_supp.supplier.name %></th>
-        <td><%= prod_supp.cost %>円</td>
+        <td><%= prod_supp.current_cost %>円</td>
       </tr>
     <% end %>
   </tbody>
