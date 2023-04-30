@@ -1,3 +1,7 @@
 <h1>カタログ掲載商品 新規登録フォーム</h1>
 
+<nav class="nav justify-content-end">
+  <%= link_to "カタログ掲載商品一覧へ戻る", products_path %>
+</nav>
+
 <%= render partial: "form", locals: { product: @product } %>

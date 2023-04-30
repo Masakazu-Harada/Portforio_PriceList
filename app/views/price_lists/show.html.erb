@@ -1,5 +1,9 @@
 <h1><%= @customer.name %>（<%= @customer.rank.name %>）の価格一覧</h1>
 
+<nav class="nav justify-content-end">
+  <%= link_to "顧客検索一覧へ戻る", price_lists_path %>
+</nav>
+
 <table class="table">
   <thead>
     <tr>
