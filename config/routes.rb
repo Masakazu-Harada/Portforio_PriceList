@@ -45,6 +45,6 @@ Rails.application.routes.draw do
   end
   
   resources :ranks
-
   resources :price_lists
+  resources :departments
 end

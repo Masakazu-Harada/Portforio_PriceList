@@ -1,10 +1,72 @@
-<h1>ダッシュボード</h1>
+<h1 class="mb-4">ダッシュボード</h1>
 
-<ul>
-  <li><%= link_to "顧客別価格表(全社員閲覧可)", price_lists_path %></li>
-  <li><%= link_to "カタログ商品登録＆売価登録＆仕入れ値登録（営業・購買・業務のみ更新可）", products_path %></li>
-  <li><%= link_to "仕入先基本情報管理(全社員更新可能)", suppliers_path %></li>
-  <li><%= link_to "顧客情報管理（営業・購買・業務のみ更新可）", customers_path %></li>
-  <li><%= link_to "社員アカウント管理(システム管理者のみ更新可)", admin_users_path %></li>
-  <li><%= link_to "お客様アカウント管理(システム管理者のみ更新可)", admin_customer_users_path %></li>
-</ul>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">顧客別価格表</h5>
+          <p class="card-text">全社員閲覧可</p>
+          <%= link_to "詳細", price_lists_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">カタログ商品登録＆売価登録＆仕入れ値登録</h5>
+          <p class="card-text">営業・購買・業務のみ更新可</p>
+          <%= link_to "詳細", products_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">仕入先基本情報管理</h5>
+          <p class="card-text">全社員更新可能</p>
+          <%= link_to "詳細", suppliers_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">部署管理</h5>
+          <p class="card-text">管理・システム管理者のみ更新可</p>
+          <%= link_to "詳細", departments_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">顧客情報管理</h5>
+          <p class="card-text">営業・購買・業務のみ更新可</p>
+          <%= link_to "詳細", customers_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">社員アカウント管理</h5>
+          <p class="card-text">システム管理者のみ更新可</p>
+          <%= link_to "詳細", admin_users_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">お客様アカウント管理</h5>
+          <p class="card-text">システム管理者のみ更新可</p>
+                <%= link_to "詳細", admin_customer_users_path, class: "btn btn-primary" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  
