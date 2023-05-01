@@ -1,2 +1,23 @@
-<h1>Departments#show</h1>
-<p>Find me in app/views/departments/show.html.erb</p>
+<h1>部署の詳細</h1>
+
+<nav class="nav justify-content-end">
+  <%= link_to "部署一覧へ戻る", departments_path %>
+</nav>
+
+<div class="mb-3">
+  <table class="table table-hover">
+    <thead class="thead-default">
+      <tr>
+        <th><%= Department.human_attribute_name(:name) %></th>
+        <td><%= @department.name %></td>
+      </tr>
+      <tr>
+        <th><%= Department.human_attribute_name(:created_at) %></th>
+        <td><%= @department.created_at.strftime("%Y年%m月%d日") %></td>
+      </tr>
+    </thead>
+  </table>
+</div>
+
+<%= link_to "部署編集", edit_department_path(@department), class: "btn btn-secondary mr-3" %>
+<%= link_to "削除", department_path(@department), data: { turbo_method: :delete, turbo_confirm: "「#{@department.name}」のレコードを削除します。よろしいでしょうか？" }, class: "btn btn-danger" %>

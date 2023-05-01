@@ -1,2 +1,7 @@
-<h1>Departments#edit</h1>
-<p>Find me in app/views/departments/edit.html.erb</p>
+<h1>部署の編集</h1>
+
+<nav class="nav justify-content-end">
+  <%= link_to "部署一覧へ戻る", departments_path %>
+</nav>
+
+<%= render partial: "form", locals: { department: @department } %>

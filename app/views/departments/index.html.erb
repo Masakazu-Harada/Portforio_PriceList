@@ -1,2 +1,31 @@
-<h1>Departments#index</h1>
-<p>Find me in app/views/departments/index.html.erb</p>
+<h1>エムエフ販売 部署一覧</h1>
+
+<nav class="nav justify-content-end">
+  <%= link_to "ダッシュボードへ戻る", root_path %>
+</nav>
+
+<%= link_to "新規部署登録", new_department_path, class: "btn btn-primary" %>
+
+<div class="mb-3">
+  <table class="table table-hover">
+    <thead class="thead-default">
+      <tr>
+        <th><%= Department.human_attribute_name(:name) %></th>
+        <th><%= Department.human_attribute_name(:created_at) %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @departments.each do |department| %>
+        <tr>
+          <td><%= link_to department.name, department_path(department) %></td>
+          <td><%= department.created_at.strftime("%Y年%m月%d日") %></td>
+          <td>
+            <%= link_to "部署編集", edit_department_path(department), class: "btn btn-secondary mr-3" %>
+            <%= link_to "削除", department_path(department), data: { turbo_method: :delete, turbo_confirm: "「#{department.name}」のレコードを削除します。よろしいでしょうか？" }, class: "btn btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

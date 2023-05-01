@@ -1,2 +1,7 @@
-<h1>Departments#new</h1>
-<p>Find me in app/views/departments/new.html.erb</p>
+<h1>部署新規登録</h1>
+
+<nav class="nav justify-content-end">
+  <%= link_to "部署一覧へ戻る", departments_path %>
+</nav>
+
+<%= render partial: "form", locals: { department: @department } %>

@@ -46,6 +46,7 @@ ja:
         updated_at: 更新日時
       department:
         name: 部署名
+        created_at: 登録日時
       customer:
         name: 顧客名(会社名)
         share: 引き継ぎ事項
