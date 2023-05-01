@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_supplier: one
+  price_revision_date: 2023-05-01
+  previous_cost: 1
+  new_cost: 1
+
+two:
+  product_supplier: two
+  price_revision_date: 2023-05-01
+  previous_cost: 1
+  new_cost: 1
