@@ -48,6 +48,6 @@ class Admin::UsersController < ApplicationController
   end
 
   def set_departments
-    @departments = Department.all
+    @departments = Department.order(position: :asc)
   end
 end

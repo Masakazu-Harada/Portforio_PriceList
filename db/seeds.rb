@@ -7,14 +7,18 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 departments = [
-  {name: "購買部"},
-  {name: "営業部"},
-  {name: "管理部"},
-  {name: "業務部"},
+  {name: "東日本営業課", position: 1},
+  {name: "西日本営業課", position: 2},
+  {name: "購買課", position: 3},
+  {name: "業務課", position: 4},
+  {name: "管理課", position: 5},
+  {name: "物流課", position: 6},
+  {name: "営業推進課", position: 7},
 ]
 
 departments.each do |v|
   department = Department.find_or_initialize_by(name: v[:name])
+  department.assign_attributes(position: v[:position])
   department.save!
 end
 

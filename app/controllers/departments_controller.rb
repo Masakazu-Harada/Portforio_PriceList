@@ -1,6 +1,6 @@
 class DepartmentsController < ApplicationController
   def index
-    @departments = Department.all
+    @departments = Department.order(position: :asc)
   end
 
   def show
