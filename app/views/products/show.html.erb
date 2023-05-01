@@ -57,7 +57,7 @@
       </div>
       <div class="card-body">
         <% @product.product_suppliers.each do |prod_supp| %>
-          <p><strong><%= prod_supp.supplier.name %>:</strong></p>
+          <p><strong><%= prod_supp.supplier.name %></strong></p>
             <% if prod_supp.price_revision_date.present? && prod_supp.future_cost.present? %>
               <p>値上げ開始日: <%= prod_supp.price_revision_date.strftime('%Y年%m月%d日') %></p>
               <p>値上げ後の仕入原価: <%= prod_supp.future_cost %>円</p>
@@ -71,10 +71,13 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <%= link_to "仕入先の変更", new_product_supplier_path(@product), class: "btn btn-primary mt-3" %>
+  <div class="col-md-4">
+    <%= link_to "仕入先の更新", new_product_supplier_path(@product), class: "btn btn-primary mt-3" %>
   </div>
-  <div class="col-md-6">
-    <%= link_to "仕入れ値の変更", new_cost_product_suppliers_path(@product), class: "btn btn-success mt-3" %>
+  <div class="col-md-4">
+    <%= link_to "売価の更新", new_product_price_path(@product), class: "btn btn-secondary mt-3" %>
+  </div>
+  <div class="col-md-4">
+    <%= link_to "仕入原価の更新", new_cost_product_suppliers_path(@product), class: "btn btn-success mt-3" %>
   </div>
 </div>
