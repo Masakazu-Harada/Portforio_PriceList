@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_01_124444) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_02_004151) do
   create_table "affiliations", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "department_id", null: false
@@ -39,7 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_01_124444) do
   create_table "price_increase_histories", force: :cascade do |t|
     t.integer "product_supplier_id", null: false
     t.date "price_revision_date"
-    t.integer "previous_cost"
+    t.integer "old_cost"
     t.integer "new_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
