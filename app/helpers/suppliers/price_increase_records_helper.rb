@@ -1,0 +1,2 @@
+module Suppliers::PriceIncreaseRecordsHelper
+end
