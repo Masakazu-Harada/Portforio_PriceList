@@ -23,6 +23,9 @@ Rails.application.routes.draw do
     resources :suppliers, only: %i[index new create] do
       collection do
         post :cost_update
+        get :new_cost
+        post :create_cost
+        get :price_increase_history
       end
     end
   end
@@ -36,7 +39,10 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :suppliers
+  resources :suppliers do
+    resources :price_increase_records, only: [:index], module: :suppliers
+  end
+  
   resources :customers
   resources :customer_dashboards, only: [:index]
 

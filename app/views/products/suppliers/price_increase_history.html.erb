@@ -1,0 +1,21 @@
+<h2>価格改定履歴</h2>
+<table>
+  <thead>
+    <tr>
+      <th>仕入先名</th>
+      <th>価格改定日</th>
+      <th>旧仕入原価</th>
+      <th>新仕入原価</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @price_increase_records.each do |record| %>
+      <tr>
+        <td><%= record.product_supplier.supplier.name %></td>
+        <td><%= record.price_revision_date %></td>
+        <td><%= record.old_cost %></td>
+        <td><%= record.new_cost %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

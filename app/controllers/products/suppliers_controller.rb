@@ -1,4 +1,8 @@
 class Products::SuppliersController < ApplicationController
+  def index
+    @product = Product.find(params[:product_id])
+  end
+  
   def new
     @product = Product.find(params[:product_id])
     @suppliers = Supplier.all
@@ -15,10 +19,6 @@ class Products::SuppliersController < ApplicationController
     else
       render :new, notice: '仕入先の設定に失敗しました'
     end
-  end
-
-  def index
-    @product = Product.find(params[:product_id])
   end
 
   def cost_update
@@ -60,8 +60,12 @@ class Products::SuppliersController < ApplicationController
         )
       end
     end
-
     redirect_to @product
+  end
+
+  def price_increase_history
+    @product = Product.find(params[:product_id])
+    @price_increase_histories = @product.price_increase_histories.order(price_revision_date: :desc)
   end
 
   private
