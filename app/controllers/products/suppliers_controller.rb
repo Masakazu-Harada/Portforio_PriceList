@@ -45,6 +45,7 @@ class Products::SuppliersController < ApplicationController
   
     cost_data.each do |cost|
       product_supplier = @product.product_suppliers.find_or_initialize_by(supplier_id: cost[:supplier_id])
+      previous_cost = product_supplier.current_cost
       product_supplier.current_cost = cost[:cost_price]
       product_supplier.future_cost = cost[:raise_cost]
       product_supplier.price_revision_date = cost[:price_revision_date]
@@ -54,7 +55,7 @@ class Products::SuppliersController < ApplicationController
       if previous_cost != product_supplier.current_cost
         PriceIncreaseHistory.create!(
           product_supplier_id: product_supplier.id,
-          price_revision_date: product_supplier.price_revision_date
+          price_revision_date: product_supplier.price_revision_date,
           old_cost: previous_cost,
           new_cost: product_supplier.current_cost
         )

@@ -6,6 +6,6 @@ class PriceListsController < ApplicationController
 
   def show
     @customer = Customer.find(params[:id])
-    @products = Product.all
+    @products = Product.order(:catalog_page_number)
   end
 end

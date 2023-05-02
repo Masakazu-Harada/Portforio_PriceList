@@ -1,8 +1,9 @@
 class Product < ApplicationRecord
   #商品のモデル 中間モデルprocut_supplierを通して仕入れ先supplierモデルを取得する
-  has_many :product_suppliers
+  has_many :product_suppliers, dependent: :destroy
   has_many :suppliers, through: :product_suppliers
-  has_many :prices
+  has_many :prices, dependent: :destroy
+  has_many :price_increase_histories, through: :product_suppliers, dependent: :destroy
 
   with_options presence: true do
     validates :name

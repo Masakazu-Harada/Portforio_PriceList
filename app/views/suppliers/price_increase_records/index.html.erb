@@ -1,0 +1,26 @@
+<div class="container">
+  <h1 class="mt-4 mb-4">仕入先別価格改定履歴</h1>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">商品名</th>
+        <th scope="col">仕入改定日</th>
+        <th scope="col">旧仕入原価</th>
+        <th scope="col">新仕入原価</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <% product.price_increase_histories.each do |history| %>
+          <tr>
+            <td><%= product.name %></td>
+            <td><%= history.price_revision_date.strftime("%Y年%m月%d日") %></td>
+            <td><%= history.old_cost %></td>
+            <td><%= history.new_cost %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
