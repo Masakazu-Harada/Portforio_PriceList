@@ -6,6 +6,7 @@ class Products::SuppliersController < ApplicationController
   def new
     @product = Product.find(params[:product_id])
     @suppliers = Supplier.all
+    @ranks = Rank.all
   end
 
   def create
@@ -37,11 +38,13 @@ class Products::SuppliersController < ApplicationController
   def new_cost
     @product = Product.find(params[:product_id])
     @suppliers = Supplier.all
+    @ranks = Rank.all
   end
 
   def create_cost
     @product = Product.find(params[:product_id])
     cost_data = params[:cost].map { |cost| cost_params(cost) } # ストロングパラメータを適用
+    price_data = params[:price].map { |price| price_params(price) } # ストロングパラメータを適用
   
     cost_data.each do |cost|
       product_supplier = @product.product_suppliers.find_or_initialize_by(supplier_id: cost[:supplier_id])
@@ -61,6 +64,12 @@ class Products::SuppliersController < ApplicationController
         )
       end
     end
+    price_data.each do |price|
+      product_price = @product.prices.find_or_initialize_by(rank_id: price[:rank_id])
+      product_price.price = price[:price]
+      product_price.save
+    end
+
     redirect_to @product
   end
 
@@ -74,4 +83,8 @@ class Products::SuppliersController < ApplicationController
   def cost_params(cost)
     cost.permit(:cost_price, :supplier_id, :raise_cost, :price_revision_date)
   end  
+
+  def price_params(price)
+    price.permit(:price, :rank_id)
+  end
 end
