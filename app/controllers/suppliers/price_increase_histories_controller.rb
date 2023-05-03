@@ -1,19 +1,9 @@
-class Suppliers::PriceIncreaseRecordsController < ApplicationController
-  before_action :set_price_increase_history, only: [:edit, :update, :destroy]
+class Suppliers::PriceIncreaseHistoriesController < ApplicationController
+  before_action :set_price_increase_history, only: [:destroy]
   
   def index
     @supplier = Supplier.find(params[:supplier_id])
     @products = @supplier.products
-  end
-
-  def edit
-  end
-
-  def update
-    if @price_increase_history.update(price_increase_history_params)
-      product_name = @price_increase_history.product_supplier.product.name
-      redirect_to supplier_price_increase_histories_path(@supplier), notice: "#{product_name}のレコードの価格改定履歴を更新しました。"
-    end
   end
 
   def destroy
