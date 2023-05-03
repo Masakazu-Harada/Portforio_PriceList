@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   end
 
   resources :suppliers do
-    resources :price_increase_records, only: [:index], module: :suppliers
+    resources :price_increase_histories, only: [:index, :edit, :update, :destroy], module: :suppliers
   end
   
   resources :customers
