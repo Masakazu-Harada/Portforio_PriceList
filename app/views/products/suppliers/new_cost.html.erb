@@ -6,14 +6,14 @@
 
 <%= form_with url: create_cost_product_suppliers_path, method: :post, class: "row" do |form| %>
   <div class="col-12">
-    <div class="card mt-3">
+    <div class="card mt-3 border">
       <div class="card-body">
         <h5 class="card-title" style="font-size: 1.25rem; font-weight: 900;">売価設定</h5>
 
         <div class="row">
           <% @ranks.each_with_index do |rank, index| %>
             <div class="col-md-6">
-              <div class="form-group">
+              <div class="form-group border p-3">
                 <label for="<%= "price_#{rank.id}" %>"><%= rank.name %>の売価</label>
                 <% price = @product.prices.find_by(rank: rank) %>
                 <%= form.number_field :price, { name: "price[][price]", class: "form-control", id: "price_#{rank.id}", value: price&.price, min: 0, step: 1 } %>
@@ -33,19 +33,19 @@
   <% @product.suppliers.each do |supplier| %>
     <% product_supplier = @product.product_suppliers.find_by(supplier: supplier) %>
     <div class="col-md-6">
-      <div class="card mt-3">
+      <div class="card mt-3 border">
         <div class="card-body">
           <h5 class="card-title" style="font-size: 1.25rem; font-weight: 900;"><%= supplier.name %></h5>
-          <div class="form-group">
+          <div class="form-group border p-3">
             <label for="<%= "cost_#{supplier.id}" %>">現在の仕入原価</label>
             <%= form.number_field :cost, { name: "cost[][cost_price]", class: "form-control", id: "cost_#{supplier.id}", value: product_supplier&.current_cost, min: 0, step: 1 } %>
             <%= form.hidden_field :cost, name: "cost[][supplier_id]", value: supplier.id %>
           </div>
-          <div class="form-group">
+          <div class="form-group border p-3">
             <label for="<%= "raise_cost_#{supplier.id}" %>">値上げ後の仕入原価</label>
             <%= form.number_field :raise_cost, { name: "cost[][raise_cost]", class: "form-control", id: "raise_cost_#{supplier.id}", value: product_supplier&.future_cost, min: 0, step: 1 } %>
           </div>
-          <div class="form-group">
+          <div class="form-group border p-3">
             <label for="<%= "price_revision_date_#{supplier.id}" %>">値上げ開始日</label>
             <%= form.date_field :price_revision_date, { name: "cost[][price_revision_date]", class: "form-control", id: "price_revision_date_#{supplier.id}", value: product_supplier&.price_revision_date } %>
           </div>
@@ -53,6 +53,7 @@
       </div>
     </div>
   <% end %>
+
   <div class="col-12 mt-3">
     <%= form.submit "送信", class: "btn btn-primary" %>
   </div>
