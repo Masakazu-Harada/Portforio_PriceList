@@ -12,4 +12,8 @@ class Product < ApplicationRecord
     validates :spec
     #validates :is_original
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["code", "name"]
+  end
 end

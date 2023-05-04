@@ -4,6 +4,12 @@
   <%= link_to "顧客検索一覧へ戻る", price_lists_path %>
 </nav>
 
+<%= search_form_for @q, url: price_list_path(@customer), method: :get do |f| %>
+  <%= f.label :name, "商品名" %>
+  <%= f.search_field :name %>
+  <%= f.submit "検索" %>
+<% end %>
+
 <table class="table">
   <thead>
     <tr>
