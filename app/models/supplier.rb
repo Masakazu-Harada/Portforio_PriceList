@@ -13,4 +13,8 @@ class Supplier < ApplicationRecord
     #validates :minimum_shipping_unit #最低出荷単位
     #validates :prepayshipping_unit #送料元払い数量
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["name"]
+  end
 end

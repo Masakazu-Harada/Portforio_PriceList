@@ -4,19 +4,39 @@
   <%= link_to "ダッシュボードへ戻る", root_path %>
 </nav>
 
-<%= link_to "顧客情報新規登録", new_customer_path, class: "btn btn-primary" %>
+<%= link_to "顧客情報新規登録", new_customer_path, class: "btn btn-primary mb-3" %>
+
+<div class="row mb-3">
+  <div class="col-md-8">
+    <%= search_form_for @q, url: customers_path, method: :get, class: "form-inline" do |f| %>
+      <div class="input-group w-100">
+        <%= f.search_field :name_cont, class: "form-control w-75", placeholder: "顧客名で検索" %>
+        <div class="input-group-append">
+          <%= f.submit "検索", class: "btn btn-outline-secondary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
 
 <div class="mb-3">
   <table class="table table-hover">
     <thead class="thead-default">
       <tr>
         <th><%= Customer.human_attribute_name(:name) %></th>
+        <th>登録日時</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
       <% @customers.each do |customer| %>
         <tr>
           <td><%= link_to customer.name, customer_path(customer) %></td>
+          <td><%= customer.created_at.strftime("%Y年%m月%d日") %></td>
+          <td>
+            <%= link_to "編集", customer_path(customer), class: "btn btn-warning mr-3" %>
+            <%= link_to "削除", customer_path(customer), data: { turbo_method: :delete, turbo_confirm: "「#{customer.name}」のレコードを削除します。本当に削除しますか？" }, class: "btn btn-danger"%>
+          </td>
         </tr>
       <% end %>
     </tbody>
