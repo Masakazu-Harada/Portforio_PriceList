@@ -2,7 +2,8 @@ class Admin::UsersController < ApplicationController
   before_action :set_departments, only: %i[new edit create update]
 
   def index
-    @users = User.where.not(user_type: "Customer").includes(:affiliations)
+    @q = User.includes(:departments).ransack(params[:q])
+    @users = @q.result(distinct: true).where.not(user_type: "Customer")
   end
   
   def show

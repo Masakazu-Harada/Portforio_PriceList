@@ -13,4 +13,8 @@ class Department < ApplicationRecord
     物流課: 6,
     営業推進課: 7,
   }
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["name"]
+  end
 end

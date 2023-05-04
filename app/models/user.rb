@@ -18,4 +18,12 @@ class User < ApplicationRecord
 
   scope :employees, -> { where(user_type: "employee") }
   scope :customers, -> { where(user_type: "customer") }
+
+  def self.ransackable_associations(auth_object = nil)
+    ["departments"]
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["name"]
+  end
 end

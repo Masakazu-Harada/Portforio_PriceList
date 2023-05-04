@@ -1,14 +1,23 @@
-<h1>社員アカウント一覧</h1>
+<h1 class="mb-4">社員アカウント一覧</h1>
 
-<nav class="nav justify-content-end">
-  <%= link_to "ダッシュボードへ戻る", root_path %>
+<nav class="nav justify-content-end mb-4">
+  <%= link_to "ダッシュボードへ戻る", root_path, class: "nav-link" %>
 </nav>
 
-<%= link_to "新規登録", new_admin_user_path, class: "btn btn-primary" %>
+<%= link_to "新規登録", new_admin_user_path, class: "btn btn-primary mb-3" %>
+
+<%= search_form_for @q, url: admin_users_path, class: "form-inline mb-3" do |f| %>
+  <div class="input-group" style="width: 100%;">
+    <%= f.search_field :name_or_departments_name_cont, class: "form-control", placeholder: "氏名又は部署名検索" %>
+    <div class="input-group-append">
+      <%= f.submit "検索", class: "btn btn-secondary" %>
+    </div>
+  </div>
+<% end %>
 
 <div class="mb-3">
   <table class="table table-hover">
-    <thead class="thead-default">
+    <thead class="thead-light">
       <tr>
         <th><%= User.human_attribute_name(:name) %></th>
         <th><%= Department.human_attribute_name(:name) %></th>
@@ -18,7 +27,7 @@
     <tbody>
       <% @users.each do |user| %>
         <tr>
-          <td><%= link_to user.name, [:admin, user] %></td>
+          <td><%= link_to user.name, [:admin, user], class: "text-decoration-none" %></td>
           <td><%= user.departments.pluck(:name).join(',') %></td>
           <td><%= user.admin? ? "管理者権限あり" : "管理者権限なし" %></td>
         </tr>

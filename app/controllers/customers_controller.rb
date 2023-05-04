@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   def index
-    @q = Customer.ransack(params[:q])
+    @q = Customer.includes(:rank).ransack(params[:q])
     @customers = @q.result
   end
 
