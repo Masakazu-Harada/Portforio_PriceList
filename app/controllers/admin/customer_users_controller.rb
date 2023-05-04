@@ -2,7 +2,8 @@ class Admin::CustomerUsersController < ApplicationController
   before_action :set_customer_user, only: [:show, :edit, :update, :destroy]
   
   def index
-    @users = User.where(user_type: "Customer").includes(:affiliations)
+    @q = User.where(user_type: "Customer").includes(:customer).ransack(params[:q])
+    @users = @q.result(distinct: true)
   end
 
   def show

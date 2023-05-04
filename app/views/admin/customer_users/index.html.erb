@@ -1,13 +1,24 @@
 <div class="container mt-5">
   <h1 class="mb-4">お客様アカウント一覧</h1>
 
-  <nav class="nav justify-content-end">
-    <%= link_to "ダッシュボードへ戻る", root_path %>
+  <nav class="nav justify-content-end mb-4">
+    <%= link_to "ダッシュボードへ戻る", root_path, class: "nav-link" %>
   </nav>
-  
+
+  <%= link_to "新規登録", new_admin_customer_user_path, class: "btn btn-primary mb-3" %>
+
+<%= search_form_for @q, url: admin_customer_users_path, class: "form-inline mb-3" do |f| %>
+  <div class="input-group">
+    <%= f.search_field :customer_name_or_name_cont, class: "form-control", placeholder: "会社名またはお客様氏名を検索" %>
+    <div class="input-group-append">
+      <%= f.submit "検索", class: "btn btn-secondary" %>
+    </div>
+  </div>
+<% end %>
+
   <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
+    <table class="table table-hover">
+      <thead class="thead-light">
         <tr>
           <th scope="col">会社名</th>
           <th scope="col">お客様氏名</th>
@@ -29,6 +40,4 @@
       </tbody>
     </table>
   </div>
-
-  <%= link_to "新規登録", new_admin_customer_user_path, class: "btn btn-primary" %>
 </div>

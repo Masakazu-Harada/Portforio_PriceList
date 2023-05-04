@@ -20,7 +20,7 @@ class User < ApplicationRecord
   scope :customers, -> { where(user_type: "customer") }
 
   def self.ransackable_associations(auth_object = nil)
-    ["departments"]
+    ["departments", "customer"]
   end
 
   def self.ransackable_attributes(auth_object = nil)
