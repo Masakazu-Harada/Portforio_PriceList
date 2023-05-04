@@ -14,6 +14,10 @@ class Product < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["code", "name"]
+    ["code", "name", "catalog_page_number"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["price_increase_histories", "prices", "product_suppliers", "suppliers"]
   end
 end
