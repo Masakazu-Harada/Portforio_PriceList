@@ -6,7 +6,6 @@ class ProductSupplier < ApplicationRecord
 
   def update_cost_if_needed
     if price_revision_date.present? && future_cost.present? && price_revision_date <= Date.today
-      # Create a new PriceIncreaseHistory record with old_cost and new_cost
       price_increase_histories.create!(
         price_revision_date: price_revision_date,
         old_cost: current_cost,
