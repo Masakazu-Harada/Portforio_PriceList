@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_07_085639) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_07_123321) do
   create_table "affiliations", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "department_id", null: false
@@ -27,7 +27,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_085639) do
     t.integer "new_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["product_supplier_id"], name: "index_cost_increase_histories_on_product_supplier_id"
+    t.index ["user_id"], name: "index_cost_increase_histories_on_user_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -128,6 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_085639) do
   add_foreign_key "affiliations", "departments"
   add_foreign_key "affiliations", "users"
   add_foreign_key "cost_increase_histories", "product_suppliers"
+  add_foreign_key "cost_increase_histories", "users"
   add_foreign_key "customers", "ranks"
   add_foreign_key "price_change_histories", "prices"
   add_foreign_key "price_change_histories", "users"

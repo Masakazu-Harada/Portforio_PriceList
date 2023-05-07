@@ -9,9 +9,10 @@
     <thead>
       <tr>
         <th scope="col">商品名</th>
-        <th scope="col">仕入改定日</th>
+        <th scope="col">仕入値改定日</th>
         <th scope="col">旧仕入原価</th>
         <th scope="col">新仕入原価</th>
+        <th scope="col">更新者</th>
         <th scope="col">操作</th>
       </tr>
     </thead>
@@ -23,6 +24,7 @@
             <td><%= history.price_revision_date.strftime("%Y年%m月%d日") %></td>
             <td><%= history.old_cost %></td>
             <td><%= history.new_cost %></td>
+            <td><%= history.user.name %></td>
             <td>
               <%= link_to "削除", supplier_cost_increase_history_path(@supplier, history), data: { turbo_method: :delete, turbo_confirm: "この価格改定履歴を削除しますか？" }, class: "btn btn-danger" %>
             </td>
