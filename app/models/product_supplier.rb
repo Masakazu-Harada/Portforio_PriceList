@@ -2,7 +2,7 @@ class ProductSupplier < ApplicationRecord
   #多(productモデル) 対 多(supplierモデル)の中間モデル
   belongs_to :product
   belongs_to :supplier
-  has_many :price_increase_histories, dependent: :destroy
+  has_many :cost_increase_histories, dependent: :destroy
 
   def update_cost_if_needed
     if price_revision_date.present? && future_cost.present? && price_revision_date <= Date.today

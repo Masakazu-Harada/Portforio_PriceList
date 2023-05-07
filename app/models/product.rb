@@ -3,7 +3,7 @@ class Product < ApplicationRecord
   has_many :product_suppliers, dependent: :destroy
   has_many :suppliers, through: :product_suppliers
   has_many :prices, dependent: :destroy
-  has_many :price_increase_histories, through: :product_suppliers, dependent: :destroy
+  has_many :cost_increase_histories, through: :product_suppliers, dependent: :destroy
 
   with_options presence: true do
     validates :name

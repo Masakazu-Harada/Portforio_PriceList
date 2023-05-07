@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_02_004151) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_07_085639) do
   create_table "affiliations", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "department_id", null: false
@@ -18,6 +18,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_02_004151) do
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_affiliations_on_department_id"
     t.index ["user_id"], name: "index_affiliations_on_user_id"
+  end
+
+  create_table "cost_increase_histories", force: :cascade do |t|
+    t.integer "product_supplier_id", null: false
+    t.date "price_revision_date"
+    t.integer "old_cost"
+    t.integer "new_cost"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_supplier_id"], name: "index_cost_increase_histories_on_product_supplier_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -36,22 +46,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_02_004151) do
     t.integer "position"
   end
 
-  create_table "price_increase_histories", force: :cascade do |t|
-    t.integer "product_supplier_id", null: false
-    t.date "price_revision_date"
-    t.integer "old_cost"
-    t.integer "new_cost"
+  create_table "price_change_histories", force: :cascade do |t|
+    t.integer "price_id", null: false
+    t.integer "user_id", null: false
+    t.integer "old_price"
+    t.integer "new_price"
+    t.date "change_price_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_supplier_id"], name: "index_price_increase_histories_on_product_supplier_id"
+    t.index ["price_id"], name: "index_price_change_histories_on_price_id"
+    t.index ["user_id"], name: "index_price_change_histories_on_user_id"
   end
 
   create_table "prices", force: :cascade do |t|
     t.integer "product_id", null: false
     t.integer "rank_id", null: false
-    t.integer "price"
+    t.integer "current_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "future_price"
+    t.date "price_change_date"
     t.index ["product_id"], name: "index_prices_on_product_id"
     t.index ["rank_id"], name: "index_prices_on_rank_id"
   end
@@ -113,8 +127,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_02_004151) do
 
   add_foreign_key "affiliations", "departments"
   add_foreign_key "affiliations", "users"
+  add_foreign_key "cost_increase_histories", "product_suppliers"
   add_foreign_key "customers", "ranks"
-  add_foreign_key "price_increase_histories", "product_suppliers"
+  add_foreign_key "price_change_histories", "prices"
+  add_foreign_key "price_change_histories", "users"
   add_foreign_key "prices", "products"
   add_foreign_key "prices", "ranks"
   add_foreign_key "product_suppliers", "products"

@@ -17,14 +17,14 @@
     </thead>
     <tbody>
       <% @products.each do |product| %>
-        <% product.price_increase_histories.each do |history| %>
+        <% product.cost_increase_histories.each do |history| %>
           <tr>
             <td><%= product.name %></td>
             <td><%= history.price_revision_date.strftime("%Y年%m月%d日") %></td>
             <td><%= history.old_cost %></td>
             <td><%= history.new_cost %></td>
             <td>
-              <%= link_to "削除", supplier_price_increase_history_path(@supplier, history), data: { turbo_method: :delete, turbo_confirm: "この価格改定履歴を削除しますか？" }, class: "btn btn-danger" %>
+              <%= link_to "削除", supplier_cost_increase_history_path(@supplier, history), data: { turbo_method: :delete, turbo_confirm: "この価格改定履歴を削除しますか？" }, class: "btn btn-danger" %>
             </td>
           </tr>
         <% end %>
