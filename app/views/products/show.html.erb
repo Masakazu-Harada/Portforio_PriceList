@@ -26,7 +26,7 @@
         売価に関する項目
       </div>
       <div class="card-body">
-        <% @rank_prices = @product.prices.pluck(:price) %>
+        <% @rank_prices = @product.prices.pluck(:current_price) %>
         <p><strong>問屋:</strong> <%= @rank_prices[0] %>円</p>
         <p><strong>販売店:</strong> <%= @rank_prices[1] %>円</p>
         <p><strong>その他:</strong> <%= @rank_prices[2] %>円</p>

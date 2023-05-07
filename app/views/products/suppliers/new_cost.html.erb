@@ -16,7 +16,7 @@
               <div class="form-group border p-3">
                 <label for="<%= "price_#{rank.id}" %>"><%= rank.name %>の売価</label>
                 <% price = @product.prices.find_by(rank: rank) %>
-                <%= form.number_field :price, { name: "price[][price]", class: "form-control", id: "price_#{rank.id}", value: price&.price, min: 0, step: 1 } %>
+                <%= form.number_field :price, { name: "price[][price]", class: "form-control", id: "price_#{rank.id}", value: price&.current_price, min: 0, step: 1 } %>
                 <%= form.hidden_field :price, name: "price[][rank_id]", value: rank.id %>
               </div>
             </div>

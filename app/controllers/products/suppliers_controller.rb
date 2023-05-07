@@ -66,7 +66,7 @@ class Products::SuppliersController < ApplicationController
     end
     price_data.each do |price|
       product_price = @product.prices.find_or_initialize_by(rank_id: price[:rank_id])
-      product_price.price = price[:price]
+      product_price.current_price = price[:price]
       product_price.save
     end
 

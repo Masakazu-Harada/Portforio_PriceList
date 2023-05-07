@@ -29,7 +29,7 @@
           <tr>
             <% if index == 0 %>
               <td rowspan="<%= product.product_suppliers.count %>"><%= product.name %></td>
-              <td rowspan="<%= product.product_suppliers.count %>"><%= price.price %>円</td>
+              <td rowspan="<%= product.product_suppliers.count %>"><%= price.current_price %>円</td>
             <% end %>
             <td><%= product_supplier.supplier.name %></td>
             <td><%= product_supplier.cost %>円</td>
