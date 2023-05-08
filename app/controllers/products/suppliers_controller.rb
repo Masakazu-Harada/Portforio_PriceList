@@ -24,15 +24,22 @@ class Products::SuppliersController < ApplicationController
 
   def cost_update
     @product = Product.find(params[:product_id])
-    params['cost'].each do |cost|
-      prod_supp = @product.product_suppliers.find(cost['supplier_id'])
+  params['cost'].each do |cost|
+    prod_supp = @product.product_suppliers.find(cost['supplier_id'])
 
-      #prod_supp.update(cost_price: cost['cost_price'])
+    previous_cost = prod_supp.current_cost
+    prod_supp.current_cost = cost["cost_price"]
 
-      prod_supp.current_cost = cost['cost_price']
-
-      prod_supp.save
+    if prod_supp.save && previous_cost != prod_supp.current_cost
+      CostIncreaseHistory.create!(
+        product_supplier_id: prod_supp.id,
+        price_revision_date: prod_supp.price_revision_date,
+        old_cost: previous_cost,
+        new_cost: prod_supp.current_cost,
+        user_id: current_user.id
+      )
     end
+  end
   end
 
   def new_cost
@@ -45,7 +52,7 @@ class Products::SuppliersController < ApplicationController
     @product = Product.find(params[:product_id])
     cost_data = params[:cost].map { |cost| cost_params(cost) } # ストロングパラメータを適用
     price_data = params[:price].map { |price| price_params(price) } # ストロングパラメータを適用
-  
+
     cost_data.each do |cost|
       product_supplier = @product.product_suppliers.find_or_initialize_by(supplier_id: cost[:supplier_id])
       previous_cost = product_supplier.current_cost
@@ -54,13 +61,14 @@ class Products::SuppliersController < ApplicationController
       product_supplier.price_revision_date = cost[:price_revision_date]
       product_supplier.save
 
-      # 値上げ情報が変更された場合、CostIncreaseRecord を作成
+      # 値上げ情報が変更された場合、CostIncreaseHistory を作成
       if previous_cost != product_supplier.current_cost
         CostIncreaseHistory.create!(
           product_supplier_id: product_supplier.id,
           price_revision_date: product_supplier.price_revision_date,
           old_cost: previous_cost,
-          new_cost: product_supplier.current_cost
+          new_cost: product_supplier.current_cost,
+          user_id: current_user.id
         )
       end
     end
