@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
     @product = Product.new(product_params)
     Rank.all.each do |rank|
       @product.prices.new(
-        price: nil,
+        current_price: nil,
         rank: rank
       )
     end

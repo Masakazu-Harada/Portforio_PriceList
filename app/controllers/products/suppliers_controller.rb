@@ -54,9 +54,9 @@ class Products::SuppliersController < ApplicationController
       product_supplier.price_revision_date = cost[:price_revision_date]
       product_supplier.save
 
-      # 値上げ情報が変更された場合、PriceIncreaseRecord を作成
+      # 値上げ情報が変更された場合、CostIncreaseRecord を作成
       if previous_cost != product_supplier.current_cost
-        PriceIncreaseHistory.create!(
+        CostIncreaseHistory.create!(
           product_supplier_id: product_supplier.id,
           price_revision_date: product_supplier.price_revision_date,
           old_cost: previous_cost,
