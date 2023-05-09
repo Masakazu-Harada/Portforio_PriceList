@@ -11,7 +11,13 @@ class Products::SuppliersController < ApplicationController
 
   def create
     @product = Product.find(params[:product_id])
+  
+    # 関連する CostIncreaseHistory レコードを削除
+    @product.product_suppliers.each { |v| v.cost_increase_histories.destroy_all }
+
+    # その後、product_suppliers レコードを削除
     @product.product_suppliers.each { |v| v.delete }
+  
     suppliers_ids = params[:suppliers].compact_blank
     suppliers = Supplier.where(id: suppliers_ids)
     @product.suppliers << suppliers
@@ -24,22 +30,22 @@ class Products::SuppliersController < ApplicationController
 
   def cost_update
     @product = Product.find(params[:product_id])
-  params['cost'].each do |cost|
-    prod_supp = @product.product_suppliers.find(cost['supplier_id'])
+    params['cost'].each do |cost|
+      prod_supp = @product.product_suppliers.find(cost['supplier_id'])
 
-    previous_cost = prod_supp.current_cost
-    prod_supp.current_cost = cost["cost_price"]
+      previous_cost = prod_supp.current_cost
+      prod_supp.current_cost = cost["cost_price"]
 
-    if prod_supp.save && previous_cost != prod_supp.current_cost
-      CostIncreaseHistory.create!(
-        product_supplier_id: prod_supp.id,
-        price_revision_date: prod_supp.price_revision_date,
-        old_cost: previous_cost,
-        new_cost: prod_supp.current_cost,
-        user_id: current_user.id
-      )
+      if prod_supp.save && previous_cost != prod_supp.current_cost
+        CostIncreaseHistory.create!(
+          product_supplier_id: prod_supp.id,
+          price_revision_date: prod_supp.price_revision_date,
+          old_cost: previous_cost,
+          new_cost: prod_supp.current_cost,
+          user_id: current_user.id
+        )
+      end
     end
-  end
   end
 
   def new_cost
@@ -59,10 +65,9 @@ class Products::SuppliersController < ApplicationController
       product_supplier.current_cost = cost[:cost_price]
       product_supplier.future_cost = cost[:raise_cost]
       product_supplier.price_revision_date = cost[:price_revision_date]
-      product_supplier.save
 
       # 値上げ情報が変更された場合、CostIncreaseHistory を作成
-      if previous_cost != product_supplier.current_cost
+      if product_supplier.save && previous_cost != product_supplier.current_cost
         CostIncreaseHistory.create!(
           product_supplier_id: product_supplier.id,
           price_revision_date: product_supplier.price_revision_date,
@@ -72,6 +77,7 @@ class Products::SuppliersController < ApplicationController
         )
       end
     end
+
     price_data.each do |price|
       product_price = @product.prices.find_or_initialize_by(rank_id: price[:rank_id])
       product_price.current_price = price[:price]

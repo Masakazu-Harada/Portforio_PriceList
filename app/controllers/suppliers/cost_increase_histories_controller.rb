@@ -3,7 +3,12 @@ class Suppliers::CostIncreaseHistoriesController < ApplicationController
   
   def index
     @supplier = Supplier.find(params[:supplier_id])
+    @product_suppliers = @supplier.product_suppliers.includes(:product, :cost_increase_histories, :user)
     @products = @supplier.products
+    @cost_increase_histories = CostIncreaseHistory.joins(product_supplier: :supplier)
+                                                .where(product_suppliers: { supplier_id: @supplier.id })
+                                                .where.not(price_revision_date: nil)
+                                                .order(price_revision_date: :desc)
   end
 
   def destroy

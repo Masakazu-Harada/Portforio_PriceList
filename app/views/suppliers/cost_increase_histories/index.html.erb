@@ -17,11 +17,15 @@
       </tr>
     </thead>
     <tbody>
-      <% @products.each do |product| %>
-        <% product.cost_increase_histories.each do |history| %>
+      <% if @cost_increase_histories.empty? %>
+        <tr>
+          <td colspan="6" class="text-center">価格改定履歴がありません。</td>
+        </tr>
+      <% else %>
+        <% @cost_increase_histories.each do |history| %>
           <tr>
-            <td><%= product.name %></td>
-            <td><%= history.price_revision_date.strftime("%Y年%m月%d日") %></td>
+            <td><%= history.product_supplier.product.name %></td>
+            <td><%= history.price_revision_date ? history.price_revision_date.strftime("%Y年%m月%d日") : "未定" %></td>
             <td><%= history.old_cost %></td>
             <td><%= history.new_cost %></td>
             <td><%= history.user.name %></td>
