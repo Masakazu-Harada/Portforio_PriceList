@@ -44,7 +44,8 @@
       </div>
       <div class="card-body">
         <% @product.product_suppliers.each do |prod_supp| %>
-          <p><strong><%= prod_supp.supplier.name %>:</strong> <%= prod_supp.current_cost %>円</p>
+          <% revised_cost = (prod_supp.price_revision_date.present? && prod_supp.price_revision_date <= Date.today) ? prod_supp.future_cost : prod_supp.current_cost %>
+    <p><strong><%= prod_supp.supplier.name %>:</strong> <%= revised_cost %>円</p>
         <% end %>
       </div>
     </div>
