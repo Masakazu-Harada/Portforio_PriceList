@@ -17,12 +17,6 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(product_params)
-    Rank.all.each do |rank|
-      @product.prices.new(
-        current_price: nil,
-        rank: rank
-      )
-    end
     
     if @product.save
       redirect_to products_url, notice: "「#{@product.name}」をカタログへ追記しました。"
