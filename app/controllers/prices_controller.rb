@@ -1,6 +1,9 @@
 class PricesController < ApplicationController
   def new
     @product = Product.find(params[:product_id])
+    Rank.all.default_order.each do |rank|
+      @product.prices.build(rank: rank)
+    end
   end
 
   def create
