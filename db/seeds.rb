@@ -22,6 +22,10 @@ departments.each do |v|
   department.save!
 end
 
+# 商品と仕入先のサンプルデータを作成
+product = Product.create!(name: "Sample Product", code: "SP-01", catalog_page_number: 1, spec: "10cm")
+supplier = Supplier.create!(name: "Sample Supplier", address: "Sample Address", phone_number: "000-0000-0000")
+
 ranks = [
   {name: "問屋"},
   {name: "販売店"},
@@ -37,8 +41,8 @@ end
 admin_user = {
   name: "原田 勝利", # 管理者ユーザー名
   email: "seungri.uhm@gmail.com",
-  password: "dodoria3", # 実際のパスワードに置き換えてください
-  password_confirmation: "dodoria3", # 実際のパスワードに置き換えてください
+  password: "password", # 実際のパスワードに置き換えてください
+  password_confirmation: "password", # 実際のパスワードに置き換えてください
   admin: true
 }
 
@@ -46,20 +50,18 @@ user = User.find_or_initialize_by(email: admin_user[:email])
 user.assign_attributes(admin_user)
 user.save!
 
-# 商品と仕入先のサンプルデータを作成
-product = Product.create!(name: "Sample Product", code: "SP-01", catalog_page_number: 1, spec: "10cm")
-supplier = Supplier.create!(name: "Sample Supplier", address: "Sample Address", phone_number: "000-0000-0000")
+puts "Finish db:seed"
 
 # 商品と仕入先の関連データを作成
 product_supplier = ProductSupplier.create!(product_id: product.id, supplier_id: supplier.id)
 
 # 価格改定履歴のデータを作成
-previous_cost = 100
-current_cost = 150
-
-PriceIncreaseHistory.create!(
-  product_supplier_id: product_supplier.id,
-  price_revision_date: Date.today,
-  old_cost: previous_cost,
-  new_cost: current_cost
-)
+# previous_cost = 100
+# current_cost = 150
+#
+# PriceIncreaseHistory.create!(
+#   product_supplier_id: product_supplier.id,
+#   price_revision_date: Date.today,
+#   old_cost: previous_cost,
+#   new_cost: current_cost
+# )
