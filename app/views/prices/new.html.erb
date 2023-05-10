@@ -11,10 +11,9 @@
     <div class="form-group">
       <%= f.label price.rank.name %>
       <%= f.hidden_field 'price[][rank_id]', value: price.rank.id %>
-      <%= f.number_field 'price[][price]', value: price.current_price, class: 'form-control' %>
+      <%= f.number_field 'price[][price]', value: '', class: 'form-control' %>
     </div>
   <% end %>
 
   <%= f.submit %>
 <% end %>
-

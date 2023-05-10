@@ -20,4 +20,12 @@ class Product < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     ["price_increase_histories", "prices", "product_suppliers", "suppliers"]
   end
+
+  before_validation :setup_prices
+
+  def setup_prices
+    Rank.all.each do |rank|
+      self.prices.find_or_initialize_by(rank: rank)
+    end
+  end
 end
