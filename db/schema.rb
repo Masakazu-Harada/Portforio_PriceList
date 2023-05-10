@@ -10,10 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_07_123321) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_10_094434) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "affiliations", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "department_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "department_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["department_id"], name: "index_affiliations_on_department_id"
@@ -21,19 +24,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_123321) do
   end
 
   create_table "cost_increase_histories", force: :cascade do |t|
-    t.integer "product_supplier_id", null: false
+    t.bigint "product_supplier_id", null: false
     t.date "price_revision_date"
     t.integer "old_cost"
     t.integer "new_cost"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.index ["product_supplier_id"], name: "index_cost_increase_histories_on_product_supplier_id"
     t.index ["user_id"], name: "index_cost_increase_histories_on_user_id"
   end
 
   create_table "customers", force: :cascade do |t|
-    t.integer "rank_id", null: false
+    t.bigint "rank_id", null: false
     t.string "name"
     t.text "share"
     t.datetime "created_at", null: false
@@ -49,8 +52,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_123321) do
   end
 
   create_table "price_change_histories", force: :cascade do |t|
-    t.integer "price_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "price_id", null: false
+    t.bigint "user_id", null: false
     t.integer "old_price"
     t.integer "new_price"
     t.date "change_price_date"
@@ -61,20 +64,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_07_123321) do
   end
 
   create_table "prices", force: :cascade do |t|
-    t.integer "product_id", null: false
-    t.integer "rank_id", null: false
-    t.integer "current_price"
+    t.bigint "product_id", null: false
+    t.bigint "rank_id", null: false
+    t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "future_price"
-    t.date "price_change_date"
     t.index ["product_id"], name: "index_prices_on_product_id"
     t.index ["rank_id"], name: "index_prices_on_rank_id"
   end
 
   create_table "product_suppliers", force: :cascade do |t|
-    t.integer "product_id", null: false
-    t.integer "supplier_id", null: false
+    t.bigint "product_id", null: false
+    t.bigint "supplier_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "current_cost"
