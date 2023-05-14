@@ -1,82 +1,69 @@
-<h1>カタログ登録商品詳細</h1>
+<h1><%= Product.model_name.human %> Detail</h1>
 
-<nav class="nav justify-content-end">
-  <%= link_to "商品一覧へ戻る", products_path, class: "nav-link" %>
-</nav>
-
-<div class="row">
-  <div class="col-md-6">
-    <div class="card mt-3">
-      <div class="card-header">
-        商品に関する項目
-      </div>
-      <div class="card-body">
-        <p><strong><%= Product.human_attribute_name(:catalog_page_number) %>:</strong> <%= @product.catalog_page_number %></p>
-        <p><strong><%= Product.human_attribute_name(:code) %>:</strong> <%= @product.code %></p>
-        <p><strong><%= Product.human_attribute_name(:name) %>:</strong> <%= @product.name %></p>
-        <p><strong><%= Product.human_attribute_name(:spec) %>:</strong> <%= @product.spec %></p>
-        <p><strong><%= Product.human_attribute_name(:is_original) %>:</strong> <%= @product.is_original ? "オリジナル" : "仕入れ商品" %></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="card mt-3">
-      <div class="card-header">
-        売価に関する項目
-      </div>
-      <div class="card-body">
-        <% @rank_prices.each do |rank, price| %>
-          <p><strong><%= rank %> :</strong> <%= price %>円</p>
-        <% end %>
-      </div>
-    </div>
-  </div>
+<div class="table-responsive">
+  <table class="table">
+    <tr>
+      <th><%= Product.human_attribute_name(:catalog_page_number) %></th>
+      <td><%= @product.catalog_page_number %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:code) %></th>
+      <td><%= @product.code %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:name) %></th>
+      <td><%= @product.name %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:spec) %></th>
+      <td><%= @product.spec %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:carton) %></th>
+      <td><%= @product.carton %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:unit) %></th>
+      <td><%= @product.unit %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:prepayment) %></th>
+      <td><%= @product.prepayment %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:is_separate) %></th>
+      <td><%= @product.is_separate ? '○' : '×' %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:is_original) %></th>
+      <td><%= @product.is_original ? 'オリジナル' : '仕入れ商品' %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:location) %></th>
+      <td><%= @product.location %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:due_date) %></th>
+      <td><%= @product.due_date %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:same_day_shipping) %></th>
+      <td><%= @product.same_day_shipping ? '○' : '×' %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:shipping_rate) %></th>
+      <td><%= @product.shipping_rate %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:hokkaido_shipping_rate) %></th>
+      <td><%= @product.hokkaido_shipping_rate %></td>
+    </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:notes) %></th>
+      <td><%= @product.notes %></td>
+    </tr>
+  </table>
 </div>
 
-<div class="row">
-  <div class="col-md-6">
-    <div class="card mt-3">
-      <div class="card-header">
-        現在の仕入値に関する項目
-      </div>
-      <div class="card-body">
-        <% @product.product_suppliers.each do |prod_supp| %>
-          <% revised_cost = (prod_supp.cost_revision_date.present? && prod_supp.cost_revision_date <= Date.today) ? prod_supp.future_cost : prod_supp.current_cost %>
-    <p><strong><%= prod_supp.supplier.name %>:</strong> <%= revised_cost %>円</p>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="card mt-3">
-      <div class="card-header">
-        仕入原価の値上げに関する項目
-      </div>
-      <div class="card-body">
-        <% @product.product_suppliers.each do |prod_supp| %>
-          <p><strong><%= prod_supp.supplier.name %></strong></p>
-            <% if prod_supp.cost_revision_date.present? && prod_supp.future_cost.present? %>
-              <p>値上げ開始日: <%= prod_supp.cost_revision_date.strftime('%Y年%m月%d日') %></p>
-              <p>値上げ後の仕入原価: <%= prod_supp.future_cost %>円</p>
-            <% else %>
-              <p>現時点で値上げ予定はありません。</p>
-            <% end %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-4">
-    <%= link_to "仕入先の更新", new_product_supplier_path(@product), class: "btn btn-primary mt-3" %>
-  </div>
-  <div class="col-md-4">
-    <%= link_to "売価の更新", new_product_price_path(@product), class: "btn btn-secondary mt-3" %>
-  </div>
-  <div class="col-md-4">
-    <%= link_to "仕入原価の更新", new_cost_product_suppliers_path(@product), class: "btn btn-success mt-3" %>
-  </div>
-</div>
+<%= link_to 'Edit', edit_product_path(@product), class: 'btn btn-primary' %>
+<%= link_to 'Back', products_path, class: 'btn btn-secondary' %>

@@ -6,13 +6,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    
-    @rank_prices = {}
-    Rank.all.default_order.each do |rank|
-      price = @product.prices.find_by(rank: rank)
-    @rank_prices[rank.name] = price.present? ? price.price : nil
-    end
-    @price_revisions = @product.product_suppliers.pluck(:cost_revision_date, :future_cost)
   end
 
   def new
@@ -51,6 +44,6 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :code, :catalog_page_number, :spec, :is_original)
+    params.require(:product).permit(:catalog_page_number, :code, :name, :spec, :carton, :unit, :prepayment, :is_separate, :is_original, :location, :due_date, :same_day_shipping, :shipping_rate, :hokkaido_shipping_rate, :notes)
   end
 end
