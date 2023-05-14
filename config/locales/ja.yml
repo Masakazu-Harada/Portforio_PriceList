@@ -22,6 +22,16 @@ ja:
         is_original: オリジナル Or 仕入れ
         created_at: 登録日時
         updated_at: 更新日時
+        carton: 入数
+        unit: 単位
+        is_separate: バラ出荷可否
+        location: 出荷場所
+        due_date: 締め時間
+        same_day_shipping: 当日出荷可否
+        shipping_rate: 運賃条件
+        hokkaido_shipping_rate: 北海道運賃条件
+        notes: 備考欄
+        prepayment: 送料元払い数
       user:
         name: 氏名
         email: メールアドレス

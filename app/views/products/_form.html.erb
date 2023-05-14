@@ -7,25 +7,70 @@
 <% end %>
 
 <%= form_with model: product do |f| %>
-  <div class=form-group>
+  <div class="form-group">
     <%= f.label :catalog_page_number %>
-    <%= f.text_field :catalog_page_number, class: "form-control", id: "product_catalog_page_number" %>
+    <%= f.number_field :catalog_page_number, class: "form-control" %>
   </div>
-  <div class=form-group>
+  <div class="form-group">
     <%= f.label :code %>
-    <%= f.text_field :code, class: "form-control", id: "product_code" %>
+    <%= f.text_field :code, class: "form-control" %>
   </div>
-  <div class=form-group>
+  <div class="form-group">
     <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control", id: "product_name" %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
-  <div class=form-group>
+  <div class="form-group">
     <%= f.label :spec %>
-    <%= f.text_field :spec, class: "form-control", id: "product_spec" %>
+    <%= f.text_field :spec, class: "form-control" %>
   </div>
-  <div class=form-group>
+  <div class="form-group">
+    <%= f.label :carton %>
+    <%= f.number_field :carton, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :unit %>
+    <%= f.text_field :unit, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :prepayment %>
+    <%= f.number_field :prepayment, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :unit %>
+    <%= f.text_field :unit, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :is_separate %>
+    <%= f.select :is_separate, { '○' => true, '×' => false }, {}, class: "form-control" %>
+  </div>
+  <div class="form-group">
     <%= f.label :is_original %>
-    <%= f.text_field :is_original, class: "form-control", id: "product_is_original" %>
+    <%= f.select :is_original, { 'オリジナル' => true, '仕入れ商品' => false }, {}, class: "form-control" %>
   </div>
+  <div class="form-group">
+    <%= f.label :location %>
+    <%= f.text_field :location, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :due_date %>
+    <%= f.text_field :due_date, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :same_day_shipping %>
+    <%= f.select :same_day_shipping, { '○' => true, '×' => false }, {}, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :shipping_rate %>
+    <%= f.text_field :shipping_rate, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :hokkaido_shipping_rate %>
+    <%= f.text_field :hokkaido_shipping_rate, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :notes %>
+    <%= f.text_area :notes, class: "form-control" %>
+  </div>
+
   <%= f.submit nil, class: "btn btn-primary" %>
 <% end %>
