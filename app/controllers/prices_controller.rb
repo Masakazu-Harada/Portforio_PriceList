@@ -1,4 +1,10 @@
 class PricesController < ApplicationController
+  def index
+    @product = Product.find(params[:product_id])
+    @prices = @product.prices
+  end
+
+  
   def new
     @product = Product.find(params[:product_id])
       Rank.all.default_order.each do |rank|
