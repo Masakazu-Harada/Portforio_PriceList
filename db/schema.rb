@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_13_023355) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_14_061015) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,6 +93,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_13_023355) do
     t.boolean "is_original", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "carton"
+    t.string "unit"
+    t.boolean "is_separate", default: false
+    t.string "location"
+    t.string "due_date"
+    t.boolean "same_day_shipping", default: false
+    t.string "shipping_rate"
+    t.string "hokkaido_shipping_rate"
+    t.string "notes"
+    t.integer "prepayment"
   end
 
   create_table "ranks", force: :cascade do |t|
