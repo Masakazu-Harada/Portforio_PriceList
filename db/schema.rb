@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_12_050726) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_13_023355) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_12_050726) do
 
   create_table "cost_increase_histories", force: :cascade do |t|
     t.bigint "product_supplier_id", null: false
-    t.date "price_revision_date"
+    t.date "cost_revision_date"
     t.integer "old_cost"
     t.integer "new_cost"
     t.datetime "created_at", null: false

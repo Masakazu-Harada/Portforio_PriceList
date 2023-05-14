@@ -8,12 +8,15 @@ class PricesController < ApplicationController
 
   def create
     @product = Product.find(params[:product_id])
-    params['price'].each do |price_record|
-      price = @product.prices.find_or_initialize_by(rank_id: price_record['rank_id'])
-      price.foobar = price_record['price']
-      price.save
+    params[:price].each do |price_params|
+      rank = Rank.find(price_params[:rank_id])
+      price = @product.prices.new(price: price_params[:price], rank: rank)
+      unless price.save
+        redirect_to products_path, alert: "価格の登録に失敗しました。"
+        return
+      end
     end
-    redirect_to products_url, notice: "「#{@product.name}」の売価をカタログへ登録しました。"
+    redirect_to product_path(@product), notice: "「#{@product.name}」の売価をカタログへ登録しました。"
   end
 
   def edit
@@ -23,4 +26,9 @@ class PricesController < ApplicationController
   def update
   end
 
+  def price_params
+    params.require(:price).map do |price|
+      price.permit(:price, :rank_id)
+    end
+  end
 end

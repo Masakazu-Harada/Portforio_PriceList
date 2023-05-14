@@ -26,11 +26,9 @@
         売価に関する項目
       </div>
       <div class="card-body">
-        <% @rank_prices = @product.prices.pluck(:price) %>
-        <p><strong>問屋:</strong> <%= @rank_prices[0] %>円</p>
-        <p><strong>販売店:</strong> <%= @rank_prices[1] %>円</p>
-        <p><strong>その他:</strong> <%= @rank_prices[2] %>円</p>
-        <p><strong>末端:</strong> <%= @rank_prices[3] %>円</p>
+        <% @rank_prices.each do |rank, price| %>
+          <p><strong><%= rank %> :</strong> <%= price %>円</p>
+        <% end %>
       </div>
     </div>
   </div>
@@ -44,7 +42,7 @@
       </div>
       <div class="card-body">
         <% @product.product_suppliers.each do |prod_supp| %>
-          <% revised_cost = (prod_supp.price_revision_date.present? && prod_supp.price_revision_date <= Date.today) ? prod_supp.future_cost : prod_supp.current_cost %>
+          <% revised_cost = (prod_supp.cost_revision_date.present? && prod_supp.cost_revision_date <= Date.today) ? prod_supp.future_cost : prod_supp.current_cost %>
     <p><strong><%= prod_supp.supplier.name %>:</strong> <%= revised_cost %>円</p>
         <% end %>
       </div>
@@ -59,8 +57,8 @@
       <div class="card-body">
         <% @product.product_suppliers.each do |prod_supp| %>
           <p><strong><%= prod_supp.supplier.name %></strong></p>
-            <% if prod_supp.price_revision_date.present? && prod_supp.future_cost.present? %>
-              <p>値上げ開始日: <%= prod_supp.price_revision_date.strftime('%Y年%m月%d日') %></p>
+            <% if prod_supp.cost_revision_date.present? && prod_supp.future_cost.present? %>
+              <p>値上げ開始日: <%= prod_supp.cost_revision_date.strftime('%Y年%m月%d日') %></p>
               <p>値上げ後の仕入原価: <%= prod_supp.future_cost %>円</p>
             <% else %>
               <p>現時点で値上げ予定はありません。</p>

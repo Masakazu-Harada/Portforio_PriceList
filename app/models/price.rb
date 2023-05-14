@@ -4,32 +4,39 @@ class Price < ApplicationRecord
   belongs_to :rank
   has_many :price_change_histories, dependent: :destroy
 
-  attr_accessor :foobar
   attr_accessor :update_price
   attr_accessor :published_at
 
-  after_save do
-    self.histories.create(
-      price: update_price.to_i,
-      published_at: published_at
-    )
-  end
+  after_save :create_price_change_history, if: :price_changed?
+  # TODO: メーラー機能を実装する時に追記する予定
+  # after_save do
+  #   if self.published_at && self.published_at >= Date.today
+  #     customer_notification
+  #   end
+  # end
 
   def current_price
-    # self.histories.last[:price]
-
-    self.hisotories.order(id: :desc).where.not(published_at: '今日よりもミライの日付').last
+    last_price_change = self.price_change_histories.order(id: :desc).where.not("change_price_date > ?", Date.today).first
+    last_price_change ? last_price_change.new_price : self.price
   end
 
   after_save do
-    if self.published_at >= Date.today
+    if self.published_at && self.published_at >= Date.today
       customer_notification
     end
   end
 
   private
 
-  def customer_notification
-    # お客さんにいついつ価格の値上げを予定しています
+  def create_price_change_history
+    self.price_change_histories.create(
+      old_price: self.price_was,
+      new_price: self.price,
+      change_price_date: self.published_at || Time.current
+    )
   end
+
+  #def notify_customers
+    # ここにお客さんへの通知処理を書く
+  #end
 end

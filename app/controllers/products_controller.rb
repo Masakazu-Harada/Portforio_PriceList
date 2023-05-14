@@ -6,9 +6,14 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-    @rank_prices = @product.prices.pluck(:price)
+    
+    @rank_prices = {}
+    Rank.all.default_order.each do |rank|
+      price = @product.prices.find_by(rank: rank)
+    @rank_prices[rank.name] = price.present? ? price.price : nil
+    end
+    binding.pry
     @price_revisions = @product.product_suppliers.pluck(:cost_revision_date, :future_cost)
-
   end
 
   def new

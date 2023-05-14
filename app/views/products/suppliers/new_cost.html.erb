@@ -38,16 +38,16 @@
           <h5 class="card-title" style="font-size: 1.25rem; font-weight: 900;"><%= supplier.name %></h5>
           <div class="form-group border p-3">
             <label for="<%= "cost_#{supplier.id}" %>">現在の仕入原価</label>
-            <%= form.number_field :cost, { name: "cost[][cost_price]", class: "form-control", id: "cost_#{supplier.id}", value: product_supplier&.current_cost, min: 0, step: 1 } %>
+            <%= form.number_field :cost, { name: "cost[][current_cost]", class: "form-control", id: "cost_#{supplier.id}", value: product_supplier&.current_cost, min: 0, step: 1 } %>
             <%= form.hidden_field :cost, name: "cost[][supplier_id]", value: supplier.id %>
           </div>
           <div class="form-group border p-3">
-            <label for="<%= "raise_cost_#{supplier.id}" %>">値上げ後の仕入原価</label>
-            <%= form.number_field :raise_cost, { name: "cost[][raise_cost]", class: "form-control", id: "raise_cost_#{supplier.id}", value: product_supplier&.future_cost, min: 0, step: 1 } %>
+            <label for="<%= "future_cost_#{supplier.id}" %>">値上げ後の仕入原価</label>
+            <%= form.number_field :future_cost, { name: "cost[][future_cost]", class: "form-control", id: "raise_cost_#{supplier.id}", value: product_supplier&.future_cost, min: 0, step: 1 } %>
           </div>
           <div class="form-group border p-3">
-            <label for="<%= "price_revision_date_#{supplier.id}" %>">値上げ開始日</label>
-            <%= form.date_field :price_revision_date, { name: "cost[][price_revision_date]", class: "form-control", id: "price_revision_date_#{supplier.id}", value: product_supplier&.price_revision_date } %>
+            <label for="<%= "cost_revision_date_#{supplier.id}" %>">値上げ開始日</label>
+            <%= form.date_field :cost_revision_date, { name: "cost[][cost_revision_date]", class: "form-control", id: "price_revision_date_#{supplier.id}", value: product_supplier&.cost_revision_date } %>
           </div>
         </div>
       </div>
