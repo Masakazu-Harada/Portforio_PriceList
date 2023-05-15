@@ -1,15 +1,14 @@
 class PricesController < ApplicationController
   def index
-    @product = Product.find(params[:product_id])
-    @prices = @product.prices
+    @products = Product.all.includes(:prices, :user)
+    @ranks = Rank.all
   end
 
-  
   def new
     @product = Product.find(params[:product_id])
-      Rank.all.default_order.each do |rank|
-        @product.prices.build(rank: rank)
-      end
+    @prices = Rank.all.default_order.map do |rank|
+      @product.prices.build(rank: rank)
+    end
   end
 
   def create
@@ -26,15 +25,22 @@ class PricesController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
+    @price = Price.find(params[:id])
   end
 
   def update
+    @price = Price.find(params[:id])
+    if @price.update(price_params)
+      redirect_to prices_path, notice: "価格が更新されました。"
+    else
+      flash.now[:alert] = "価格の更新に失敗しました。"
+      render :edit
+    end
   end
 
+  private
+
   def price_params
-    params.require(:price).map do |price|
-      price.permit(:price, :rank_id)
-    end
+    params.require(:price).permit(:price, :rank_id)
   end
 end
