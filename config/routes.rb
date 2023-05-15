@@ -13,11 +13,10 @@ Rails.application.routes.draw do
     resources :customer_users
   end
 
-  shallow do
-    resources :products do
-      resources :prices
-    end
+  resources :products do
+    resources :prices, only: [:new, :create, :edit, :update]
   end
+  resources :prices, only: [:index]
 
   resources :products, module: :products do
     resources :suppliers, only: %i[index new create] do

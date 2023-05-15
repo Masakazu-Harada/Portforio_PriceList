@@ -1,0 +1,45 @@
+<!-- 売価一覧ページ（views/prices/index.html.erb） -->
+<h1>売価一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ページ</th>
+      <th>商品名</th>
+      <% @ranks.each do |rank| %>
+        <th><%= rank.name %></th>
+      <% end %>
+      <th>更新者</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.catalog_page_number %></td>
+        <td><%= product.name %></td>
+        <% @ranks.each do |rank| %>
+          <% if (price_record = product.prices.find_by(rank: rank)) %>
+            <td><%= price_record.price %></td>
+          <% else %>
+            <td>未設定</td>
+          <% end %>
+        <% end %>
+        <% if (last_change = @price_change_histories.find { |history| history.price.product_id == product.id }) %>
+          <td><%= last_change.user.name %></td>
+        <% else %>
+          <td>未更新</td>
+        <% end %>
+        <td>
+          <% if product.prices.any? %>
+            <% price = product.prices %>
+            <%= link_to '売価更新', edit_product_price_path(product, price) %>
+          <% else %>
+            <%= link_to '新規売価追加', new_product_price_path(product) %>
+          <% end %>
+          <%= link_to '商品編集', edit_product_path(product) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

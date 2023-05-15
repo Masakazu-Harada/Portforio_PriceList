@@ -1,7 +1,8 @@
 class PricesController < ApplicationController
   def index
-    @products = Product.all.includes(:prices, :user)
+    @products = Product.all.includes(:prices)
     @ranks = Rank.all
+    @price_change_histories = PriceChangeHistory.includes(:user).all
   end
 
   def new

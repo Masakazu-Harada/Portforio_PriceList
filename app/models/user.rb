@@ -3,10 +3,12 @@ class User < ApplicationRecord
   has_secure_password
   has_many :affiliations, dependent: :destroy
   has_many :departments, through: :affiliations
+  has_many :product_histories
   belongs_to :customer, optional: true
 
   validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email,:presence => true, :format => { :with => VALID_EMAIL_REGEX }
 
   def employee?
     self.user_type == 'employee'

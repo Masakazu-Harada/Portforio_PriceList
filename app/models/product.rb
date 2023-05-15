@@ -4,13 +4,13 @@ class Product < ApplicationRecord
   has_many :suppliers, through: :product_suppliers
   has_many :prices, dependent: :destroy
   has_many :cost_increase_histories, through: :product_suppliers, dependent: :destroy
+  has_many :product_histories, dependent: :destroy
 
   with_options presence: true do
     validates :name
     validates :code
     validates :catalog_page_number
     validates :spec
-    #validates :is_original
   end
 
   def self.ransackable_attributes(auth_object = nil)
