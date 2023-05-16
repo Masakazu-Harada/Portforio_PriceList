@@ -1,4 +1,3 @@
-<!-- 売価一覧ページ（views/prices/index.html.erb） -->
 <h1>売価一覧</h1>
 
 <table>
@@ -31,13 +30,13 @@
           <td>未更新</td>
         <% end %>
         <td>
-          <% if product.prices.any? %>
-            <% price = product.prices %>
-            <%= link_to '売価更新', edit_product_price_path(product, price) %>
+          <% if product.prices.where(price: nil).any? %>
+            <%= link_to "新規売価追加", new_product_price_path(product) %>
           <% else %>
-            <%= link_to '新規売価追加', new_product_price_path(product) %>
+            <% price = product.prices.where.not(price: nil).last %>
+            <%= link_to "売価更新", edit_product_price_path(product, price) %>
           <% end %>
-          <%= link_to '商品編集', edit_product_path(product) %>
+          <%= link_to "商品編集", edit_product_path(product) %>
         </td>
       </tr>
     <% end %>
