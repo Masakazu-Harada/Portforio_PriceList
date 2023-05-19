@@ -3,6 +3,7 @@ class Price < ApplicationRecord
   belongs_to :product
   belongs_to :rank
   has_many :price_change_histories, dependent: :destroy
+  validates_uniqueness_of :rank_id, scope: :product_id
 
   attr_accessor :update_price
   attr_accessor :published_at

@@ -14,7 +14,12 @@ Rails.application.routes.draw do
   end
 
   resources :products do
-    resources :prices, only: [:new, :create, :edit, :update]
+    resources :prices, only: [:new, :create, :edit, :update] do
+      collection do
+        get :bulk_edit
+        patch :bulk_update
+      end
+    end
   end
   resources :prices, only: [:index]
 
