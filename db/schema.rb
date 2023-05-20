@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_19_120920) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_20_055724) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,10 +69,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_120920) do
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "updated_by"
+    t.integer "updated_by_user_id"
+    t.integer "user_id"
+    t.integer "created_by_user_id"
+    t.integer "future_price"
+    t.date "price_increase_date"
+    t.index ["created_by_user_id"], name: "index_prices_on_created_by_user_id"
     t.index ["product_id", "rank_id"], name: "index_prices_on_product_id_and_rank_id", unique: true
     t.index ["product_id"], name: "index_prices_on_product_id"
     t.index ["rank_id"], name: "index_prices_on_rank_id"
+    t.index ["user_id"], name: "index_prices_on_user_id"
   end
 
   create_table "product_suppliers", force: :cascade do |t|

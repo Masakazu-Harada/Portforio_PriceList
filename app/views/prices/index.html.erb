@@ -1,47 +1,57 @@
-<h1>売価一覧</h1>
+<div class="container">
+  <h1 class="mb-4">売価一覧</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>ページ</th>
-      <th>商品名</th>
-      <% @ranks.each do |rank| %>
-        <th><%= rank.name %></th>
-      <% end %>
-      <th>更新者</th>
-      <th>操作</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @products.each do |product| %>
+  <table class="table table-striped table-bordered">
+    <thead>
       <tr>
-        <td><%= product.catalog_page_number %></td>
-        <td><%= product.name %></td>
+        <th scope="col">ページ</th>
+        <th scope="col">商品名</th>
         <% @ranks.each do |rank| %>
-          <% price_record = product.prices.where(rank: rank).where.not(price: nil).last %>
-          <% if price_record %>
-            <td><%= price_record.current_price %></td>
-          <% else %>
-            <td>未設定</td>
-          <% end %>
+          <th scope="col"><%= rank.name %></th>
         <% end %>
-        <%# if (last_change = @price_change_histories.find { |history| history.price.product_id == product.id }) %>
-        <% if (last_change = product.prices.last.price_change_histories.last&.user) %>
-          <td><%= last_change.user.name %></td>
-        <% else %>
-          <td>未更新</td>
+        <th scope="col">値上げ予定日</th>
+        <% @ranks.each do |rank| %>
+          <th scope="col">値上げ後<%= rank.name %></th>
         <% end %>
-        <td>
-          <% if @ranks.all? { |rank| product.prices.where(rank: rank).where.not(price: nil).present? } %>
-            <% price = product.prices.where.not(price: nil).last %>
-            <%= link_to "売価更新", bulk_edit_product_prices_path(product) %>
-          <% else %>
-            <%= link_to "新規売価追加", new_product_price_path(product) %>
-          <% end %>
-
-          <%= link_to "商品編集", edit_product_path(product) %>
-        </td>
+        <th scope="col">操作</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.catalog_page_number %></td>
+          <td><%= product.name %></td>
+          <% @ranks.each do |rank| %>
+            <% price_record = product.prices.where(rank: rank).where.not(price: nil).last %>
+            <% if price_record %>
+              <td><%= price_record.current_price %></td>
+            <% else %>
+              <td>未設定</td>
+            <% end %>
+          <% end %>
+          <% price_record = product.prices.where.not(price: nil).last %>
+          <% if price_record %>
+            <td><%= price_record.price_increase_date ? l(price_record.price_increase_date, format: :long) : '設定なし' %></td>
+            <% @ranks.each do |rank| %>
+              <% price_record = product.prices.where(rank: rank).where.not(price: nil).last %>
+              <% if price_record %>
+                <td><%= price_record.future_price || '設定なし' %></td>
+              <% else %>
+                <td>未設定</td>
+              <% end %>
+            <% end %>
+          <% else %>
+            <td colspan="<%= @ranks.size + 1 %>">未設定</td>
+          <% end %>
+          <td>
+            <% if @ranks.all? { |rank| product.prices.where(rank: rank).where.not(price: nil).present? } %>
+              <%= link_to "売価更新", bulk_edit_product_prices_path(product), class: "btn btn-info btn-sm" %>
+            <% else %>
+              <%= link_to "新規売価追加", new_product_price_path(product), class: "btn btn-primary btn-sm" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
