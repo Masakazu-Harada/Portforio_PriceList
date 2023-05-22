@@ -58,34 +58,34 @@ class PricesController < ApplicationController
 
   def bulk_update
     @product = Product.find(params[:product_id])
-    price_params = params.require(:product).permit(prices: [:id, :rank_id, :price, :future_price, :price_increase_date])
-    price_update_success = true
-  
-    price_params[:prices].each do |price_data|
-      price = Price.find(price_data[:id])
-      unless price.update(
-        price: price_data[:price],
-        future_price: price_data[:future_price],
-        price_increase_date: price_data[:price_increase_date]
-      )
-        price_update_success = false
-        flash.now[:alert] = "#{price.rank.name}の価格の更新に失敗しました。"
-        @prices = Price.where(product_id: @product.id).order(rank_id: :asc) 
-        render :bulk_edit
-        return
+    @prices = Price.where(product_id: @product.id).order(rank_id: :asc)
+    
+    @price_params = price_params
+    
+    Price.transaction do
+      @price_params.each do |price_data| 
+        price = Price.find(price_data[:id])
+        unless price.update(price_data)  
+          flash.now[:alert] = "#{price.rank.name}の価格の更新に失敗しました。"
+          @prices = Price.where(product_id: @product.id).order(rank_id: :asc)
+          raise ActiveRecord::Rollback
+        end
       end
     end
-  
-    if price_update_success
-      redirect_to prices_path, notice: "価格が一括で更新されました。"
+    
+    if flash[:alert]
+      render :bulk_edit
+    else
+      redirect_to prices_path, notice: "価格の更新が成功しました"
     end
   end
 
   private
 
   def price_params
-    params.require(:price).map do |price|
-      price.permit(:price, :future_price, :price_increase_date, :rank_id)
+    prices_params = params.require(:product).permit(:price_increase_date, prices: [:id, :rank_id, :price, :future_price])
+    prices_params[:prices].map do |price|
+      price.permit(:id, :price, :future_price, :rank_id).merge(price_increase_date: prices_params[:price_increase_date])
     end
-  end
+  end  
 end

@@ -1,16 +1,41 @@
 <h1><%= "#{@product.name}" %>の売価の更新</h1>
 
 <%= form_with model: @product, url: bulk_update_product_prices_path(@product), local: true do |form| %>
-  <% @prices.each do |price| %>
-    <div class="form-group">
-      <%= form.label price.rank.name %>
-      <%= form.hidden_field :id, value: price.id, name: "product[prices][][id]" %>
-      <%= form.hidden_field :rank_id, value: price.rank.id, name: "product[prices][][rank_id]" %>
-      <%= form.number_field :price, value: price.price, class: "form-control", name: "product[prices][][price]" %>
+  <div class="card">
+    <div class="card-header">
+      値上げ予定日
     </div>
-  <% end %>
+    <div class="card-body">
+      <div class="form-group">
+        <%= form.label :price_increase_date, '値上げ予定日' %>
+        <%= form.date_field :price_increase_date, class: "form-control" %>
+      </div>
+    </div>
+  </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="card-deck">
+    <% @prices.each do |price| %>
+      <div class="card">
+        <div class="card-header">
+          <%= price.rank.name %>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <%= form.hidden_field :id, value: price.id, name: "product[prices][][id]" %>
+            <%= form.hidden_field :rank_id, value: price.rank.id, name: "product[prices][][rank_id]" %>
+            
+            <%= form.label :price, '現在の売価' %>
+            <%= form.number_field :price, value: price.price, class: "form-control", name: "product[prices][][price]" %>
+            
+            <%= form.label :future_price, '値上げ後の売価' %>
+            <%= form.number_field :future_price, value: price.future_price, class: "form-control", name: "product[prices][][future_price]" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="actions mt-4">
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>
