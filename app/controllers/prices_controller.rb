@@ -1,6 +1,7 @@
 class PricesController < ApplicationController
   def index
-    @products = Product.all.includes(:prices).order(:catalog_page_number)
+    @q = Product.ransack(params[:q])
+    @products = @q.result.includes(:prices).order(:catalog_page_number)
     @ranks = Rank.all
     @price_change_histories = PriceChangeHistory.includes(:user).all
   end
