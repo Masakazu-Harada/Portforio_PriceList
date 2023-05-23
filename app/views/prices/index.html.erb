@@ -17,6 +17,7 @@
         <% @ranks.each do |rank| %>
           <th scope="col">値上げ後<%= rank.name %></th>
         <% end %>
+        <th scope="col">売価改定履歴</th> <!-- 売価改定履歴の列を追加 -->
         <th scope="col">操作</th>
       </tr>
     </thead>
@@ -44,8 +45,15 @@
                 <td>未設定</td>
               <% end %>
             <% end %>
+            <td> <!-- 売価改定履歴のセルを追加 -->
+              <% if price_record && price_record.price_change_histories.exists? %> 
+                <%= link_to '売価改定記録', price_change_histories_path(price_id: price_record.id) %>
+              <% else %>
+                改定記録なし
+              <% end %>
+            </td>
           <% else %>
-            <td colspan="<%= @ranks.size + 1 %>">未設定</td>
+            <td colspan="<%= @ranks.size + 2 %>">未設定</td> <!-- colspanの数を増やす -->
           <% end %>
           <td>
             <% if @ranks.all? { |rank| product.prices.where(rank: rank).where.not(price: nil).present? } %>

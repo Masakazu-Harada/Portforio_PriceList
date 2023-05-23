@@ -1,0 +1,22 @@
+<h1>Price Change Histories</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Old Price</th>
+      <th>New Price</th>
+      <th>Change Date</th>
+      <!-- 他の項目も必要であればここに追加 -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @price_change_histories.each do |history| %>
+      <tr>
+        <td><%= history.old_price %></td>
+        <td><%= history.new_price %></td>
+        <td><%= history.change_price_date %></td>
+        <!-- 他の項目も必要であればここに追加 -->
+      </tr>
+    <% end %>
+  </tbody>
+</table>
