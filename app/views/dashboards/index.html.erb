@@ -32,8 +32,17 @@
     <div class="col-md-4">
       <div class="card mb-4">
         <div class="card-body">
-          <h5 class="card-title">仕入先基本情報管理</h5>
+          <h5 class="card-title">仕入先情報登録</h5>
           <p class="card-text">全社員更新可能</p>
+          <%= link_to "詳細", suppliers_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">仕入れ値登録</h5>
+          <p class="card-text">営業・営業推進・業務・購買のみ更新可能</p>
           <%= link_to "詳細", suppliers_path, class: "btn btn-primary" %>
         </div>
       </div>
