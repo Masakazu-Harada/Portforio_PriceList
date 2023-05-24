@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'product_suppliers/index'
+  get 'product_suppliers/show'
+  get 'productsuppliers/index'
+  get 'productsuppliers/show'
   get 'customer_dashboards/index'
 
   root to: 'dashboards#index'
