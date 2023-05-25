@@ -1,10 +1,4 @@
 Rails.application.routes.draw do
-  get 'product_suppliers/index'
-  get 'product_suppliers/show'
-  get 'productsuppliers/index'
-  get 'productsuppliers/show'
-  get 'customer_dashboards/index'
-
   root to: 'dashboards#index'
 
   get "/login", to: "sessions#new"
@@ -34,6 +28,15 @@ Rails.application.routes.draw do
         get :new_cost
         post :create_cost
         get :price_increase_history
+      end
+    end
+  end
+
+  resources :products do
+    resources :product_suppliers do
+      member do
+        patch :register_cost
+        patch :update_cost
       end
     end
   end
