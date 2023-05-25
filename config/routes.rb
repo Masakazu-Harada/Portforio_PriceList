@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :users
     resources :departments
     resources :customer_users
+    resources :customers, only: [:index]
   end
 
   resources :products do
@@ -18,37 +19,22 @@ Rails.application.routes.draw do
         patch :bulk_update
       end
     end
-  end
-  resources :prices, only: [:index]
 
-  resources :products, module: :products do
-    resources :suppliers, only: %i[index new create] do
+    resources :product_suppliers do
+      resource :cost, only: [:new, :edit, :create, :update]
+    end
+
+    resources :suppliers, module: :products, only: %i[index new create] do
       collection do
         post :cost_update
         get :new_cost
         post :create_cost
-        get :price_increase_history
+        get :cost_increase_history
       end
     end
   end
-
-  resources :products do
-    resources :product_suppliers do
-      member do
-        patch :register_cost
-        patch :update_cost
-      end
-    end
-  end
-
-  resources :products, module: :products do
-    resources :suppliers, only: %i[index new create] do
-      collection do
-        get :new_cost
-        post :create_cost
-      end
-    end
-  end
+  
+  resources :prices, only: [:index]
 
   resources :suppliers do
     resources :cost_increase_histories, only: [:index, :edit, :update, :destroy], module: :suppliers
@@ -56,11 +42,6 @@ Rails.application.routes.draw do
   
   resources :customers
   resources :customer_dashboards, only: [:index]
-
-  namespace :admin do
-    resources :customers, only: [:index]
-  end
-  
   resources :ranks
   resources :price_lists
   resources :departments
