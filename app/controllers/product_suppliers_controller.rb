@@ -1,6 +1,6 @@
 class ProductSuppliersController < ApplicationController
   before_action :set_product
-  before_action :set_product_supplier, only: [:show]
+  before_action :set_product_supplier, only: [:show, :edit, :update]
 
   def index
     @product_suppliers = @product.product_suppliers
@@ -23,6 +23,19 @@ class ProductSuppliersController < ApplicationController
     end
   end
 
+  def edit
+    #before_actionで設定
+  end
+  
+  def update
+    # before_actionで設定
+    if @product_supplier.update(product_supplier_params)
+      redirect_to product_product_suppliers_path(@product), notice: "商品と仕入先の紐付けを更新しました。"
+    else
+      render :edit
+    end
+  end
+
   private
 
   def set_product
@@ -34,6 +47,6 @@ class ProductSuppliersController < ApplicationController
   end
 
   def product_supplier_params
-    params.require(:product_supplier).permit(:supplier_id)
+    params.require(:product_supplier).permit(supplier_ids: [])
   end
 end
