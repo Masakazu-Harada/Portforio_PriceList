@@ -1,0 +1,18 @@
+<%= form_with(model: [@product, @product_supplier], local: true) do |form| %>
+  <h2><%= @product.name %>の仕入先を編集</h2>
+
+  <div class="form-group">
+    <%= form.label :supplier_id, "仕入先" %>
+    <%= form.select :supplier_id, Supplier.all.collect { |supplier| [supplier.name, supplier.id] }, { selected: @product_supplier.supplier_id }, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "更新", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    $('.js-select2').select2();
+  });
+</script>

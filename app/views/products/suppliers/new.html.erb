@@ -1,3 +1,15 @@
+<% if @supplier.errors.any? %>
+  <div id="error_explanation" class="alert alert-danger">
+    <h3><%= pluralize(@supplier.errors.count, "error") %> prohibited this supplier from being saved:</h3>
+    <ul>
+      <% @supplier.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
 <h1 class="mb-4"><%= @product.name %>の仕入れ先設定</h1>
 
 <nav class="nav justify-content-end mb-4">

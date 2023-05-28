@@ -15,7 +15,7 @@ class ProductSuppliersController < ApplicationController
   end
 
   def create
-    @product.supplier_ids = product_supplier_params[:supplier_ids].reject(&:blank?)
+    @product.supplier_ids = product_supplier_params[:supplier_ids].compact_blank
     if @product.save
       redirect_to product_path(@product), notice: "#{@product.name}の仕入れ先を登録しました。"
     else
@@ -29,8 +29,9 @@ class ProductSuppliersController < ApplicationController
   
   def update
     # before_actionで設定
-    if @product_supplier.update(product_supplier_params)
-      redirect_to product_product_suppliers_path(@product), notice: "商品と仕入先の紐付けを更新しました。"
+    @product.supplier_ids = Array(product_supplier_params[:supplier_id]).compact_blank
+    if @product.save
+      redirect_to product_path(@product), notice: "商品と仕入先の紐付けを更新しました。"
     else
       render :edit
     end
@@ -47,6 +48,6 @@ class ProductSuppliersController < ApplicationController
   end
 
   def product_supplier_params
-    params.require(:product_supplier).permit(supplier_ids: [])
-  end
+    params.require(:product_supplier).permit(:supplier_id)
+  end  
 end
