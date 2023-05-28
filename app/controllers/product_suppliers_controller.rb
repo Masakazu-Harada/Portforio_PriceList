@@ -15,9 +15,9 @@ class ProductSuppliersController < ApplicationController
   end
 
   def create
-    @product_supplier = @product.product_suppliers.new(product_supplier_params)
-    if @product_supplier.save
-      redirect_to product_product_suppliers_path(@product), notice: "#{@product.name}の仕入れ先を登録しました。"
+    @product.supplier_ids = product_supplier_params[:supplier_ids].reject(&:blank?)
+    if @product.save
+      redirect_to product_path(@product), notice: "#{@product.name}の仕入れ先を登録しました。"
     else
       render :new
     end

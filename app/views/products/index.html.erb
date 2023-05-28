@@ -34,7 +34,7 @@
           <td>
             <%= link_to "仕入先紐付け", "/products/#{product.id}/product_suppliers/new", class: "btn btn-secondary" %>
             <% if product.product_suppliers.first.present? %>
-              <%= link_to "仕入先編集", edit_product_product_supplier_path(product, product.product_suppliers.first), class: "btn btn-secondary" %>
+              <%= link_to "仕入先編集", edit_product_product_supplier_path(product, product.product_suppliers.first), class: "btn btn-primary" %>
             <% end %>
             <%= link_to "削除", product_path(product), data: { turbo_method: :delete ,turbo_confirm: "「#{product.name}」をカタログから削除します。本当に削除しますか？" }, class: "btn btn-danger" %>
           </td>

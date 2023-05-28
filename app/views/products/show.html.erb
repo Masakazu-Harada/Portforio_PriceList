@@ -62,6 +62,16 @@
       <th><%= Product.human_attribute_name(:notes) %></th>
       <td><%= @product.notes %></td>
     </tr>
+    <tr>
+    <th>仕入れ先</th>
+      <td>
+        <ul>
+          <% @product.suppliers.each do |supplier| %>
+            <li><%= supplier.name %></li> <!-- 仮に、supplierがname属性を持っていると仮定 -->
+          <% end %>
+        </ul>
+      </td>
+    </tr>
   </table>
 </div>
 
