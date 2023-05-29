@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     end
 
     resources :product_suppliers do
-      resources :costs, only: [:new, :create, :edit, :update]
+      resources :cost_increase_histories, path: 'cost', as: 'cost', only: [:new, :create, :edit, :update]
     end
 
     resources :suppliers, module: :products, only: %i[index new create] do
@@ -35,10 +35,6 @@ Rails.application.routes.draw do
   end
   
   resources :prices, only: [:index]
-
-  resources :suppliers do
-    resources :cost_increase_histories, only: [:index, :edit, :update, :destroy], module: :suppliers
-  end
   
   resources :customers
   resources :customer_dashboards, only: [:index]
