@@ -48,6 +48,6 @@ class ProductSuppliersController < ApplicationController
   end
 
   def product_supplier_params
-    params.require(:product_supplier).permit(:supplier_id)
+    params.require(:product_supplier).permit(supplier_ids: [])
   end  
 end

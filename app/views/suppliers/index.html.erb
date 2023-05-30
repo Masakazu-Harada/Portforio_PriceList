@@ -33,7 +33,7 @@
       <% @suppliers.each do |supplier| %>
         <tr>
           <td><%= link_to supplier.name,supplier_path(supplier) %></td>
-          <td><%= link_to "仕入値上げ記録", supplier_cost_increase_histories_path(supplier) %></td>
+          <td><%# link_to "仕入値上げ記録", supplier_cost_increase_histories_path(supplier) %></td>
           <td>
             <%= link_to "編集", edit_supplier_path(supplier), class: "btn btn-warning mr-3" %>
             <%= link_to "削除", supplier_path(supplier), data: { turbo_method: :delete, turbo_confirm: "「#{supplier.name}」のレコードを削除します。本当に削除しますか？" }, class: "btn btn-danger"%>

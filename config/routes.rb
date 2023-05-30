@@ -33,6 +33,10 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :suppliers do
+    resources :cost_increase_histories, path: 'cost', as: 'cost', only: [:index]
+  end
   
   resources :prices, only: [:index]
   
