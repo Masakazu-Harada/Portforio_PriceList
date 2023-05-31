@@ -28,8 +28,7 @@ class ProductSuppliersController < ApplicationController
   end
   
   def update
-    # before_actionで設定
-    @product.supplier_ids = Array(product_supplier_params[:supplier_id]).compact_blank
+    @product.supplier_ids = Array(product_supplier_params[:supplier_ids]).compact_blank
     if @product.save
       redirect_to product_path(@product), notice: "商品と仕入先の紐付けを更新しました。"
     else

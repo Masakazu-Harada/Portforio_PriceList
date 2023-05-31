@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       end
     end
 
+    resources :cost_increase_histories, only: [:index]
     resources :product_suppliers do
       resources :cost_increase_histories, path: 'cost', as: 'cost', only: [:new, :create, :edit, :update]
     end
@@ -37,7 +38,9 @@ Rails.application.routes.draw do
   resources :suppliers do
     resources :cost_increase_histories, path: 'cost', as: 'cost', only: [:index]
   end
-  
+
+  resources :cost_increase_histories, only: [:index]
+
   resources :prices, only: [:index]
   
   resources :customers

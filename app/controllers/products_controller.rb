@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
+    @product = Product.includes(:suppliers).find(params[:id])
   end
 
   def new
