@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/Masakazu-Harada/Portforio1/issues"
   },
-  "homepage": "https://github.com/Masakazu-Harada/Portforio1#readme"
+  "homepage": "https://github.com/Masakazu-Harada/Portforio1#readme",
+  "dependencies": {
+    "slim-select": "^2.5.0"
+  }
 }
