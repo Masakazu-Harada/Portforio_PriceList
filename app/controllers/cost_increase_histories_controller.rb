@@ -12,6 +12,8 @@ class CostIncreaseHistoriesController < ApplicationController
   def create
     @cost_increase_history = @product_supplier.cost_increase_histories.new(cost_increase_history_params)
 
+    @cost_increase_history.user = current_user
+
     if @cost_increase_history.save
       redirect_to product_supplier_path(@product_supplier), 
       notice: "仕入先#{@cost_increase_history.product_supplier.supplier.name}の#{@cost_increase_history.product_supplier.product.name}の仕入原価を登録しました。"

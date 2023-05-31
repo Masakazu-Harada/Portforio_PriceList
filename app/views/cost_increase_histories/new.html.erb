@@ -1,0 +1,14 @@
+<div class="container">
+  <h1>新規仕入原価登録 - <%= @product_supplier.product.name %></h1>
+
+  <%= form_with(model: [@product_supplier, @cost_increase_history], url: product_product_supplier_cost_index_path(@product_supplier.product, @product_supplier), local: true) do |form| %>
+    <div class="form-group">
+      <%= form.label :current_cost, '現在の仕入原価' %>
+      <%= form.number_field :current_cost, class: 'form-control', required: true %>
+    </div>
+
+    <%= form.submit '登録', class: 'btn btn-primary' %>
+  <% end %>
+
+  <%= link_to '戻る', product_cost_increase_histories_path(@product_supplier), class: 'btn btn-secondary mt-3' %>
+</div>
