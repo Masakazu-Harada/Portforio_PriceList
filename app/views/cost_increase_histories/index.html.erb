@@ -24,40 +24,28 @@
           <td><%= product.name %></td>
           <td>
             <% product_suppliers.each do |ps| %>
-            <%= ps.supplier.name %><br>
+              <%= ps.supplier.name %><br>
+            <% end %>
+          </td>
+          <td>
+            <% product_suppliers.each do |ps| %>
+              <%= ps.display_latest_cost %><br>
+            <% end %>
+          </td>
+          <td>
+            <% product_suppliers.each do |ps| %>
+              <%= ps.display_next_scheduled_cost_revision_date %><br>
+            <% end %>
+          </td>
+          <td>
+            <% product_suppliers.each do |ps| %>
+              <%= ps.display_next_scheduled_cost %><br>
             <% end %>
           </td>
           <td>
             <% product_suppliers.each do |ps| %>
               <% if cost_increase_history = ps.cost_increase_histories.last %>
-                <%= cost_increase_history.current_cost %><br>
-              <% else %>
-                -<br>
-              <% end %>
-            <% end %>
-          </td>
-          <td>
-            <% product_suppliers.each do |ps| %>
-              <% if cost_increase_history = ps.cost_increase_histories.last %>
-                <%= cost_increase_history.cost_revision_date %><br>
-              <% else %>
-                -<br>
-              <% end %>
-            <% end %>
-          </td>
-          <td>
-            <% product_suppliers.each do |ps| %>
-              <% if cost_increase_history = ps.cost_increase_histories.last %>
-                <%= cost_increase_history.revised_cost %><br>
-              <% else %>
-                -<br>
-              <% end %>
-            <% end %>
-          </td>
-          <td>
-            <% product_suppliers.each do |ps| %>
-              <% if cost_increase_history = ps.cost_increase_histories.last %>
-                <%= link_to "仕入原価更新", edit_product_supplier_cost_increase_history_path(ps, cost_increase_history) %><br>
+                <%= link_to "仕入原価更新", edit_product_product_supplier_cost_path(ps.product, ps, cost_increase_history) %><br>
               <% else %>
                 <%= link_to "新規仕入原価登録", new_product_product_supplier_cost_path(ps.product, ps) %><br>
               <% end %>

@@ -10,13 +10,8 @@ class CostIncreaseHistoriesController < ApplicationController
   end
 
   def create
-    @cost_increase_history = @product_supplier.cost_increase_histories.new(cost_increase_history_params)
-
-    @cost_increase_history.user = current_user
-
-    if @cost_increase_history.save
-      redirect_to product_supplier_path(@product_supplier), 
-      notice: "仕入先#{@cost_increase_history.product_supplier.supplier.name}の#{@cost_increase_history.product_supplier.product.name}の仕入原価を登録しました。"
+    if @product_supplier.handle_cost_increase_history(cost_increase_history_params, current_user)
+      redirect_to cost_increase_histories_path, notice: "仕入先#{@product_supplier.supplier.name}の#{@product_supplier.product.name}の仕入原価を登録しました。"
     else
       render :new
     end
@@ -27,11 +22,8 @@ class CostIncreaseHistoriesController < ApplicationController
   end
 
   def update
-    @cost_increase_history = @product_supplier.cost_increase_histories.find(params[:id])
-
-    if @cost_increase_history.update(cost_increase_history_params)
-      redirect_to product_supplier_path(@product_supplier), 
-      notice: "仕入先#{@cost_increase_history.product_supplier.supplier.name}の#{@cost_increase_history.product_supplier.product.name}の仕入原価を更新しました。"
+    if @product_supplier.handle_cost_increase_history(cost_increase_history_params, current_user)
+      redirect_to cost_increase_histories_path, notice: "仕入先#{@product_supplier.supplier.name}の#{@product_supplier.product.name}の仕入原価を更新しました。"
     else
       render :edit
     end
