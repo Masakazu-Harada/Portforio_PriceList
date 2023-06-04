@@ -15,6 +15,7 @@
         <th>値上げ予定日</th>
         <th>値上げ後の仕入原価</th>
         <th>操作</th>
+        <th>更新者</th>
       </tr>
     </thead>
     <tbody>
@@ -48,6 +49,15 @@
                 <%= link_to "仕入原価更新", edit_product_product_supplier_cost_path(ps.product, ps, cost_increase_history) %><br>
               <% else %>
                 <%= link_to "新規仕入原価登録", new_product_product_supplier_cost_path(ps.product, ps) %><br>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <% product_suppliers.each do |ps| %>
+              <% if cost_increase_history = ps.cost_increase_histories.last %>
+                <%= cost_increase_history.user.name %><br>
+              <% else %>
+                N/A<br>
               <% end %>
             <% end %>
           </td>
