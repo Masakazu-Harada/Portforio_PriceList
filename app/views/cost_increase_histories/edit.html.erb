@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>仕入原価更新</h1>
+
+  <h5>商品名:<%= @product_supplier.product.name %></h5>
+
+  <h5>紐づかれた仕入先:<%= @product_supplier.supplier.name %></h5>
+
+  <h5>現在の仕入原価: <%= @cost_increase_history.current_cost %></h5>
+
+  <%= form_with(model: [@product_supplier, @cost_increase_history], url: product_product_supplier_cost_path(@product_supplier.product, @product_supplier, @cost_increase_history), method: :put, local: true) do |form| %>
+    <div class="form-group">
+      <%= form.label :cost_revision_date, '値上げ予定日' %>
+      <% if @cost_increase_history.cost_revision_date.present? %>
+        <p><%= @cost_increase_history.cost_revision_date.strftime('%Y年%m月%d日') %></p>
+      <% end %>
+      <%= form.date_field :cost_revision_date, class: 'form-control' %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :future_cost, '値上げ後の仕入原価' %>
+      <%= form.number_field :future_cost, class: 'form-control' %>
+    </div>
+
+    <div class="d-flex justify-content-start">
+      <%= form.submit '更新', class: 'btn btn-primary' %>
+      <%= link_to '戻る', product_cost_increase_histories_path(@product_supplier), class: 'btn btn-secondary ml-6' %>
+    </div>
+  <% end %>
+</div>

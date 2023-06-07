@@ -77,3 +77,4 @@ gem 'importmap-rails'
 gem "ransack"
 gem "kaminari"
 gem "sidekiq"
+gem "sidekiq-scheduler"

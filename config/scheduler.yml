@@ -1,0 +1,4 @@
+update_product_supplier_costs_job:
+  cron: "0 0 * * *"
+  class: "UpdateProductSupplierCostsJob"
+  queue: default

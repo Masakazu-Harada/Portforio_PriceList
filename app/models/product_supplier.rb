@@ -7,25 +7,34 @@ class ProductSupplier < ApplicationRecord
 
   def handle_cost_increase_history(cost_increase_history_params, user)
     cost_increase_history = cost_increase_histories.find_or_initialize_by(id: cost_increase_history_params[:id])
-    cost_increase_history.assign_attributes(cost_increase_history_params)
+    cost_increase_history.assign_attributes(cost_increase_history_params.except(:future_cost))
     cost_increase_history.user = user
-
-    if cost_increase_history.persisted?
-      # 更新の場合
-      self.future_cost = cost_increase_history_params[:current_cost]
-    else
-      # 新規作成の場合
-      self.future_cost = cost_increase_history_params[:current_cost]
-      cost_increase_history.cost_revision_date ||= Date.today
+  
+    self.future_cost = cost_increase_history_params[:future_cost]
+  
+    cost_increase_history.current_cost = self.future_cost
+    cost_increase_history.cost_revision_date ||= Date.today
+  
+    if save && cost_increase_history.save
+      create_cost_history(future_cost)
     end
+  end
 
-    save && cost_increase_history.save
+  def schedule_cost_update_job(date)
+    Sidekiq::PerformIn.new(date.to_time, 'ProductSupplierCostUpdateWorker', id)
+  end
+
+  def update_cost
+    latest_cost_increase_history = cost_increase_histories.order(cost_revision_date: :desc).first
+    if latest_cost_increase_history&.cost_revision_date && latest_cost_increase_history.cost_revision_date <= Date.today
+      update(current_cost: latest_cost_increase_history.current_cost)
+    end
   end
 
   after_create :create_initial_cost_history
-  after_update :handle_updated_cost_history, if: :cost_update?
+  after_update :create_updated_cost_history, if: :future_cost_present?
 
-  after_save :notify_future_cost, if: :future_cost_set?
+  after_save :notify_future_cost, if: :future_cost_changed?
 
   def display_cost_at_creation
     cost_increase_histories.order(id: :desc).first&.current_cost || "-"
@@ -46,27 +55,27 @@ class ProductSupplier < ApplicationRecord
   private
 
   def create_initial_cost_history
-    create_cost_history if future_cost.present?
+    create_cost_history(future_cost)
   end
 
-  def handle_updated_cost_history
-    create_cost_history if future_cost.present?
+  def create_updated_cost_history
+    create_cost_history(future_cost)
   end
 
-  def create_cost_history
-    cost_increase_histories.create(current_cost: future_cost)
+  def create_cost_history(cost)
+    cost_increase_histories.create(current_cost: cost)
   end
 
-  def cost_update?
+  def future_cost_present?
     future_cost.present?
   end
 
-  def future_cost_set?
-    cost_increase_histories.any? { |h| h.cost_revision_date.present? && h.cost_revision_date > Date.today }
+  def future_cost_changed?
+    saved_change_to_attribute?(:future_cost)
   end
 
   def notify_future_cost
-    # 未来のコスト通知ロジックをここで実装します
+    # 未来のコスト通知ロジックをここで実装予定
   end
 
   def next_scheduled_cost
