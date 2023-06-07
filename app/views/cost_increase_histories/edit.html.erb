@@ -5,7 +5,7 @@
 
   <h5>紐づかれた仕入先:<%= @product_supplier.supplier.name %></h5>
 
-  <h5>現在の仕入原価: <%= @cost_increase_history.current_cost %></h5>
+  <h5>現在の仕入原価: <%= @product_supplier.display_latest_cost %></h5>
 
   <%= form_with(model: [@product_supplier, @cost_increase_history], url: product_product_supplier_cost_path(@product_supplier.product, @product_supplier, @cost_increase_history), method: :put, local: true) do |form| %>
     <div class="form-group">
