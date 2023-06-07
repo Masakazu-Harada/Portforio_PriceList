@@ -5,40 +5,54 @@
     <%= link_to "ダッシュボードへ戻る", root_path %>
   </nav>
 
-  <div class="table-responsive">
-    <table class="table">
-      <thead>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ページ</th>
+        <th>商品名</th>
+        <th>紐づいた仕入先の名前</th>
+        <th>現在の仕入原価</th>
+        <th>値上げ予定日</th>
+        <th>値上げ後の仕入原価</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @product_suppliers.group_by { |ps| ps.product }.each do |product, product_suppliers| %>
         <tr>
-          <th>ページ</th>
-          <th>商品名</th>
-          <th>紐づいた仕入先の名前</th>
-          <th>現在の仕入原価</th>
-          <th>値上げ予定日</th>
-          <th>値上げ後の仕入原価</th>
-          <th>操作</th>
+          <td><%= product.catalog_page_number %></td>
+          <td><%= product.name %></td>
+          <td>
+            <% product_suppliers.each do |ps| %>
+              <%= ps.supplier.name %><br>
+            <% end %>
+          </td>
+          <td>
+            <% product_suppliers.each do |ps| %>
+              <%= ps.display_latest_cost %><br>
+            <% end %>
+          </td>
+          <td>
+            <% product_suppliers.each do |ps| %>
+              <%= ps.display_next_scheduled_cost_revision_date %><br>
+            <% end %>
+          </td>
+          <td>
+            <% product_suppliers.each do |ps| %>
+              <%= ps.display_next_scheduled_cost %><br>
+            <% end %>
+          </td>
+          <td>
+            <% product_suppliers.each do |ps| %>
+              <% if cost_increase_history = ps.cost_increase_histories.last %>
+                <%= link_to "仕入原価更新", edit_product_product_supplier_cost_path(ps.product, ps, cost_increase_history) %><br>
+              <% else %>
+                <%= link_to "新規仕入原価登録", new_product_product_supplier_cost_path(ps.product, ps) %><br>
+              <% end %>
+            <% end %>
+          </td>
         </tr>
-      </thead>
-      <tbody>
-        <% @product_suppliers.group_by { |ps| ps.product }.each do |product, product_suppliers| %>
-          <% product_suppliers.each do |ps| %>
-            <tr>
-              <td><%= product.catalog_page_number %></td>
-              <td><%= product.name %></td>
-              <td><%= ps.supplier.name %></td>
-              <td><%= ps.display_latest_cost %></td>
-              <td><%= ps.display_next_scheduled_cost_revision_date %></td>
-              <td><%= ps.display_next_scheduled_cost %></td>
-              <td>
-                <% if cost_increase_history = ps.cost_increase_histories.last %>
-                  <%= link_to "仕入原価更新", edit_product_product_supplier_cost_path(ps.product, ps, cost_increase_history) %><br>
-                <% else %>
-                  <%= link_to "新規仕入原価登録", new_product_product_supplier_cost_path(ps.product, ps) %><br>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+      <% end %>
+    </tbody>
+  </table>
 </div>
