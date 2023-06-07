@@ -10,7 +10,7 @@ class CostIncreaseHistoriesController < ApplicationController
   end
 
   def create
-    if @product_supplier.handle_cost_increase_history(cost_increase_history_params, current_user)
+    if @product_supplier.handle_cost_increase_history_on_create(cost_increase_history_params, current_user)
       redirect_to cost_increase_histories_path, notice: "仕入先#{@product_supplier.supplier.name}の#{@product_supplier.product.name}の仕入原価を登録しました。"
     else
       flash[:alert] = @product_supplier.errors.full_messages.join(", ")
@@ -23,7 +23,7 @@ class CostIncreaseHistoriesController < ApplicationController
   end
 
   def update
-    if @product_supplier.handle_cost_increase_history(cost_increase_history_params, current_user)
+    if @product_supplier.handle_cost_increase_history_on_update(cost_increase_history_params, current_user)
       redirect_to cost_increase_histories_path, notice: "仕入先#{@product_supplier.supplier.name}の#{@product_supplier.product.name}の仕入原価を更新しました。"
     else
       flash[:alert] = @product_supplier.errors.full_messages.join(", ")

@@ -5,16 +5,22 @@ class ProductSupplier < ApplicationRecord
   belongs_to :supplier
   has_many :cost_increase_histories, dependent: :destroy
 
-  def handle_cost_increase_history(cost_increase_history_params, user)
+  def handle_cost_increase_history_on_create(cost_increase_history_params, user)
+    cost_increase_history = cost_increase_histories.new(cost_increase_history_params.except(:future_cost))
+    cost_increase_history.user = user
+    cost_increase_history.cost_revision_date ||= Date.today
+    if save && cost_increase_history.save
+      create_cost_history(cost_increase_history.current_cost)
+    end
+  end
+
+  def handle_cost_increase_history_on_update(cost_increase_history_params, user)
     cost_increase_history = cost_increase_histories.find_or_initialize_by(id: cost_increase_history_params[:id])
     cost_increase_history.assign_attributes(cost_increase_history_params.except(:future_cost))
     cost_increase_history.user = user
-  
     self.future_cost = cost_increase_history_params[:future_cost]
-  
     cost_increase_history.current_cost = self.future_cost
     cost_increase_history.cost_revision_date ||= Date.today
-  
     if save && cost_increase_history.save
       create_cost_history(future_cost)
     end
