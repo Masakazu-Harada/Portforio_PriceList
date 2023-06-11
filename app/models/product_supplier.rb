@@ -30,9 +30,16 @@ class ProductSupplier < ApplicationRecord
     Sidekiq::PerformIn.new(date.to_time, 'ProductSupplierCostUpdateWorker', id)
   end
 
+  #def update_cost
+    #latest_cost_increase_history = cost_increase_histories.order(cost_revision_date: :desc).first
+    #if latest_cost_increase_history&.cost_revision_date && latest_cost_increase_history.cost_revision_date <= Date.today
+      #update(current_cost: latest_cost_increase_history.current_cost)
+    #end
+  #end
+
   def update_cost
-    latest_cost_increase_history = cost_increase_histories.order(cost_revision_date: :desc).first
-    if latest_cost_increase_history&.cost_revision_date && latest_cost_increase_history.cost_revision_date <= Date.today
+    latest_cost_increase_history = cost_increase_histories.where("cost_revision_date <= ?", Date.today).order(updated_at: :desc).first
+    if latest_cost_increase_history&.cost_revision_date
       update(current_cost: latest_cost_increase_history.current_cost)
     end
   end
@@ -94,10 +101,16 @@ class ProductSupplier < ApplicationRecord
     next_scheduled_history&.cost_revision_date
   end
 
+  #def future_cost_increase_history
+    #cost_increase_histories
+      #.where("cost_revision_date > ?", Date.today)
+      #.order(cost_revision_date: :asc)
+      #.first
+  #end
   def future_cost_increase_history
     cost_increase_histories
       .where("cost_revision_date > ?", Date.today)
-      .order(cost_revision_date: :asc)
+      .order(updated_at: :desc)
       .first
   end
 end
