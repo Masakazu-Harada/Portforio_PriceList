@@ -16,24 +16,25 @@ class PricesController < ApplicationController
   def create
     @product = Product.find(params[:product_id])
     errors = []
-    params[:price].each do |price_params|
-      rank = Rank.find(price_params[:rank_id])
-      price = @product.prices.new(
-        price: price_params[:price], 
-        future_price: price_params[:future_price], 
-        price_increase_date: price_params[:price_increase_date],
-        rank: rank
-      )
-      unless price.save
-        errors << "#{rank.name}の価格の登録に失敗しました"
+    
+    ActiveRecord::Base.transaction do
+      params[:price].each do |price_params|
+        rank = Rank.find(price_params[:rank_id])
+        price = @product.prices.find_or_initialize_by(rank: rank)
+        price.assign_attributes(
+          price: price_params[:price], 
+          future_price: price_params[:future_price], 
+          price_increase_date: price_params[:price_increase_date]
+        )
+        price.save!
       end
-    end
-    if erros.empty?
-      redirect_to prices_path, notice: "「#{@product.name}」の売価をカタログへ登録しました。"
-    else
+    rescue ActiveRecord::RecordInvalid => e
+      errors << "#{e.record.rank.name}の価格の登録に失敗しました: #{e.record.errors.full_messages.join(', ')}"
       flash[:alert] = errors.join(", ")
-      redirect_to new_product_price_path(@product)
+      redirect_to prices_path and return
     end
+
+    redirect_to prices_path, notice: "「#{@product.name}」の売価をカタログへ登録しました。"
   end
 
   #def edit
