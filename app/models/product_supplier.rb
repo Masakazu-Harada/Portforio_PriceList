@@ -5,6 +5,14 @@ class ProductSupplier < ApplicationRecord
   belongs_to :supplier
   has_many :cost_increase_histories, dependent: :destroy
 
+  def self.ransackable_attributes(auth_object = nil)
+    super
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    super + ['product']
+  end
+
   def handle_cost_increase_history_on_create(cost_increase_history_params, user)
     cost_increase_history = cost_increase_histories.new(cost_increase_history_params.except(:future_cost))
     cost_increase_history.user = user
@@ -114,13 +122,5 @@ class ProductSupplier < ApplicationRecord
       .where("cost_revision_date > ?", Date.today)
       .order(updated_at: :desc)
       .first
-  end
-
-  def self.ransackable_attributes(auth_object = nil)
-    super + ['product_name']
-  end
-
-  def self.ransackable_associations(auth_object = nil)
-    super + ['product']
   end
 end

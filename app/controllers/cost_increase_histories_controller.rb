@@ -2,8 +2,8 @@ class CostIncreaseHistoriesController < ApplicationController
   before_action :set_product_supplier, only: [:new, :create, :edit, :update]
   
   def index
-    @q = ProductSupplier.includes(:product, :supplier, :cost_increase_histories).ransack(params[:q])
-    @product_suppliers = @q.result.order("products.name asc").page(params[:page])
+    @q = ProductSupplier.joins(:product).ransack(params[:q])
+    @product_suppliers = @q.result.includes(:product).order("products.name ASC")
   end
 
   def new
