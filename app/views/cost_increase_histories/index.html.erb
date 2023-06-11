@@ -26,7 +26,7 @@
               <td><%= product.name %></td>
               <td><%= ps.supplier.name %></td>
               <td><%= ps.display_latest_cost %></td>
-              <td><%= ps.display_next_scheduled_cost_revision_date %></td>
+              <td><%= ps.display_next_scheduled_cost_revision_date.present? ? format_date(ps.display_next_scheduled_cost_revision_date) : "-" %></td>
               <td><%= ps.display_next_scheduled_cost %></td>
               <td>
                 <% if cost_increase_history = ps.cost_increase_histories.last %>

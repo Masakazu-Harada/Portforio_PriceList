@@ -62,7 +62,9 @@ class ProductSupplier < ApplicationRecord
   end
 
   def display_next_scheduled_cost_revision_date
-    next_scheduled_cost_revision_date || "-"
+    #next_scheduled_cost_revision_date || "-"
+    next_scheduled_history = future_cost_increase_history
+    next_scheduled_history&.cost_revision_date
   end
 
   private

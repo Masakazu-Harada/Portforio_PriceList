@@ -45,7 +45,11 @@
           <% end %>
           <% price_record = product.prices.where.not(price: nil).last %>
           <% if price_record %>
-            <td><%= price_record.price_increase_date ? l(price_record.price_increase_date, format: :long) : '設定なし' %></td>
+            <% if price_record %>
+              <td><%= price_record.price_increase_date ? format_date(price_record.price_increase_date) : '設定なし' %></td>
+            <% else %>
+              <td>未設定</td>
+            <% end %>
             <% @ranks.each do |rank| %>
               <% price_record = product.prices.where(rank: rank).where.not(price: nil).last %>
               <% if price_record %>
