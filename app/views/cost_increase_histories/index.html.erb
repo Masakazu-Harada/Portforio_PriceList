@@ -5,17 +5,26 @@
     <%= link_to "ダッシュボードへ戻る", root_path %>
   </nav>
 
+  <%= search_form_for @q, url: cost_increase_histories_path, method: :get, class: "form-inline mb-5" do |f| %>
+    <div class="input-group w-100">
+      <%= f.search_field :product_name_cont, class: "form-control w-75", placeholder: "商品名で検索" %>
+      <div class="input-group-append">
+        <%= f.submit "検索", class: "btn btn-outline-secondary" %>  
+      </div>
+    </div>
+  <% end %>
+
   <div class="table-responsive">
-    <table class="table">
+    <table class="table table-striped table-bordered">
       <thead>
         <tr>
-          <th>ページ</th>
-          <th>商品名</th>
-          <th>紐づいた仕入先の名前</th>
-          <th>現在の仕入原価</th>
-          <th>値上げ予定日</th>
-          <th>値上げ後の仕入原価</th>
-          <th>操作</th>
+          <th scope="col">ページ</th>
+          <th scope="col">商品名</th>
+          <th scope="col">紐づいた仕入先の名前</th>
+          <th scope="col">現在の仕入原価</th>
+          <th scope="col">値上げ予定日</th>
+          <th scope="col">値上げ後の仕入原価</th>
+          <th scope="col">操作</th>
         </tr>
       </thead>
       <tbody>
@@ -26,13 +35,13 @@
               <td><%= product.name %></td>
               <td><%= ps.supplier.name %></td>
               <td><%= ps.display_latest_cost %></td>
-              <td><%= ps.display_next_scheduled_cost_revision_date.present? ? format_date(ps.display_next_scheduled_cost_revision_date) : "-" %></td>
-              <td><%= ps.display_next_scheduled_cost %></td>
+              <td><%= ps.display_next_scheduled_cost_revision_date.present? ? format_date(ps.display_next_scheduled_cost_revision_date) : '設定なし' %></td>
+              <td><%= ps.display_next_scheduled_cost || '設定なし' %></td>
               <td>
                 <% if cost_increase_history = ps.cost_increase_histories.last %>
-                  <%= link_to "仕入原価更新", edit_product_product_supplier_cost_path(ps.product, ps, cost_increase_history) %><br>
+                  <%= link_to "仕入原価更新", edit_product_product_supplier_cost_path(ps.product, ps, cost_increase_history), class: "btn btn-info btn-sm" %>
                 <% else %>
-                  <%= link_to "新規仕入原価登録", new_product_product_supplier_cost_path(ps.product, ps) %><br>
+                  <%= link_to "新規仕入原価登録", new_product_product_supplier_cost_path(ps.product, ps), class: "btn btn-primary btn-sm" %>
                 <% end %>
               </td>
             </tr>

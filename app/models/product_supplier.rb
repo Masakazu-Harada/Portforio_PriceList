@@ -115,4 +115,12 @@ class ProductSupplier < ApplicationRecord
       .order(updated_at: :desc)
       .first
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    super + ['product_name']
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    super + ['product']
+  end
 end
