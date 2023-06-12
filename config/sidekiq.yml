@@ -1,0 +1,12 @@
+:queues:
+  - default
+
+:schedule:
+  update_product_supplier_costs:
+    cron: '0 0 * * *' # ジョブを毎日午前0時に実行します
+    class: UpdateProductSupplierCostsJob
+    queue: default
+  update_price:
+    cron: '0 0 * * *' # ジョブを毎日午前0時に実行します
+    class: UpdatePriceJob
+    queue: default
