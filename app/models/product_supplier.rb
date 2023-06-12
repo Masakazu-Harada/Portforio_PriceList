@@ -35,7 +35,7 @@ class ProductSupplier < ApplicationRecord
   end
 
   def schedule_cost_update_job(date)
-    Sidekiq::PerformIn.new(date.to_time, 'ProductSupplierCostUpdateWorker', id)
+    ProductSupplierCostUpdateWorker.perform_at(date.to_time, id)
   end
 
   #def update_cost
