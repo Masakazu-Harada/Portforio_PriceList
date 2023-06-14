@@ -1,5 +1,5 @@
 class CostIncreaseHistoriesController < ApplicationController
-  before_action :set_product_supplier, only: [:new, :create, :edit, :update, :show]
+  before_action :set_product_supplier, only: [:new, :create, :edit, :update, :show, :destroy]
   
   def index
     @q = ProductSupplier.joins(:product).ransack(params[:q])
@@ -36,6 +36,12 @@ class CostIncreaseHistoriesController < ApplicationController
       flash[:alert] = @product_supplier.errors.full_messages.join(", ")
       render :edit
     end
+  end
+
+  def destroy
+    @cost_increase_history = @product_supplier.cost_increase_histories.find(params[:id])
+    @cost_increase_history.destroy
+    redirect_to product_product_supplier_cost_path(@cost_increase_history.product_supplier.product, @product_supplier), notice: "履歴を削除しました。"
   end
 
   private

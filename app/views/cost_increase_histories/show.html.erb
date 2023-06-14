@@ -20,6 +20,12 @@
           <tr>
             <td><%= history.cost_revision_date ? format_date(history.cost_revision_date) : "履歴なし" %></td>
             <td><%= history.current_cost %></td>
+            <td>
+              <%= link_to "削除", product_product_supplier_cost_path(history.product_supplier.product, 
+              @product_supplier, history), 
+              data: { turbo_method: :delete, turbo_confirm: "「#{history.cost_revision_date ? 
+              format_date(history.cost_revision_date) : "履歴なし"}」の履歴を削除します。本当に削除しますか？" }, class: "btn btn-danger" %>
+            </td>
           </tr>
         <% end %>
       </tbody>

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
     resources :cost_increase_histories, only: [:index]
     resources :product_suppliers do
-      resources :cost_increase_histories, path: 'cost', as: 'cost', only: [:new, :create, :edit, :update, :show]
+      resources :cost_increase_histories, path: 'cost', as: 'cost', except: [:index]
     end
 
     resources :suppliers, module: :products, only: %i[index new create] do
