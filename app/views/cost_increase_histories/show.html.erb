@@ -1,1 +1,28 @@
-<h1>価格改定履歴</h1>
+<div class="container">
+
+<nav class="nav justify-content-end">
+  <%= link_to "仕入原価登録画面へ戻る", product_cost_increase_histories_path, class: "nav-link" %>
+</nav>
+
+  <h2>商品名： <%= @product_supplier.product.name %></h2>
+  <h2>仕入先名： <%= @product_supplier.supplier.name %></h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">値上げ実施日</th>
+          <th scope="col">改定後の仕入原価</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cost_increase_histories.each do |history| %>
+          <tr>
+            <td><%= history.cost_revision_date ? format_date(history.cost_revision_date) : "履歴なし" %></td>
+            <td><%= history.current_cost %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
