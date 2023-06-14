@@ -1,9 +1,14 @@
 class CostIncreaseHistoriesController < ApplicationController
-  before_action :set_product_supplier, only: [:new, :create, :edit, :update]
+  before_action :set_product_supplier, only: [:new, :create, :edit, :update, :show]
   
   def index
     @q = ProductSupplier.joins(:product).ransack(params[:q])
     @product_suppliers = @q.result.includes(:product).order("products.name ASC")
+  end
+
+  def show
+    @cost_increase_history = @product_supplier.cost_increase_histories.find(params[:id])
+    @cost_increase_histories = @product_supplier.cost_increase_histories.order(cost_revision_date: :desc)
   end
 
   def new
@@ -21,6 +26,7 @@ class CostIncreaseHistoriesController < ApplicationController
 
   def edit
     @cost_increase_history = @product_supplier.cost_increase_histories.find(params[:id])
+    #@cost_increase_history = CostIncreaseHistory.find(params[:id])
   end
 
   def update

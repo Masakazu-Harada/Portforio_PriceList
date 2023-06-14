@@ -25,6 +25,7 @@
           <th scope="col">値上げ予定日</th>
           <th scope="col">値上げ後の仕入原価</th>
           <th scope="col">操作</th>
+          <th scope="col">仕入原価改定履歴</th>
         </tr>
       </thead>
       <tbody>
@@ -42,6 +43,13 @@
                   <%= link_to "仕入原価更新", edit_product_product_supplier_cost_path(ps.product, ps, cost_increase_history), class: "btn btn-info btn-sm" %>
                 <% else %>
                   <%= link_to "新規仕入原価登録", new_product_product_supplier_cost_path(ps.product, ps), class: "btn btn-primary btn-sm" %>
+                <% end %>
+              </td>
+              <td>
+                <% if cost_increase_history = ps.cost_increase_histories.last %>
+                  <%= link_to "詳細", product_product_supplier_cost_path(ps.product, ps, cost_increase_history), class: "btn btn-secondary btn-sm" %>
+                <% else %>
+                  "改定履歴なし"
                 <% end %>
               </td>
             </tr>
