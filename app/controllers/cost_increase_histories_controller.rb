@@ -1,6 +1,5 @@
 class CostIncreaseHistoriesController < ApplicationController
-  before_action :set_product_supplier, only: [:new, :create, :edit, :update, :show, :destroy]
-  
+  before_action :set_product_supplier, except: [:index]
   def index
     @q = ProductSupplier.joins(:product).ransack(params[:q])
     @product_suppliers = @q.result.includes(:product).order("products.name ASC")
@@ -41,7 +40,13 @@ class CostIncreaseHistoriesController < ApplicationController
   def destroy
     @cost_increase_history = @product_supplier.cost_increase_histories.find(params[:id])
     @cost_increase_history.destroy
-    redirect_to product_product_supplier_cost_path(@cost_increase_history.product_supplier.product, @product_supplier), notice: "履歴を削除しました。"
+    
+    # レコードが全て削除されたらindexページにリダイレクト
+    if @product_supplier.cost_increase_histories.empty?
+      redirect_to cost_increase_histories_path, notice: "全ての履歴を削除しました。"
+    else
+      redirect_to product_product_supplier_cost_path(@cost_increase_history.product_supplier.product, @product_supplier), notice: "履歴を削除しました。"
+    end
   end
 
   private

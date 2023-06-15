@@ -6,6 +6,7 @@
 
   <h2>商品名： <%= @product_supplier.product.name %></h2>
   <h2>仕入先名： <%= @product_supplier.supplier.name %></h2>
+  <h2>現在の仕入原価： <%= @product_supplier.display_latest_cost %></h2>
 
   <div class="table-responsive">
     <table class="table table-bordered">
