@@ -41,11 +41,13 @@ class CostIncreaseHistoriesController < ApplicationController
     @cost_increase_history = @product_supplier.cost_increase_histories.find(params[:id])
     @cost_increase_history.destroy
     
-    # レコードが全て削除されたらindexページにリダイレクト
+      # レコードが全て削除されたらindexページにリダイレクト
     if @product_supplier.cost_increase_histories.empty?
       redirect_to cost_increase_histories_path, notice: "全ての履歴を削除しました。"
     else
-      redirect_to product_product_supplier_cost_path(@cost_increase_history.product_supplier.product, @product_supplier), notice: "履歴を削除しました。"
+      # 最新の履歴レコードにリダイレクト
+    @latest_cost_increase_history = @product_supplier.cost_increase_histories.order(cost_revision_date: :desc).first
+      redirect_to product_product_supplier_cost_path(@latest_cost_increase_history.product_supplier.product, @latest_cost_increase_history.product_supplier, @latest_cost_increase_history), notice: "履歴を削除しました。"
     end
   end
 
