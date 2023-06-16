@@ -12,6 +12,12 @@ class Product < ApplicationRecord
     validates :spec
   end
 
+  #available カタログ掲載中  
+  #to_be_discontinued 売り切り廃盤予定
+  #discontinued 廃盤予定
+  enum status: { available: 0, to_be_discontinued: 1, discontinued: 2 }
+  validates :status, presence: true
+
   def self.ransackable_attributes(auth_object = nil)
     ["code", "name", "catalog_page_number"]
   end

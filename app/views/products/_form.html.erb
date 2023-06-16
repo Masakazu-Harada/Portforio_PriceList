@@ -67,6 +67,10 @@
     <%= f.label :notes %>
     <%= f.text_area :notes, class: "form-control" %>
   </div>
+  <div class="form-group">
+    <%= f.label product.human_attribute_enum(:status) %>
+    <%= f.select :status, Product.statuses.keys.map { |s| [Product.human_attribute_enum_value(:status, s), s] }, {}, class: "form-control" %>
+  </div>
 
   <%= f.submit nil, class: "btn btn-primary" %>
 <% end %>

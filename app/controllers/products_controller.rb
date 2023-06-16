@@ -44,6 +44,9 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:catalog_page_number, :code, :name, :spec, :carton, :unit, :prepayment, :is_separate, :is_original, :location, :due_date, :same_day_shipping, :shipping_rate, :hokkaido_shipping_rate, :notes)
+    params.require(:product).permit(
+      :catalog_page_number, :code, :name, :spec, :carton, :unit, :prepayment, :is_separate, 
+      :is_original, :location, :due_date, :same_day_shipping, :shipping_rate, 
+      :hokkaido_shipping_rate, :notes, :status)
   end
 end

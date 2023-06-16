@@ -32,6 +32,11 @@ ja:
         hokkaido_shipping_rate: 北海道運賃条件
         notes: 備考欄
         prepayment: 送料元払い数
+        status: カタログ掲載中Or廃盤
+      product/status:
+        available: 掲載中
+        to_be_discontinued: 売り切り廃盤予定
+        discontinued: 廃盤予定    
       user:
         name: 氏名
         email: メールアドレス
@@ -59,7 +64,7 @@ ja:
         created_at: 登録日時
       customer:
         name: 顧客名(会社名)
-        share: 引き継ぎ事項
+        share: 引き継ぎ事項          
   date:
     abbr_day_names:
     - 日

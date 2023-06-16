@@ -76,6 +76,10 @@
         </ul>
       </td>
     </tr>
+    <tr>
+      <th><%= Product.human_attribute_name(:status) %></th>
+      <td><%= @product.human_attribute_enum(:status) %></td>
+    </tr>
   </table>
 </div>
 
