@@ -36,7 +36,14 @@ ja:
       product/status:
         available: 掲載中
         to_be_discontinued: 売り切り廃盤予定
-        discontinued: 廃盤予定    
+        discontinued: 廃盤予定
+      product/unit:
+        sheet: 枚
+        piece: 本
+        volume: 巻
+        set: セット
+        pack: パック
+        box: 箱    
       user:
         name: 氏名
         email: メールアドレス
