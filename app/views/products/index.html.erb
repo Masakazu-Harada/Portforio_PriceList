@@ -32,6 +32,7 @@
           <td><%= product.catalog_page_number %></td>
           <td><%= link_to product.name, product %></td>
           <td>
+            <%= link_to "登録商品編集", edit_product_path(product), class: "btn btn-success" %>
             <% if product.product_suppliers.first.present? %>
               <%= link_to "仕入先編集", edit_product_product_supplier_path(product, product.product_suppliers.first), class: "btn btn-primary" %>
             <% else %>
