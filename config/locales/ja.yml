@@ -43,7 +43,8 @@ ja:
         volume: 巻
         set: セット
         pack: パック
-        box: 箱    
+        box: 箱
+        one: 個    
       user:
         name: 氏名
         email: メールアドレス

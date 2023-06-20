@@ -28,7 +28,7 @@
     </tr>
     <tr>
       <th><%= Product.human_attribute_name(:unit) %></th>
-      <td><%= @product.unit %></td>
+      <td><%= @product.human_attribute_enum(:unit) %></td>
     </tr>
     <tr>
       <th><%= Product.human_attribute_name(:prepayment) %></th>

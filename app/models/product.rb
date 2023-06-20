@@ -19,7 +19,7 @@ class Product < ApplicationRecord
   validates :status, presence: true
 
   #sheet＝枚   piece＝本 volume＝巻 set=セット pack=パック box=箱
-  enum unit: { sheet: 0, piece: 1, volume: 2, set: 3, pack: 4, box: 5}
+  enum unit: { sheet: 0, piece: 1, volume: 2, set: 3, pack: 4, box: 5, one: 6 }
   validates :unit, presence: true
 
   def self.ransackable_attributes(auth_object = nil)
