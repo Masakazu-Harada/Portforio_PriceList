@@ -30,16 +30,17 @@
       <% price = product.prices.find { |p| p.rank_id == @customer.rank_id } %>
       <% if price %>
         <% product.product_suppliers.each_with_index do |product_supplier, index| %>
-          <% cost_increase = product_supplier.cost_increase_histories.order(cost_revision_date: :desc).first %>
+          <% cost_increase_histories = product_supplier.cost_increase_histories.order(cost_revision_date: :desc) %>
+          <% next_scheduled_history = cost_increase_histories.where("cost_revision_date > ?", Date.today).first %>
           <tr>
             <% if index == 0 %>
               <td rowspan="<%= product.product_suppliers.count %>"><%= product.name %></td>
               <td rowspan="<%= product.product_suppliers.count %>"><%= price.current_price %>円</td>
             <% end %>
             <td><%= product_supplier.supplier.name %></td>
-            <td><%= product_supplier.current_cost %>円</td>
-            <td><%= cost_increase.present? ? format_date(cost_increase.cost_revision_date) : 'N/A' %></td>
-            <td><%= cost_increase.present? ? cost_increase.current_cost : 'N/A' %>円</td>
+            <td><%= product_supplier.display_latest_cost %>円</td>
+            <td><%= next_scheduled_history.present? ? format_date(next_scheduled_history.cost_revision_date) : 'N/A' %></td>
+            <td><%= next_scheduled_history.present? ? next_scheduled_history.current_cost : 'N/A' %>円</td>
           </tr>
         <% end %>
       <% end %>
