@@ -5,10 +5,14 @@
 </nav>
 
 <%= search_form_for @q, url: price_list_path(@customer), method: :get do |f| %>
-  <%= f.label :name, "商品名" %>
-  <%= f.search_field :name %>
-  <%= f.submit "検索" %>
+  <div class="input-group">
+    <%= f.search_field :name_cont, class: "form-control", placeholder: "商品名で検索" %>
+    <div class="input-group-append">
+      <%= f.submit "検索", class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
 <% end %>
+
 
 <table class="table">
   <thead>
@@ -32,8 +36,8 @@
               <td rowspan="<%= product.product_suppliers.count %>"><%= price.current_price %>円</td>
             <% end %>
             <td><%= product_supplier.supplier.name %></td>
-            <td><%= product_supplier.cost %>円</td>
-            <td><%= product_supplier.price_revision_date.present? ? product_supplier.price_revision_date.strftime('%Y年%m月%d日') : 'N/A' %></td>
+            <td><%= product_supplier.current_cost %>円</td>
+            <td><%= product_supplier.cost_revision_date.present? ? format_date(product_supplier.cost_revision_date) : 'N/A' %></td>
             <td><%= product_supplier.future_cost.present? ? product_supplier.future_cost : 'N/A' %>円</td>
           </tr>
         <% end %>
