@@ -30,6 +30,7 @@
       <% price = product.prices.find { |p| p.rank_id == @customer.rank_id } %>
       <% if price %>
         <% product.product_suppliers.each_with_index do |product_supplier, index| %>
+          <% cost_increase = product_supplier.cost_increase_histories.order(cost_revision_date: :desc).first %>
           <tr>
             <% if index == 0 %>
               <td rowspan="<%= product.product_suppliers.count %>"><%= product.name %></td>
@@ -37,8 +38,8 @@
             <% end %>
             <td><%= product_supplier.supplier.name %></td>
             <td><%= product_supplier.current_cost %>円</td>
-            <td><%= product_supplier.cost_revision_date.present? ? format_date(product_supplier.cost_revision_date) : 'N/A' %></td>
-            <td><%= product_supplier.future_cost.present? ? product_supplier.future_cost : 'N/A' %>円</td>
+            <td><%= cost_increase.present? ? format_date(cost_increase.cost_revision_date) : 'N/A' %></td>
+            <td><%= cost_increase.present? ? cost_increase.current_cost : 'N/A' %>円</td>
           </tr>
         <% end %>
       <% end %>
