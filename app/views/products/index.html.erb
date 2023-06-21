@@ -30,16 +30,7 @@
       <% @products.each do |product| %>
         <tr>
           <td><%= product.catalog_page_number %></td>
-          <td>
-            <% case product.status %>
-            <% when "to_be_discontinued" %>
-              <%= link_to "#{product.name} (売り切り廃盤予定)", product %>
-            <% when "discontinued" %>
-              <%= link_to "#{product.name} (廃盤予定)", product %>
-            <% else %>
-              <%= link_to product.name, product %>
-            <% end %>
-          </td>
+          <td><%= link_to product.name_with_status, product %></td>
           <td>
             <%= link_to "登録商品編集", edit_product_path(product), class: "btn btn-success" %>
             <% if product.product_suppliers.first.present? %>

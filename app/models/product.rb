@@ -30,6 +30,17 @@ class Product < ApplicationRecord
     ["price_increase_histories", "prices", "product_suppliers", "suppliers"]
   end
 
+  def name_with_status
+    case self.status
+    when 'to_be_discontinued'
+      "#{self.name} (売り切り廃盤予定)"
+    when 'discontinued'
+      "#{self.name} (廃盤予定)"
+    else
+      self.name
+    end
+  end
+
   before_validation :setup_prices
 
   def setup_prices
