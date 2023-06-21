@@ -1,0 +1,32 @@
+<h1>顧客別売価一覧</h1>
+
+<%= search_form_for @q, url: customer_price_lists_path, method: :get do |f| %>
+  <div class="input-group">
+    <%= f.search_field :name_cont, class: "form-control", placeholder: "商品名で検索" %>
+    <div class="input-group-append">
+      <%= f.submit "検索", class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+<% end %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>カタログページ番号</th>
+      <th>商品名</th>
+      <th>価格</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.catalog_page_number %></td>
+        <td><%= link_to product.name, product_path(product) %></td>
+        <td>
+          <% price = product.prices.find { |p| p.rank_id == @rank.id } %>
+          <%= price ? price.current_price : 'N/A' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

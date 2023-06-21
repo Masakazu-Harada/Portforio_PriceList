@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'customer_price_lists/index'
+  get 'customer_price_lists/show'
   root to: 'dashboards#index'
 
   get "/login", to: "sessions#new"
@@ -48,4 +50,5 @@ Rails.application.routes.draw do
   resources :ranks
   resources :price_lists
   resources :departments
+  resources :customer_price_lists, only: [:index, :show]
 end
