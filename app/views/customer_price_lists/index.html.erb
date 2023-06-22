@@ -21,7 +21,7 @@
     <% @products.each do |product| %>
       <tr>
         <td><%= product.catalog_page_number %></td>
-        <td><%= link_to product.name, product_path(product) %></td>
+        <td><%= link_to product.name_with_status, customer_price_list_path(product) %></td>
         <td>
           <% price = product.prices.find { |p| p.rank_id == @rank.id } %>
           <%= price ? price.current_price : 'N/A' %>

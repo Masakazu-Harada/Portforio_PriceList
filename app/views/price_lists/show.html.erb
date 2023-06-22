@@ -34,7 +34,7 @@
           <% next_scheduled_history = cost_increase_histories.where("cost_revision_date > ?", Date.today).first %>
           <tr>
             <% if index == 0 %>
-              <td rowspan="<%= product.product_suppliers.count %>"><%= product.name %></td>
+              <td rowspan="<%= product.product_suppliers.count %>"><%= product.name_with_status %></td>
               <td rowspan="<%= product.product_suppliers.count %>"><%= price.current_price %>円</td>
             <% end %>
             <td><%= product_supplier.supplier.name %></td>

@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'customer_price_lists/index'
-  get 'customer_price_lists/show'
   root to: 'dashboards#index'
 
   get "/login", to: "sessions#new"
