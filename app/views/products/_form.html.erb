@@ -45,7 +45,7 @@
   </div>
   <div class="form-group">
     <%= f.label :location %>
-    <%= f.text_field :location, class: "form-control" %>
+    <%= f.select :location, Product.locations.keys.map { |s| [Product.human_attribute_enum_value(:location, s), s] }, {}, class: "form-control" %>
   </div>
   <div class="form-group">
     <%= f.label :due_date %>
