@@ -93,6 +93,7 @@ ja:
         miyazaki: 宮崎
         kagoshima: 鹿児島 
         okinawa: 沖縄
+        unknown: 不明
       user:
         name: 氏名
         email: メールアドレス

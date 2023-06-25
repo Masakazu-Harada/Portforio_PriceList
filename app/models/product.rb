@@ -31,7 +31,7 @@ class Product < ApplicationRecord
     hyogo: 27, nara: 28, wakayama: 29, tottori: 30, shimane: 31, okayama: 32,
     hiroshima: 33, yamaguchi: 34, tokushima: 35, kagawa: 36, ehime: 37, kochi: 38,
     fukuoka: 39, saga: 40, nagasaki: 41, oita: 42, kumamoto: 43, miyazaki: 44,
-    kagoshima: 45, okinawa: 46
+    kagoshima: 45, okinawa: 46, unknown: 47
   }
 
   def self.ransackable_attributes(auth_object = nil)
