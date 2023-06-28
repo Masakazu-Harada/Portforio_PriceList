@@ -13,7 +13,6 @@
   </div>
 <% end %>
 
-
 <table class="table">
   <thead>
     <tr>
@@ -23,6 +22,7 @@
       <th>現在の仕入原価</th>
       <th>仕入先値上げ予定日</th>
       <th>値上げ後の仕入原価</th>
+      <th>粗利率</th> <!-- 追加 -->
     </tr>
   </thead>
   <tbody>
@@ -32,15 +32,17 @@
         <% product.product_suppliers.each_with_index do |product_supplier, index| %>
           <% cost_increase_histories = product_supplier.cost_increase_histories.order(cost_revision_date: :desc) %>
           <% next_scheduled_history = cost_increase_histories.where("cost_revision_date > ?", Date.today).first %>
+          <% profit_percentage = product.gross_profit_percentages(price).find { |m| m[:supplier] == product_supplier } %>
           <tr>
             <% if index == 0 %>
               <td rowspan="<%= product.product_suppliers.count %>"><%= product.name_with_status %></td>
               <td rowspan="<%= product.product_suppliers.count %>"><%= price.current_price %>円</td>
             <% end %>
             <td><%= product_supplier.supplier.name %></td>
-            <td><%= product_supplier.display_latest_cost %>円</td>
+            <td><%= product_supplier.current_cost %>円</td>
             <td><%= next_scheduled_history.present? ? format_date(next_scheduled_history.cost_revision_date) : 'N/A' %></td>
             <td><%= next_scheduled_history.present? ? next_scheduled_history.current_cost : 'N/A' %>円</td>
+            <td><%= profit_percentage[:percentage] == 'N/A' ? profit_percentage[:percentage] : "#{profit_percentage[:percentage]}%" %></td>
           </tr>
         <% end %>
       <% end %>

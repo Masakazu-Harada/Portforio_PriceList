@@ -53,6 +53,50 @@ class Product < ApplicationRecord
     end
   end
 
+  #粗利を計算するメソッド
+  def gross_margins(price)
+    product_suppliers.map do |supplier|
+      if price.current_price && supplier.current_cost
+        { 
+          supplier: supplier,
+          margin: price.current_price - supplier.current_cost 
+        }
+      else
+        {
+          supplier: supplier,
+          margin: 'N/A'
+        }
+      end
+    end
+  end
+  
+  #粗利益を計算するメソッド
+  def gross_profit_percentages(price)
+    product_suppliers.map do |supplier|
+      if price.current_price && supplier.current_cost
+        { 
+          supplier: supplier,
+          percentage: (supplier.current_cost.to_f / price.current_price.to_f * 100).round(2)
+        }
+      else
+        {
+          supplier: supplier,
+          percentage: 'N/A'
+        }
+      end
+    end
+  end
+  
+  #粗利益が10（%）以下かどうかを判定するメソッド
+  def low_margins?(price)
+    gross_margin_percentages(price).map do |gross_margin_percentage|
+      {
+        supplier: gross_margin_percentage[:supplier],
+        is_low: gross_margin_percentage[:percentage] <= 10
+      }
+    end
+  end
+
   before_validation :setup_prices
 
   def setup_prices
