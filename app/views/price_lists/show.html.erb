@@ -42,7 +42,7 @@
             <td><%= product_supplier.current_cost %>円</td>
             <td><%= next_scheduled_history.present? ? format_date(next_scheduled_history.cost_revision_date) : 'N/A' %></td>
             <td><%= next_scheduled_history.present? ? next_scheduled_history.current_cost : 'N/A' %>円</td>
-            <td><%= profit_percentage[:percentage] == 'N/A' ? profit_percentage[:percentage] : "#{profit_percentage[:percentage]}%" %></td>
+            <td><%= profit_percentage[:percentage] == 'N/A' ? profit_percentage[:percentage] : "#{profit_percentage[:percentage].round}%" %></td>
           </tr>
         <% end %>
       <% end %>
