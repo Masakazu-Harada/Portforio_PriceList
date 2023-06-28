@@ -81,18 +81,18 @@ class Product < ApplicationRecord
       else
         {
           supplier: supplier,
-          percentage: 'N/A'
+          percentage: nil # ここを 'N/A' から nil に変更
         }
       end
     end
   end
-  
+
   #粗利益が10（%）以下かどうかを判定するメソッド
   def low_margins?(price)
-    gross_margin_percentages(price).map do |gross_margin_percentage|
+    gross_profit_percentages(price).map do |gross_profit_percentage|
       {
-        supplier: gross_margin_percentage[:supplier],
-        is_low: gross_margin_percentage[:percentage] <= 10
+        supplier: gross_profit_percentage[:supplier],
+        is_low: gross_profit_percentage[:percentage] && gross_profit_percentage[:percentage] <= 10 # ここを修正: percentageが存在する場合のみ比較を行う
       }
     end
   end

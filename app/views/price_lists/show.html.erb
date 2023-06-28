@@ -33,16 +33,17 @@
           <% cost_increase_histories = product_supplier.cost_increase_histories.order(cost_revision_date: :desc) %>
           <% next_scheduled_history = cost_increase_histories.where("cost_revision_date > ?", Date.today).first %>
           <% profit_percentage = product.gross_profit_percentages(price).find { |m| m[:supplier] == product_supplier } %>
+          <% is_low_margin = product.low_margins?(price).any? { |m| m[:supplier] == product_supplier && m[:is_low] } %>
           <tr>
             <% if index == 0 %>
-              <td rowspan="<%= product.product_suppliers.count %>"><%= product.name_with_status %></td>
+              <td rowspan="<%= product.product_suppliers.count %>" class="<%= 'warn-product' if is_low_margin %>"><%= product.name_with_status %></td>
               <td rowspan="<%= product.product_suppliers.count %>"><%= price.current_price %>円</td>
             <% end %>
             <td><%= product_supplier.supplier.name %></td>
-            <td><%= product_supplier.current_cost %>円</td>
+            <td><%= product_supplier.current_cost %>円</td> <!-- ここを変更 -->
             <td><%= next_scheduled_history.present? ? format_date(next_scheduled_history.cost_revision_date) : 'N/A' %></td>
             <td><%= next_scheduled_history.present? ? next_scheduled_history.current_cost : 'N/A' %>円</td>
-            <td><%= profit_percentage[:percentage] == 'N/A' ? profit_percentage[:percentage] : "#{profit_percentage[:percentage].round}%" %></td>
+            <td><%= profit_percentage[:percentage].to_i %>%</td> <!-- 変更 -->
           </tr>
         <% end %>
       <% end %>
