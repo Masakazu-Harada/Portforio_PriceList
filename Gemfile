@@ -73,7 +73,6 @@ end
 
 gem "bootstrap"
 gem "pry-rails"
-gem 'importmap-rails'
 gem "ransack"
 gem "kaminari"
 gem "sidekiq"
