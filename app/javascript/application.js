@@ -2,4 +2,5 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-require("bootstrap")
+// require("bootstrap")
+import "./slim-select"
