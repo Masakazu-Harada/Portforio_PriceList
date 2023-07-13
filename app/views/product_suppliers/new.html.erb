@@ -3,7 +3,7 @@
 
   <div class="form-group">
     <%= form.label :supplier_ids, "仕入先" %>
-    <%= form.select :supplier_ids, Supplier.all.collect { |supplier| [supplier.name, supplier.id] }, {}, { multiple: true, class: 'js-select2 form-control' } %>
+    <%= form.select :supplier_ids, Supplier.all.collect { |supplier| [supplier.name, supplier.id] }, {}, { multiple: true, id: 'supplier-select', class: 'form-control' } %>
   </div>
 
   <div class="actions">

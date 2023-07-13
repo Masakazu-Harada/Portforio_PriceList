@@ -1,7 +1,11 @@
+<nav class="nav justify-content-end">
+  <%= link_to "カタログ掲載商品一覧へ戻る", products_path %>
+</nav>
+
 <%= form_with(model: [@product, @product_supplier], local: true) do |form| %>
   <div class="form-group">
     <%= form.label :supplier_ids, "仕入先" %>
-    <%= form.collection_select :supplier_ids, Supplier.all, :id, :name, { selected: @product.supplier_ids }, { multiple: true, class: 'form-control' } %>
+    <%= form.collection_select :supplier_ids, Supplier.all, :id, :name, { selected: @product.supplier_ids }, { multiple: true, id: 'supplier-select', class: 'form-control' } %>
   </div>
 
   <div class="actions">
